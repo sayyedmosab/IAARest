@@ -1,0 +1,49 @@
+
+<div>
+  <h3 class="text-2xl font-semibold text-gray-700">Menu Scheduler</h3>
+  <p class="text-sm text-gray-500">Assign meals for the upcoming 14 days. Changes are saved automatically.</p>
+
+  <div class="mt-6 bg-white shadow-md overflow-x-auto">
+    <table class="min-w-full divide-y divide-gray-200">
+      <thead class="bg-gray-50">
+        <tr>
+          <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Date</th>
+          <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Lunch</th>
+          <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Dinner</th>
+        </tr>
+      </thead>
+      <tbody class="bg-white divide-y divide-gray-200">
+        @for(date of dates; track date) {
+          @let dateKey = date.toISOString().split('T')[0];
+          @let daySchedule = schedule()[dateKey];
+          <tr>
+            <td class="px-6 py-4 whitespace-nowrap">
+              <div class="text-sm font-semibold text-gray-900">{{ date | date:'EEEE' }}</div>
+              <div class="text-sm text-gray-500">{{ date | date:'MMMM d' }}</div>
+            </td>
+            <td class="px-6 py-4 whitespace-nowrap">
+              <select 
+                class="block w-full border-gray-300 shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50"
+                (change)="onMenuChange($event, date, 'lunch')">
+                <option [value]="null">-- Select Meal --</option>
+                @for(meal of allMeals; track meal.id) {
+                  <option [value]="meal.id" [selected]="daySchedule && daySchedule.lunch === meal.id">{{ meal.name }}</option>
+                }
+              </select>
+            </td>
+            <td class="px-6 py-4 whitespace-nowrap">
+              <select 
+                class="block w-full border-gray-300 shadow-sm focus:border-indigo-300 focus:ring focus:ring-indigo-200 focus:ring-opacity-50"
+                (change)="onMenuChange($event, date, 'dinner')">
+                <option [value]="null">-- Select Meal --</option>
+                @for(meal of allMeals; track meal.id) {
+                  <option [value]="meal.id" [selected]="daySchedule && daySchedule.dinner === meal.id">{{ meal.name }}</option>
+                }
+              </select>
+            </td>
+          </tr>
+        }
+      </tbody>
+    </table>
+  </div>
+</div>

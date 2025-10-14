@@ -1,0 +1,85 @@
+
+<div>
+  <div class="flex justify-between items-center">
+    <h3 class="text-2xl font-semibold text-gray-700">Plan Management</h3>
+    <button (click)="openModal(null)" class="px-4 py-2 bg-red-600 text-white hover:bg-red-700 text-sm font-medium">Add New Plan</button>
+  </div>
+  
+  <div class="mt-6 bg-white shadow-md overflow-x-auto">
+    <table class="min-w-full divide-y divide-gray-200">
+      <thead class="bg-gray-50">
+        <tr>
+          <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Plan Name</th>
+          <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Price</th>
+          <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Meals/Month</th>
+          <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Popular</th>
+          <th scope="col" class="px-6 py-3 text-right text-xs font-medium text-gray-500 uppercase tracking-wider">Actions</th>
+        </tr>
+      </thead>
+      <tbody class="bg-white divide-y divide-gray-200">
+        @for(plan of plans(); track plan.id) {
+          <tr>
+            <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">{{ plan.name }}</td>
+            <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">AED {{ plan.pricePerMonth }}</td>
+            <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">{{ plan.mealsPerMonth }}</td>
+            <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
+              @if(plan.isPopular) {
+                <span class="px-2 inline-flex text-xs leading-5 font-semibold bg-red-100 text-red-800">Yes</span>
+              } @else {
+                <span class="px-2 inline-flex text-xs leading-5 font-semibold bg-gray-100 text-gray-800">No</span>
+              }
+            </td>
+            <td class="px-6 py-4 whitespace-nowrap text-right text-sm font-medium space-x-2">
+              <button (click)="openModal(plan)" class="text-red-600 hover:text-red-900">Edit</button>
+              <button (click)="deletePlan(plan.id)" class="text-gray-600 hover:text-gray-900">Delete</button>
+            </td>
+          </tr>
+        } @empty {
+          <tr><td colspan="5" class="text-center py-4 text-gray-500">No plans found.</td></tr>
+        }
+      </tbody>
+    </table>
+  </div>
+  
+  <!-- Modal -->
+  @if(isModalOpen()) {
+    <div class="fixed inset-0 bg-black bg-opacity-50 z-50 flex items-center justify-center p-4">
+      <div class="bg-white shadow-xl w-full max-w-lg max-h-[90vh] overflow-y-auto">
+        <form [formGroup]="planForm" (ngSubmit)="onSubmit()">
+          <div class="p-6 border-b">
+            <h4 class="text-lg font-semibold">{{ editingPlan() ? 'Edit Plan' : 'Add New Plan' }}</h4>
+          </div>
+          <div class="p-6 space-y-4">
+            <div><label class="block text-sm font-medium text-gray-700">Name</label><input type="text" formControlName="name" class="mt-1 block w-full border-gray-300 shadow-sm"></div>
+            <div><label class="block text-sm font-medium text-gray-700">Description</label><textarea formControlName="description" rows="2" class="mt-1 block w-full border-gray-300 shadow-sm"></textarea></div>
+            <div class="grid grid-cols-2 gap-4">
+              <div><label class="block text-sm font-medium">Original Price (AED)</label><input type="number" formControlName="originalPricePerMonth" class="mt-1 w-full"></div>
+              <div><label class="block text-sm font-medium">Discounted Price (AED)</label><input type="number" formControlName="pricePerMonth" class="mt-1 w-full"></div>
+            </div>
+             <div class="grid grid-cols-2 gap-4">
+              <div><label class="block text-sm font-medium">Meals/Month</label><input type="number" formControlName="mealsPerMonth" class="mt-1 w-full"></div>
+              <div><label class="block text-sm font-medium">Calorie Range</label><input type="text" formControlName="calories" class="mt-1 block w-full border-gray-300 shadow-sm"></div>
+            </div>
+            <div class="flex items-center"><input type="checkbox" formControlName="isPopular" class="h-4 w-4 text-red-600 focus:ring-red-500"><label class="ml-2">Mark as Popular</label></div>
+            
+            <!-- Features -->
+            <div formArrayName="features" class="border-t pt-4">
+              <label class="block text-sm font-medium text-gray-700">Features</label>
+              @for(feature of features.controls; track $index) {
+                <div class="flex items-center gap-2 mt-1">
+                  <input type="text" [formControlName]="$index" class="w-full">
+                  <button type="button" (click)="removeFeature($index)" class="text-gray-500">X</button>
+                </div>
+              }
+              <button type="button" (click)="addFeature()" class="mt-2 text-sm text-red-600">+ Add Feature</button>
+            </div>
+          </div>
+          <div class="p-4 bg-gray-50 flex justify-end gap-2">
+            <button type="button" (click)="closeModal()" class="px-4 py-2 bg-white border text-sm">Cancel</button>
+            <button type="submit" [disabled]="planForm.invalid" class="px-4 py-2 bg-red-600 text-white text-sm disabled:bg-gray-400">Save Plan</button>
+          </div>
+        </form>
+      </div>
+    </div>
+  }
+</div>

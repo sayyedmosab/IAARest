@@ -1,0 +1,1273 @@
+
+> ibnexp-backend@1.0.0 start
+> node dist/src/index.js
+
+Database connected: /home/mosab/projects/ibnexp2/backend/data/ibnexp.db
+🚀 Starting Ibnexp Backend Server...
+📍 Port: 4000
+🌍 Environment: development
+🔗 Frontend URL: http://localhost:4200
+🗄️  Initializing database connection...
+✅ Database connection initialized
+🔑 Checking for admin user...
+✅ Admin user already exists: admin@ibnexp.com
+📊 Initializing dummy data for testing...
+[DEBUG] Checking existing data...
+[DEBUG] Existing data counts:
+  Meals: 18
+  Subscriptions: 13
+  Active Menu Cycles: 1
+  Plans: 3
+  Profiles: 25
+  Ingredients: 344
+[DEBUG] Forcing dummy data creation for testing...
+🍽️ Creating meal-ingredient relationships...
+[DEBUG] Cleared existing meal-ingredient relationships
+[DEBUG] Created relationship: Mansaf -> Mushrooms, shiitake (100g)
+[DEBUG] Created relationship: Mansaf -> Apples, gala, with skin, raw (125g)
+[DEBUG] Created relationship: Mansaf -> Oranges, raw, navels (150g)
+[DEBUG] Created relationship: Grilled Chicken Breast -> Mushrooms, shiitake (150g)
+[DEBUG] Created relationship: Grilled Chicken Breast -> Apples, gala, with skin, raw (175g)
+[DEBUG] Created relationship: Grilled Chicken Breast -> Oranges, raw, navels (200g)
+[DEBUG] Created relationship: Chicken Kabsa -> Mushrooms, shiitake (200g)
+[DEBUG] Created relationship: Chicken Kabsa -> Apples, gala, with skin, raw (225g)
+[DEBUG] Created relationship: Chicken Kabsa -> Oranges, raw, navels (250g)
+[DEBUG] Created relationship: Grilled Steak Platter -> Mushrooms, shiitake (250g)
+[DEBUG] Created relationship: Grilled Steak Platter -> Apples, gala, with skin, raw (275g)
+[DEBUG] Created relationship: Grilled Steak Platter -> Oranges, raw, navels (300g)
+[DEBUG] Created relationship: Oozi -> Mushrooms, shiitake (300g)
+[DEBUG] Created relationship: Oozi -> Apples, gala, with skin, raw (325g)
+[DEBUG] Created relationship: Oozi -> Oranges, raw, navels (350g)
+[DEBUG] Created relationship: Mexican Baked Chicken -> Mushrooms, shiitake (350g)
+[DEBUG] Created relationship: Mexican Baked Chicken -> Apples, gala, with skin, raw (375g)
+[DEBUG] Created relationship: Mexican Baked Chicken -> Oranges, raw, navels (400g)
+[DEBUG] Created relationship: Braised Beef Slices -> Mushrooms, shiitake (400g)
+[DEBUG] Created relationship: Braised Beef Slices -> Apples, gala, with skin, raw (425g)
+[DEBUG] Created relationship: Braised Beef Slices -> Oranges, raw, navels (450g)
+[DEBUG] Created relationship: Roasted Half Chicken -> Mushrooms, shiitake (450g)
+[DEBUG] Created relationship: Roasted Half Chicken -> Apples, gala, with skin, raw (475g)
+[DEBUG] Created relationship: Roasted Half Chicken -> Oranges, raw, navels (500g)
+[DEBUG] Created relationship: Stuffed Eggplant -> Mushrooms, shiitake (500g)
+[DEBUG] Created relationship: Stuffed Eggplant -> Apples, gala, with skin, raw (525g)
+[DEBUG] Created relationship: Stuffed Eggplant -> Oranges, raw, navels (550g)
+[DEBUG] Created relationship: Mansaf -> Mushrooms, shiitake (550g)
+[DEBUG] Created relationship: Mansaf -> Apples, gala, with skin, raw (575g)
+[DEBUG] Created relationship: Mansaf -> Oranges, raw, navels (600g)
+[DEBUG] Created relationship: Grilled Chicken Breast -> Mushrooms, shiitake (600g)
+[DEBUG] Created relationship: Grilled Chicken Breast -> Apples, gala, with skin, raw (625g)
+[DEBUG] Created relationship: Grilled Chicken Breast -> Oranges, raw, navels (650g)
+[DEBUG] Created relationship: Chicken Kabsa -> Mushrooms, shiitake (650g)
+[DEBUG] Created relationship: Chicken Kabsa -> Apples, gala, with skin, raw (675g)
+[DEBUG] Created relationship: Chicken Kabsa -> Oranges, raw, navels (700g)
+[DEBUG] Created relationship: Grilled Steak Platter -> Mushrooms, shiitake (700g)
+[DEBUG] Created relationship: Grilled Steak Platter -> Apples, gala, with skin, raw (725g)
+[DEBUG] Created relationship: Grilled Steak Platter -> Oranges, raw, navels (750g)
+[DEBUG] Created relationship: Oozi -> Mushrooms, shiitake (750g)
+[DEBUG] Created relationship: Oozi -> Apples, gala, with skin, raw (775g)
+[DEBUG] Created relationship: Oozi -> Oranges, raw, navels (800g)
+[DEBUG] Created relationship: Mexican Baked Chicken -> Mushrooms, shiitake (800g)
+[DEBUG] Created relationship: Mexican Baked Chicken -> Apples, gala, with skin, raw (825g)
+[DEBUG] Created relationship: Mexican Baked Chicken -> Oranges, raw, navels (850g)
+[DEBUG] Created relationship: Braised Beef Slices -> Mushrooms, shiitake (850g)
+[DEBUG] Created relationship: Braised Beef Slices -> Apples, gala, with skin, raw (875g)
+[DEBUG] Created relationship: Braised Beef Slices -> Oranges, raw, navels (900g)
+[DEBUG] Created relationship: Roasted Half Chicken -> Mushrooms, shiitake (900g)
+[DEBUG] Created relationship: Roasted Half Chicken -> Apples, gala, with skin, raw (925g)
+[DEBUG] Created relationship: Roasted Half Chicken -> Oranges, raw, navels (950g)
+[DEBUG] Created relationship: Stuffed Eggplant -> Mushrooms, shiitake (950g)
+[DEBUG] Created relationship: Stuffed Eggplant -> Apples, gala, with skin, raw (975g)
+[DEBUG] Created relationship: Stuffed Eggplant -> Oranges, raw, navels (1000g)
+✅ Meal-ingredient relationships created
+👥 Creating dummy active subscriptions...
+[DEBUG] Cleared existing active subscriptions
+[DEBUG] Non-admin profiles available: 24
+[DEBUG] Created subscription: yousef.d@gmail.com -> Fuel
+[DEBUG] Created subscription: maryam.q@university.ae -> Focus
+[DEBUG] Created subscription: sultan.s@gmail.com -> Flex
+[DEBUG] Created subscription: hessa.m@university.ae -> Fuel
+[DEBUG] Created subscription: rashid.r@gmail.com -> Focus
+✅ Dummy active subscriptions created
+📅 Creating dummy menu cycle...
+[DEBUG] Cleared existing menu cycle data
+[DEBUG] Created menu cycle: cycle_1760468047105
+[DEBUG] Created cycle day: cycle_day_cycle_1760468047105_0 (index 0)
+[DEBUG] Assigned lunch: Mansaf to day 0
+[DEBUG] Assigned dinner: Grilled Chicken Breast to day 0
+[DEBUG] Created cycle day: cycle_day_cycle_1760468047105_1 (index 1)
+[DEBUG] Assigned lunch: Grilled Chicken Breast to day 1
+[DEBUG] Assigned dinner: Chicken Kabsa to day 1
+[DEBUG] Created cycle day: cycle_day_cycle_1760468047105_2 (index 2)
+[DEBUG] Assigned lunch: Chicken Kabsa to day 2
+[DEBUG] Assigned dinner: Grilled Steak Platter to day 2
+[DEBUG] Created cycle day: cycle_day_cycle_1760468047105_3 (index 3)
+[DEBUG] Assigned lunch: Grilled Steak Platter to day 3
+[DEBUG] Assigned dinner: Oozi to day 3
+[DEBUG] Created cycle day: cycle_day_cycle_1760468047105_4 (index 4)
+[DEBUG] Assigned lunch: Oozi to day 4
+[DEBUG] Assigned dinner: Mexican Baked Chicken to day 4
+[DEBUG] Created cycle day: cycle_day_cycle_1760468047105_5 (index 5)
+[DEBUG] Assigned lunch: Mexican Baked Chicken to day 5
+[DEBUG] Assigned dinner: Braised Beef Slices to day 5
+[DEBUG] Created cycle day: cycle_day_cycle_1760468047105_6 (index 6)
+[DEBUG] Assigned lunch: Braised Beef Slices to day 6
+[DEBUG] Assigned dinner: Roasted Half Chicken to day 6
+✅ Dummy menu cycle created with meal assignments
+🎉 Dummy data initialization complete!
+🌐 Starting HTTP server...
+✅ Server running on port 4000
+🌍 Environment: development
+🔗 Frontend URL: http://localhost:4200
+🎉 Server startup complete!
+=== ADMIN REQUEST: GET /dashboard ===
+authenticateToken: no token found
+=== ADMIN REQUEST: GET /dashboard ===
+authenticateToken: token found in cookie
+authenticateToken: decoded token userId= user-006
+authenticateToken: user lookup result= true
+=== ADMIN DASHBOARD CALLED ===
+[CALENDAR_DEBUG] Sub 8c1160e1-f614-4fdb-b8e1-381d8c1ad04e: plan_id=958037f4-d183-4b5a-b286-82e56ddeec0a, plan.meals_per_day=1
+[CALENDAR_DEBUG] Sub 4116ef70-6066-4eab-807b-5e56f5153e8b: plan_id=72bd8f87-39bd-46bf-92fc-21443baa75cb, plan.meals_per_day=1
+[CALENDAR_DEBUG] Sub 39c81519-fc4d-417e-97b2-e6cb42578563: plan_id=0b7e5d02-d10f-4563-8f37-140c4c2e1ea2, plan.meals_per_day=2
+[CALENDAR_DEBUG] Sub 760d4e18-3f8d-4254-83e4-6ac99d18be27: plan_id=958037f4-d183-4b5a-b286-82e56ddeec0a, plan.meals_per_day=1
+[CALENDAR_DEBUG] Sub ddda59e2-d177-4562-a862-f9e1b0925580: plan_id=72bd8f87-39bd-46bf-92fc-21443baa75cb, plan.meals_per_day=1
+[CALENDAR_DEBUG] One-meal subscribers: 4, Two-meal subscribers: 1
+[CALENDAR_DEBUG] One-meal subscriber details: [
+  {
+    id: '8c1160e1-f614-4fdb-b8e1-381d8c1ad04e',
+    plan_id: '958037f4-d183-4b5a-b286-82e56ddeec0a',
+    plan_code: 'FUEL'
+  },
+  {
+    id: '4116ef70-6066-4eab-807b-5e56f5153e8b',
+    plan_id: '72bd8f87-39bd-46bf-92fc-21443baa75cb',
+    plan_code: 'FOCUS'
+  },
+  {
+    id: '760d4e18-3f8d-4254-83e4-6ac99d18be27',
+    plan_id: '958037f4-d183-4b5a-b286-82e56ddeec0a',
+    plan_code: 'FUEL'
+  },
+  {
+    id: 'ddda59e2-d177-4562-a862-f9e1b0925580',
+    plan_id: '72bd8f87-39bd-46bf-92fc-21443baa75cb',
+    plan_code: 'FOCUS'
+  }
+]
+[CALENDAR_DEBUG] Two-meal subscriber details: [
+  {
+    id: '39c81519-fc4d-417e-97b2-e6cb42578563',
+    plan_id: '0b7e5d02-d10f-4563-8f37-140c4c2e1ea2',
+    plan_code: 'FLEX'
+  }
+]
+[CALENDAR DEBUG] Generated 42 calendar cells (31 actual days)
+[CALENDAR DEBUG] Today (2025-10-14) is day 14, weekday Tue
+[CALENDAR DEBUG] Sample current month day: {"date":"2025-09-30","dayName":"Wed","dayNumber":1,"lunchCount":3,"dinnerCount":3,"totalMeals":6,"isCurrentMonth":true}
+=== ADMIN REQUEST: GET /daily-orders ===
+authenticateToken: token found in cookie
+authenticateToken: decoded token userId= user-006
+authenticateToken: user lookup result= true
+[DEBUG] ADMIN DAILY ORDERS CALLED
+[DEBUG] Processing dates: [ '2025-10-14', '2025-10-15', '2025-10-16' ]
+[DEBUG] Active subscriptions found: 5
+[DEBUG] Sample active subscription: {
+  id: '8c1160e1-f614-4fdb-b8e1-381d8c1ad04e',
+  user_id: 'user-026',
+  plan_id: '958037f4-d183-4b5a-b286-82e56ddeec0a',
+  status: 'active',
+  start_date: '2025-10-04',
+  end_date: '2025-11-03',
+  student_discount_applied: 0,
+  price_charged_aed: 550,
+  currency: 'AED',
+  created_at: '2025-10-14T18:54:07.104Z',
+  updated_at: '2025-10-14T18:54:07.104Z',
+  renewal_type: 'manual',
+  has_successful_payment: 1,
+  meals_per_day: 1,
+  base_price_aed: 600
+}
+[DEBUG] Final active subscriptions count: 5
+[DEBUG] Active menu cycles found: 1
+[DEBUG] Active cycle details: {
+  id: 'cycle_1760468047105',
+  name: 'Test Weekly Menu',
+  cycle_length_days: 7,
+  is_active: 1,
+  created_at: '2025-10-14 18:54:07',
+  updated_at: '2025-10-14 18:54:07'
+}
+[DEBUG] Menu cycle days found: 7
+[DEBUG] Sample cycle day: {
+  id: 'cycle_day_cycle_1760468047105_0',
+  cycle_id: 'cycle_1760468047105',
+  day_index: 0,
+  label: 'Day 1',
+  cycle_name: 'Test Weekly Menu'
+}
+[DEBUG] Menu assignments found: 14
+[DEBUG] Sample assignment: {
+  id: 'assignment_lunch_cycle_day_cycle_1760468047105_0',
+  cycle_day_id: 'cycle_day_cycle_1760468047105_0',
+  meal_id: '2e00e916-ae53-4815-99c1-995bee541b3f',
+  slot: 'lunch',
+  plan_id: null,
+  created_at: '2025-10-14 18:54:07',
+  updated_at: '2025-10-14 18:54:07',
+  day_index: 0,
+  cycle_name: 'Test Weekly Menu'
+}
+[DEBUG] Loaded meals: 18
+[DEBUG] Sample meal: {
+  id: '2e00e916-ae53-4815-99c1-995bee541b3f',
+  name_en: 'Mansaf',
+  name_ar: 'منسف',
+  description_en: 'Fuel your body and mind. The high-quality protein from the tender lamb aids in muscle repair after workouts, while the healthy fats in the almonds support brain function for those long study sessions. A traditional dish that provides lasting energy.',
+  description_ar: 'اشحن جسمك وعقلك. البروتين عالي الجودة من لحم الضأن الطري يساعد على استشفاء العضلات بعد التمرين، بينما تدعم الدهون الصحية في اللوز وظائف الدماغ لجلسات المذاكرة الطويلة. طبق تقليدي يمنحك طاقة تدوم.',
+  image_filename: '/mansaf.png',
+  created_at: '2025-09-22T14:19:50.403781+00:00',
+  updated_at: '2025-10-14T11:04:59.005Z',
+  nutritional_facts_en: 'Calories 1258 - Protein 59g - Carbs 168g - Fat 39g - Fiber 3g - Sodium 144mg',
+  nutritional_facts_ar: 'سعرات حرارية 1258 - بروتين 59 جم - كربوهيدرات 168 جم - دهون 39 جم - ألياف 3 جم - صوديوم 144 ملجم',
+  ingredients_en: 'Lamb, Shank, bone-in, cooked (250g)\n' +
+    'Yogurt, plain, whole milk (Jameed Sauce base) (150g)\n' +
+    'Rice, white, long-grain, regular, cooked (with Turmeric) (200g)\n' +
+    'Nuts, almonds, blanched (15g)\n' +
+    'Parsley, fresh (5g)',
+  ingredients_ar: 'لحم ضأن، موزة بالعظم، مطبوخ (250 جرام)\n' +
+    'لبن زبادي، كامل الدسم (أساس صوص الجميد) (150 جرام)\n' +
+    'أرز، أبيض، طويل الحبة، عادي، مطبوخ (مع الكركم) (200 جرام)\n' +
+    'مكسرات، لوز، مقشر (15 جرام)\n' +
+    'بقدونس، طازج (5 جرام)',
+  is_active: 1
+}
+[DEBUG] Loaded meal ingredients: 54
+[DEBUG] Sample meal ingredient: {
+  meal_id: '2e00e916-ae53-4815-99c1-995bee541b3f',
+  ingredient_id: 'baf6cb8c-b835-4ef8-90c8-fcee0554ad33',
+  weight_g: 100,
+  notes: 'Sample ingredient for Mansaf'
+}
+[DEBUG] Loaded ingredients: 344
+[DEBUG] Sample ingredient: {
+  id: 'baf6cb8c-b835-4ef8-90c8-fcee0554ad33',
+  name_en: 'Mushrooms, shiitake',
+  name_ar: 'Mushrooms, shiitake',
+  unit_base: 'g',
+  per100g_calories: 0,
+  per100g_protein_g: 2.414,
+  per100g_carbs_g: 8.171,
+  per100g_fat_g: 0.195,
+  per100g_fiber_g: 0,
+  per100g_sodium_mg: 0.936,
+  source_type: 'usda_fdc',
+  source_ref: '1750346',
+  created_at: '2025-09-16T07:12:25.527131+00:00',
+  updated_at: '2025-09-16T07:12:25.527131+00:00'
+}
+[DEBUG] Processing date: 2025-10-14 index: 0
+[DEBUG] Day assignments for 2025-10-14 (day index 0 ): 2
+[DEBUG] Found meal: Mansaf for slot: lunch
+[MEAL_CALC_DEBUG] Processing meal: Mansaf for slot: lunch on date: 2025-10-14
+[MEAL_CALC_DEBUG] Active subscribers count: 5
+[MEAL_CALC_DEBUG] Subscriber 0: plan_id=958037f4-d183-4b5a-b286-82e56ddeec0a, meals_per_day=1, status=active
+[MEAL_CALC_DEBUG] 1-meal subscriber 0: dayOfMonth=14, getsLunch=true, getsDinner=false, slot=lunch
+[MEAL_CALC_DEBUG] 1-meal subscriber 0 gets Mansaf (lunch) - count: 1
+[MEAL_CALC_DEBUG] Subscriber 1: plan_id=72bd8f87-39bd-46bf-92fc-21443baa75cb, meals_per_day=1, status=active
+[MEAL_CALC_DEBUG] 1-meal subscriber 1: dayOfMonth=14, getsLunch=true, getsDinner=false, slot=lunch
+[MEAL_CALC_DEBUG] 1-meal subscriber 1 gets Mansaf (lunch) - count: 2
+[MEAL_CALC_DEBUG] Subscriber 2: plan_id=0b7e5d02-d10f-4563-8f37-140c4c2e1ea2, meals_per_day=2, status=active
+[MEAL_CALC_DEBUG] 2-meal subscriber 2 gets Mansaf (lunch) - count: 3
+[MEAL_CALC_DEBUG] Subscriber 3: plan_id=958037f4-d183-4b5a-b286-82e56ddeec0a, meals_per_day=1, status=active
+[MEAL_CALC_DEBUG] 1-meal subscriber 3: dayOfMonth=14, getsLunch=true, getsDinner=false, slot=lunch
+[MEAL_CALC_DEBUG] 1-meal subscriber 3 gets Mansaf (lunch) - count: 4
+[MEAL_CALC_DEBUG] Subscriber 4: plan_id=72bd8f87-39bd-46bf-92fc-21443baa75cb, meals_per_day=1, status=active
+[MEAL_CALC_DEBUG] 1-meal subscriber 4: dayOfMonth=14, getsLunch=true, getsDinner=false, slot=lunch
+[MEAL_CALC_DEBUG] 1-meal subscriber 4 gets Mansaf (lunch) - count: 5
+[MEAL_CALC_DEBUG] Final meal count for Mansaf (lunch): 5
+[DEBUG] Meal Mansaf will be prepared for 5 subscribers
+[DEBUG] Ingredients for meal: 3
+[DEBUG] Found meal: Grilled Chicken Breast for slot: dinner
+[MEAL_CALC_DEBUG] Processing meal: Grilled Chicken Breast for slot: dinner on date: 2025-10-14
+[MEAL_CALC_DEBUG] Active subscribers count: 5
+[MEAL_CALC_DEBUG] Subscriber 0: plan_id=958037f4-d183-4b5a-b286-82e56ddeec0a, meals_per_day=1, status=active
+[MEAL_CALC_DEBUG] 1-meal subscriber 0: dayOfMonth=14, getsLunch=true, getsDinner=false, slot=dinner
+[MEAL_CALC_DEBUG] 1-meal subscriber 0 does NOT get Grilled Chicken Breast (dinner) - count remains: 0
+[MEAL_CALC_DEBUG] Subscriber 1: plan_id=72bd8f87-39bd-46bf-92fc-21443baa75cb, meals_per_day=1, status=active
+[MEAL_CALC_DEBUG] 1-meal subscriber 1: dayOfMonth=14, getsLunch=true, getsDinner=false, slot=dinner
+[MEAL_CALC_DEBUG] 1-meal subscriber 1 does NOT get Grilled Chicken Breast (dinner) - count remains: 0
+[MEAL_CALC_DEBUG] Subscriber 2: plan_id=0b7e5d02-d10f-4563-8f37-140c4c2e1ea2, meals_per_day=2, status=active
+[MEAL_CALC_DEBUG] 2-meal subscriber 2 gets Grilled Chicken Breast (dinner) - count: 1
+[MEAL_CALC_DEBUG] Subscriber 3: plan_id=958037f4-d183-4b5a-b286-82e56ddeec0a, meals_per_day=1, status=active
+[MEAL_CALC_DEBUG] 1-meal subscriber 3: dayOfMonth=14, getsLunch=true, getsDinner=false, slot=dinner
+[MEAL_CALC_DEBUG] 1-meal subscriber 3 does NOT get Grilled Chicken Breast (dinner) - count remains: 1
+[MEAL_CALC_DEBUG] Subscriber 4: plan_id=72bd8f87-39bd-46bf-92fc-21443baa75cb, meals_per_day=1, status=active
+[MEAL_CALC_DEBUG] 1-meal subscriber 4: dayOfMonth=14, getsLunch=true, getsDinner=false, slot=dinner
+[MEAL_CALC_DEBUG] 1-meal subscriber 4 does NOT get Grilled Chicken Breast (dinner) - count remains: 1
+[MEAL_CALC_DEBUG] Final meal count for Grilled Chicken Breast (dinner): 1
+[DEBUG] Meal Grilled Chicken Breast will be prepared for 1 subscribers
+[DEBUG] Ingredients for meal: 3
+[DEBUG] Final prep data for 2025-10-14 : {
+  date: '2025-10-14',
+  mealsToPrepare: [
+    { mealName: 'Mansaf', count: 5 },
+    { mealName: 'Grilled Chicken Breast', count: 1 }
+  ],
+  rawMaterials: [
+    { name: 'Mushrooms, shiitake', quantity: 650, unit: 'g' },
+    { name: 'Apples, gala, with skin, raw', quantity: 800, unit: 'g' },
+    { name: 'Oranges, raw, navels', quantity: 950, unit: 'g' }
+  ]
+}
+[DEBUG] Processing date: 2025-10-15 index: 1
+[DEBUG] Day assignments for 2025-10-15 (day index 1 ): 2
+[DEBUG] Found meal: Grilled Chicken Breast for slot: lunch
+[MEAL_CALC_DEBUG] Processing meal: Grilled Chicken Breast for slot: lunch on date: 2025-10-15
+[MEAL_CALC_DEBUG] Active subscribers count: 5
+[MEAL_CALC_DEBUG] Subscriber 0: plan_id=958037f4-d183-4b5a-b286-82e56ddeec0a, meals_per_day=1, status=active
+[MEAL_CALC_DEBUG] 1-meal subscriber 0: dayOfMonth=15, getsLunch=false, getsDinner=true, slot=lunch
+[MEAL_CALC_DEBUG] 1-meal subscriber 0 does NOT get Grilled Chicken Breast (lunch) - count remains: 0
+[MEAL_CALC_DEBUG] Subscriber 1: plan_id=72bd8f87-39bd-46bf-92fc-21443baa75cb, meals_per_day=1, status=active
+[MEAL_CALC_DEBUG] 1-meal subscriber 1: dayOfMonth=15, getsLunch=false, getsDinner=true, slot=lunch
+[MEAL_CALC_DEBUG] 1-meal subscriber 1 does NOT get Grilled Chicken Breast (lunch) - count remains: 0
+[MEAL_CALC_DEBUG] Subscriber 2: plan_id=0b7e5d02-d10f-4563-8f37-140c4c2e1ea2, meals_per_day=2, status=active
+[MEAL_CALC_DEBUG] 2-meal subscriber 2 gets Grilled Chicken Breast (lunch) - count: 1
+[MEAL_CALC_DEBUG] Subscriber 3: plan_id=958037f4-d183-4b5a-b286-82e56ddeec0a, meals_per_day=1, status=active
+[MEAL_CALC_DEBUG] 1-meal subscriber 3: dayOfMonth=15, getsLunch=false, getsDinner=true, slot=lunch
+[MEAL_CALC_DEBUG] 1-meal subscriber 3 does NOT get Grilled Chicken Breast (lunch) - count remains: 1
+[MEAL_CALC_DEBUG] Subscriber 4: plan_id=72bd8f87-39bd-46bf-92fc-21443baa75cb, meals_per_day=1, status=active
+[MEAL_CALC_DEBUG] 1-meal subscriber 4: dayOfMonth=15, getsLunch=false, getsDinner=true, slot=lunch
+[MEAL_CALC_DEBUG] 1-meal subscriber 4 does NOT get Grilled Chicken Breast (lunch) - count remains: 1
+[MEAL_CALC_DEBUG] Final meal count for Grilled Chicken Breast (lunch): 1
+[DEBUG] Meal Grilled Chicken Breast will be prepared for 1 subscribers
+[DEBUG] Ingredients for meal: 3
+[DEBUG] Found meal: Chicken Kabsa for slot: dinner
+[MEAL_CALC_DEBUG] Processing meal: Chicken Kabsa for slot: dinner on date: 2025-10-15
+[MEAL_CALC_DEBUG] Active subscribers count: 5
+[MEAL_CALC_DEBUG] Subscriber 0: plan_id=958037f4-d183-4b5a-b286-82e56ddeec0a, meals_per_day=1, status=active
+[MEAL_CALC_DEBUG] 1-meal subscriber 0: dayOfMonth=15, getsLunch=false, getsDinner=true, slot=dinner
+[MEAL_CALC_DEBUG] 1-meal subscriber 0 gets Chicken Kabsa (dinner) - count: 1
+[MEAL_CALC_DEBUG] Subscriber 1: plan_id=72bd8f87-39bd-46bf-92fc-21443baa75cb, meals_per_day=1, status=active
+[MEAL_CALC_DEBUG] 1-meal subscriber 1: dayOfMonth=15, getsLunch=false, getsDinner=true, slot=dinner
+[MEAL_CALC_DEBUG] 1-meal subscriber 1 gets Chicken Kabsa (dinner) - count: 2
+[MEAL_CALC_DEBUG] Subscriber 2: plan_id=0b7e5d02-d10f-4563-8f37-140c4c2e1ea2, meals_per_day=2, status=active
+[MEAL_CALC_DEBUG] 2-meal subscriber 2 gets Chicken Kabsa (dinner) - count: 3
+[MEAL_CALC_DEBUG] Subscriber 3: plan_id=958037f4-d183-4b5a-b286-82e56ddeec0a, meals_per_day=1, status=active
+[MEAL_CALC_DEBUG] 1-meal subscriber 3: dayOfMonth=15, getsLunch=false, getsDinner=true, slot=dinner
+[MEAL_CALC_DEBUG] 1-meal subscriber 3 gets Chicken Kabsa (dinner) - count: 4
+[MEAL_CALC_DEBUG] Subscriber 4: plan_id=72bd8f87-39bd-46bf-92fc-21443baa75cb, meals_per_day=1, status=active
+[MEAL_CALC_DEBUG] 1-meal subscriber 4: dayOfMonth=15, getsLunch=false, getsDinner=true, slot=dinner
+[MEAL_CALC_DEBUG] 1-meal subscriber 4 gets Chicken Kabsa (dinner) - count: 5
+[MEAL_CALC_DEBUG] Final meal count for Chicken Kabsa (dinner): 5
+[DEBUG] Meal Chicken Kabsa will be prepared for 5 subscribers
+[DEBUG] Ingredients for meal: 3
+[DEBUG] Final prep data for 2025-10-15 : {
+  date: '2025-10-15',
+  mealsToPrepare: [
+    { mealName: 'Grilled Chicken Breast', count: 1 },
+    { mealName: 'Chicken Kabsa', count: 5 }
+  ],
+  rawMaterials: [
+    { name: 'Mushrooms, shiitake', quantity: 1150, unit: 'g' },
+    { name: 'Apples, gala, with skin, raw', quantity: 1300, unit: 'g' },
+    { name: 'Oranges, raw, navels', quantity: 1450, unit: 'g' }
+  ]
+}
+[DEBUG] Processing date: 2025-10-16 index: 2
+[DEBUG] Day assignments for 2025-10-16 (day index 2 ): 2
+[DEBUG] Found meal: Chicken Kabsa for slot: lunch
+[MEAL_CALC_DEBUG] Processing meal: Chicken Kabsa for slot: lunch on date: 2025-10-16
+[MEAL_CALC_DEBUG] Active subscribers count: 5
+[MEAL_CALC_DEBUG] Subscriber 0: plan_id=958037f4-d183-4b5a-b286-82e56ddeec0a, meals_per_day=1, status=active
+[MEAL_CALC_DEBUG] 1-meal subscriber 0: dayOfMonth=16, getsLunch=true, getsDinner=false, slot=lunch
+[MEAL_CALC_DEBUG] 1-meal subscriber 0 gets Chicken Kabsa (lunch) - count: 1
+[MEAL_CALC_DEBUG] Subscriber 1: plan_id=72bd8f87-39bd-46bf-92fc-21443baa75cb, meals_per_day=1, status=active
+[MEAL_CALC_DEBUG] 1-meal subscriber 1: dayOfMonth=16, getsLunch=true, getsDinner=false, slot=lunch
+[MEAL_CALC_DEBUG] 1-meal subscriber 1 gets Chicken Kabsa (lunch) - count: 2
+[MEAL_CALC_DEBUG] Subscriber 2: plan_id=0b7e5d02-d10f-4563-8f37-140c4c2e1ea2, meals_per_day=2, status=active
+[MEAL_CALC_DEBUG] 2-meal subscriber 2 gets Chicken Kabsa (lunch) - count: 3
+[MEAL_CALC_DEBUG] Subscriber 3: plan_id=958037f4-d183-4b5a-b286-82e56ddeec0a, meals_per_day=1, status=active
+[MEAL_CALC_DEBUG] 1-meal subscriber 3: dayOfMonth=16, getsLunch=true, getsDinner=false, slot=lunch
+[MEAL_CALC_DEBUG] 1-meal subscriber 3 gets Chicken Kabsa (lunch) - count: 4
+[MEAL_CALC_DEBUG] Subscriber 4: plan_id=72bd8f87-39bd-46bf-92fc-21443baa75cb, meals_per_day=1, status=active
+[MEAL_CALC_DEBUG] 1-meal subscriber 4: dayOfMonth=16, getsLunch=true, getsDinner=false, slot=lunch
+[MEAL_CALC_DEBUG] 1-meal subscriber 4 gets Chicken Kabsa (lunch) - count: 5
+[MEAL_CALC_DEBUG] Final meal count for Chicken Kabsa (lunch): 5
+[DEBUG] Meal Chicken Kabsa will be prepared for 5 subscribers
+[DEBUG] Ingredients for meal: 3
+[DEBUG] Found meal: Grilled Steak Platter for slot: dinner
+[MEAL_CALC_DEBUG] Processing meal: Grilled Steak Platter for slot: dinner on date: 2025-10-16
+[MEAL_CALC_DEBUG] Active subscribers count: 5
+[MEAL_CALC_DEBUG] Subscriber 0: plan_id=958037f4-d183-4b5a-b286-82e56ddeec0a, meals_per_day=1, status=active
+[MEAL_CALC_DEBUG] 1-meal subscriber 0: dayOfMonth=16, getsLunch=true, getsDinner=false, slot=dinner
+[MEAL_CALC_DEBUG] 1-meal subscriber 0 does NOT get Grilled Steak Platter (dinner) - count remains: 0
+[MEAL_CALC_DEBUG] Subscriber 1: plan_id=72bd8f87-39bd-46bf-92fc-21443baa75cb, meals_per_day=1, status=active
+[MEAL_CALC_DEBUG] 1-meal subscriber 1: dayOfMonth=16, getsLunch=true, getsDinner=false, slot=dinner
+[MEAL_CALC_DEBUG] 1-meal subscriber 1 does NOT get Grilled Steak Platter (dinner) - count remains: 0
+[MEAL_CALC_DEBUG] Subscriber 2: plan_id=0b7e5d02-d10f-4563-8f37-140c4c2e1ea2, meals_per_day=2, status=active
+[MEAL_CALC_DEBUG] 2-meal subscriber 2 gets Grilled Steak Platter (dinner) - count: 1
+[MEAL_CALC_DEBUG] Subscriber 3: plan_id=958037f4-d183-4b5a-b286-82e56ddeec0a, meals_per_day=1, status=active
+[MEAL_CALC_DEBUG] 1-meal subscriber 3: dayOfMonth=16, getsLunch=true, getsDinner=false, slot=dinner
+[MEAL_CALC_DEBUG] 1-meal subscriber 3 does NOT get Grilled Steak Platter (dinner) - count remains: 1
+[MEAL_CALC_DEBUG] Subscriber 4: plan_id=72bd8f87-39bd-46bf-92fc-21443baa75cb, meals_per_day=1, status=active
+[MEAL_CALC_DEBUG] 1-meal subscriber 4: dayOfMonth=16, getsLunch=true, getsDinner=false, slot=dinner
+[MEAL_CALC_DEBUG] 1-meal subscriber 4 does NOT get Grilled Steak Platter (dinner) - count remains: 1
+[MEAL_CALC_DEBUG] Final meal count for Grilled Steak Platter (dinner): 1
+[DEBUG] Meal Grilled Steak Platter will be prepared for 1 subscribers
+[DEBUG] Ingredients for meal: 3
+[DEBUG] Final prep data for 2025-10-16 : {
+  date: '2025-10-16',
+  mealsToPrepare: [
+    { mealName: 'Chicken Kabsa', count: 5 },
+    { mealName: 'Grilled Steak Platter', count: 1 }
+  ],
+  rawMaterials: [
+    { name: 'Mushrooms, shiitake', quantity: 1250, unit: 'g' },
+    { name: 'Apples, gala, with skin, raw', quantity: 1400, unit: 'g' },
+    { name: 'Oranges, raw, navels', quantity: 1550, unit: 'g' }
+  ]
+}
+=== ADMIN REQUEST: GET /daily-orders ===
+authenticateToken: token found in cookie
+authenticateToken: decoded token userId= user-006
+authenticateToken: user lookup result= true
+[DEBUG] ADMIN DAILY ORDERS CALLED
+[DEBUG] Processing dates: [ '2025-10-14', '2025-10-15', '2025-10-16' ]
+[DEBUG] Active subscriptions found: 5
+[DEBUG] Sample active subscription: {
+  id: '8c1160e1-f614-4fdb-b8e1-381d8c1ad04e',
+  user_id: 'user-026',
+  plan_id: '958037f4-d183-4b5a-b286-82e56ddeec0a',
+  status: 'active',
+  start_date: '2025-10-04',
+  end_date: '2025-11-03',
+  student_discount_applied: 0,
+  price_charged_aed: 550,
+  currency: 'AED',
+  created_at: '2025-10-14T18:54:07.104Z',
+  updated_at: '2025-10-14T18:54:07.104Z',
+  renewal_type: 'manual',
+  has_successful_payment: 1,
+  meals_per_day: 1,
+  base_price_aed: 600
+}
+[DEBUG] Final active subscriptions count: 5
+[DEBUG] Active menu cycles found: 1
+[DEBUG] Active cycle details: {
+  id: 'cycle_1760468047105',
+  name: 'Test Weekly Menu',
+  cycle_length_days: 7,
+  is_active: 1,
+  created_at: '2025-10-14 18:54:07',
+  updated_at: '2025-10-14 18:54:07'
+}
+[DEBUG] Menu cycle days found: 7
+[DEBUG] Sample cycle day: {
+  id: 'cycle_day_cycle_1760468047105_0',
+  cycle_id: 'cycle_1760468047105',
+  day_index: 0,
+  label: 'Day 1',
+  cycle_name: 'Test Weekly Menu'
+}
+[DEBUG] Menu assignments found: 14
+[DEBUG] Sample assignment: {
+  id: 'assignment_lunch_cycle_day_cycle_1760468047105_0',
+  cycle_day_id: 'cycle_day_cycle_1760468047105_0',
+  meal_id: '2e00e916-ae53-4815-99c1-995bee541b3f',
+  slot: 'lunch',
+  plan_id: null,
+  created_at: '2025-10-14 18:54:07',
+  updated_at: '2025-10-14 18:54:07',
+  day_index: 0,
+  cycle_name: 'Test Weekly Menu'
+}
+[DEBUG] Loaded meals: 18
+[DEBUG] Sample meal: {
+  id: '2e00e916-ae53-4815-99c1-995bee541b3f',
+  name_en: 'Mansaf',
+  name_ar: 'منسف',
+  description_en: 'Fuel your body and mind. The high-quality protein from the tender lamb aids in muscle repair after workouts, while the healthy fats in the almonds support brain function for those long study sessions. A traditional dish that provides lasting energy.',
+  description_ar: 'اشحن جسمك وعقلك. البروتين عالي الجودة من لحم الضأن الطري يساعد على استشفاء العضلات بعد التمرين، بينما تدعم الدهون الصحية في اللوز وظائف الدماغ لجلسات المذاكرة الطويلة. طبق تقليدي يمنحك طاقة تدوم.',
+  image_filename: '/mansaf.png',
+  created_at: '2025-09-22T14:19:50.403781+00:00',
+  updated_at: '2025-10-14T11:04:59.005Z',
+  nutritional_facts_en: 'Calories 1258 - Protein 59g - Carbs 168g - Fat 39g - Fiber 3g - Sodium 144mg',
+  nutritional_facts_ar: 'سعرات حرارية 1258 - بروتين 59 جم - كربوهيدرات 168 جم - دهون 39 جم - ألياف 3 جم - صوديوم 144 ملجم',
+  ingredients_en: 'Lamb, Shank, bone-in, cooked (250g)\n' +
+    'Yogurt, plain, whole milk (Jameed Sauce base) (150g)\n' +
+    'Rice, white, long-grain, regular, cooked (with Turmeric) (200g)\n' +
+    'Nuts, almonds, blanched (15g)\n' +
+    'Parsley, fresh (5g)',
+  ingredients_ar: 'لحم ضأن، موزة بالعظم، مطبوخ (250 جرام)\n' +
+    'لبن زبادي، كامل الدسم (أساس صوص الجميد) (150 جرام)\n' +
+    'أرز، أبيض، طويل الحبة، عادي، مطبوخ (مع الكركم) (200 جرام)\n' +
+    'مكسرات، لوز، مقشر (15 جرام)\n' +
+    'بقدونس، طازج (5 جرام)',
+  is_active: 1
+}
+[DEBUG] Loaded meal ingredients: 54
+[DEBUG] Sample meal ingredient: {
+  meal_id: '2e00e916-ae53-4815-99c1-995bee541b3f',
+  ingredient_id: 'baf6cb8c-b835-4ef8-90c8-fcee0554ad33',
+  weight_g: 100,
+  notes: 'Sample ingredient for Mansaf'
+}
+[DEBUG] Loaded ingredients: 344
+[DEBUG] Sample ingredient: {
+  id: 'baf6cb8c-b835-4ef8-90c8-fcee0554ad33',
+  name_en: 'Mushrooms, shiitake',
+  name_ar: 'Mushrooms, shiitake',
+  unit_base: 'g',
+  per100g_calories: 0,
+  per100g_protein_g: 2.414,
+  per100g_carbs_g: 8.171,
+  per100g_fat_g: 0.195,
+  per100g_fiber_g: 0,
+  per100g_sodium_mg: 0.936,
+  source_type: 'usda_fdc',
+  source_ref: '1750346',
+  created_at: '2025-09-16T07:12:25.527131+00:00',
+  updated_at: '2025-09-16T07:12:25.527131+00:00'
+}
+[DEBUG] Processing date: 2025-10-14 index: 0
+[DEBUG] Day assignments for 2025-10-14 (day index 0 ): 2
+[DEBUG] Found meal: Mansaf for slot: lunch
+[MEAL_CALC_DEBUG] Processing meal: Mansaf for slot: lunch on date: 2025-10-14
+[MEAL_CALC_DEBUG] Active subscribers count: 5
+[MEAL_CALC_DEBUG] Subscriber 0: plan_id=958037f4-d183-4b5a-b286-82e56ddeec0a, meals_per_day=1, status=active
+[MEAL_CALC_DEBUG] 1-meal subscriber 0: dayOfMonth=14, getsLunch=true, getsDinner=false, slot=lunch
+[MEAL_CALC_DEBUG] 1-meal subscriber 0 gets Mansaf (lunch) - count: 1
+[MEAL_CALC_DEBUG] Subscriber 1: plan_id=72bd8f87-39bd-46bf-92fc-21443baa75cb, meals_per_day=1, status=active
+[MEAL_CALC_DEBUG] 1-meal subscriber 1: dayOfMonth=14, getsLunch=true, getsDinner=false, slot=lunch
+[MEAL_CALC_DEBUG] 1-meal subscriber 1 gets Mansaf (lunch) - count: 2
+[MEAL_CALC_DEBUG] Subscriber 2: plan_id=0b7e5d02-d10f-4563-8f37-140c4c2e1ea2, meals_per_day=2, status=active
+[MEAL_CALC_DEBUG] 2-meal subscriber 2 gets Mansaf (lunch) - count: 3
+[MEAL_CALC_DEBUG] Subscriber 3: plan_id=958037f4-d183-4b5a-b286-82e56ddeec0a, meals_per_day=1, status=active
+[MEAL_CALC_DEBUG] 1-meal subscriber 3: dayOfMonth=14, getsLunch=true, getsDinner=false, slot=lunch
+[MEAL_CALC_DEBUG] 1-meal subscriber 3 gets Mansaf (lunch) - count: 4
+[MEAL_CALC_DEBUG] Subscriber 4: plan_id=72bd8f87-39bd-46bf-92fc-21443baa75cb, meals_per_day=1, status=active
+[MEAL_CALC_DEBUG] 1-meal subscriber 4: dayOfMonth=14, getsLunch=true, getsDinner=false, slot=lunch
+[MEAL_CALC_DEBUG] 1-meal subscriber 4 gets Mansaf (lunch) - count: 5
+[MEAL_CALC_DEBUG] Final meal count for Mansaf (lunch): 5
+[DEBUG] Meal Mansaf will be prepared for 5 subscribers
+[DEBUG] Ingredients for meal: 3
+[DEBUG] Found meal: Grilled Chicken Breast for slot: dinner
+[MEAL_CALC_DEBUG] Processing meal: Grilled Chicken Breast for slot: dinner on date: 2025-10-14
+[MEAL_CALC_DEBUG] Active subscribers count: 5
+[MEAL_CALC_DEBUG] Subscriber 0: plan_id=958037f4-d183-4b5a-b286-82e56ddeec0a, meals_per_day=1, status=active
+[MEAL_CALC_DEBUG] 1-meal subscriber 0: dayOfMonth=14, getsLunch=true, getsDinner=false, slot=dinner
+[MEAL_CALC_DEBUG] 1-meal subscriber 0 does NOT get Grilled Chicken Breast (dinner) - count remains: 0
+[MEAL_CALC_DEBUG] Subscriber 1: plan_id=72bd8f87-39bd-46bf-92fc-21443baa75cb, meals_per_day=1, status=active
+[MEAL_CALC_DEBUG] 1-meal subscriber 1: dayOfMonth=14, getsLunch=true, getsDinner=false, slot=dinner
+[MEAL_CALC_DEBUG] 1-meal subscriber 1 does NOT get Grilled Chicken Breast (dinner) - count remains: 0
+[MEAL_CALC_DEBUG] Subscriber 2: plan_id=0b7e5d02-d10f-4563-8f37-140c4c2e1ea2, meals_per_day=2, status=active
+[MEAL_CALC_DEBUG] 2-meal subscriber 2 gets Grilled Chicken Breast (dinner) - count: 1
+[MEAL_CALC_DEBUG] Subscriber 3: plan_id=958037f4-d183-4b5a-b286-82e56ddeec0a, meals_per_day=1, status=active
+[MEAL_CALC_DEBUG] 1-meal subscriber 3: dayOfMonth=14, getsLunch=true, getsDinner=false, slot=dinner
+[MEAL_CALC_DEBUG] 1-meal subscriber 3 does NOT get Grilled Chicken Breast (dinner) - count remains: 1
+[MEAL_CALC_DEBUG] Subscriber 4: plan_id=72bd8f87-39bd-46bf-92fc-21443baa75cb, meals_per_day=1, status=active
+[MEAL_CALC_DEBUG] 1-meal subscriber 4: dayOfMonth=14, getsLunch=true, getsDinner=false, slot=dinner
+[MEAL_CALC_DEBUG] 1-meal subscriber 4 does NOT get Grilled Chicken Breast (dinner) - count remains: 1
+[MEAL_CALC_DEBUG] Final meal count for Grilled Chicken Breast (dinner): 1
+[DEBUG] Meal Grilled Chicken Breast will be prepared for 1 subscribers
+[DEBUG] Ingredients for meal: 3
+[DEBUG] Final prep data for 2025-10-14 : {
+  date: '2025-10-14',
+  mealsToPrepare: [
+    { mealName: 'Mansaf', count: 5 },
+    { mealName: 'Grilled Chicken Breast', count: 1 }
+  ],
+  rawMaterials: [
+    { name: 'Mushrooms, shiitake', quantity: 650, unit: 'g' },
+    { name: 'Apples, gala, with skin, raw', quantity: 800, unit: 'g' },
+    { name: 'Oranges, raw, navels', quantity: 950, unit: 'g' }
+  ]
+}
+[DEBUG] Processing date: 2025-10-15 index: 1
+[DEBUG] Day assignments for 2025-10-15 (day index 1 ): 2
+[DEBUG] Found meal: Grilled Chicken Breast for slot: lunch
+[MEAL_CALC_DEBUG] Processing meal: Grilled Chicken Breast for slot: lunch on date: 2025-10-15
+[MEAL_CALC_DEBUG] Active subscribers count: 5
+[MEAL_CALC_DEBUG] Subscriber 0: plan_id=958037f4-d183-4b5a-b286-82e56ddeec0a, meals_per_day=1, status=active
+[MEAL_CALC_DEBUG] 1-meal subscriber 0: dayOfMonth=15, getsLunch=false, getsDinner=true, slot=lunch
+[MEAL_CALC_DEBUG] 1-meal subscriber 0 does NOT get Grilled Chicken Breast (lunch) - count remains: 0
+[MEAL_CALC_DEBUG] Subscriber 1: plan_id=72bd8f87-39bd-46bf-92fc-21443baa75cb, meals_per_day=1, status=active
+[MEAL_CALC_DEBUG] 1-meal subscriber 1: dayOfMonth=15, getsLunch=false, getsDinner=true, slot=lunch
+[MEAL_CALC_DEBUG] 1-meal subscriber 1 does NOT get Grilled Chicken Breast (lunch) - count remains: 0
+[MEAL_CALC_DEBUG] Subscriber 2: plan_id=0b7e5d02-d10f-4563-8f37-140c4c2e1ea2, meals_per_day=2, status=active
+[MEAL_CALC_DEBUG] 2-meal subscriber 2 gets Grilled Chicken Breast (lunch) - count: 1
+[MEAL_CALC_DEBUG] Subscriber 3: plan_id=958037f4-d183-4b5a-b286-82e56ddeec0a, meals_per_day=1, status=active
+[MEAL_CALC_DEBUG] 1-meal subscriber 3: dayOfMonth=15, getsLunch=false, getsDinner=true, slot=lunch
+[MEAL_CALC_DEBUG] 1-meal subscriber 3 does NOT get Grilled Chicken Breast (lunch) - count remains: 1
+[MEAL_CALC_DEBUG] Subscriber 4: plan_id=72bd8f87-39bd-46bf-92fc-21443baa75cb, meals_per_day=1, status=active
+[MEAL_CALC_DEBUG] 1-meal subscriber 4: dayOfMonth=15, getsLunch=false, getsDinner=true, slot=lunch
+[MEAL_CALC_DEBUG] 1-meal subscriber 4 does NOT get Grilled Chicken Breast (lunch) - count remains: 1
+[MEAL_CALC_DEBUG] Final meal count for Grilled Chicken Breast (lunch): 1
+[DEBUG] Meal Grilled Chicken Breast will be prepared for 1 subscribers
+[DEBUG] Ingredients for meal: 3
+[DEBUG] Found meal: Chicken Kabsa for slot: dinner
+[MEAL_CALC_DEBUG] Processing meal: Chicken Kabsa for slot: dinner on date: 2025-10-15
+[MEAL_CALC_DEBUG] Active subscribers count: 5
+[MEAL_CALC_DEBUG] Subscriber 0: plan_id=958037f4-d183-4b5a-b286-82e56ddeec0a, meals_per_day=1, status=active
+[MEAL_CALC_DEBUG] 1-meal subscriber 0: dayOfMonth=15, getsLunch=false, getsDinner=true, slot=dinner
+[MEAL_CALC_DEBUG] 1-meal subscriber 0 gets Chicken Kabsa (dinner) - count: 1
+[MEAL_CALC_DEBUG] Subscriber 1: plan_id=72bd8f87-39bd-46bf-92fc-21443baa75cb, meals_per_day=1, status=active
+[MEAL_CALC_DEBUG] 1-meal subscriber 1: dayOfMonth=15, getsLunch=false, getsDinner=true, slot=dinner
+[MEAL_CALC_DEBUG] 1-meal subscriber 1 gets Chicken Kabsa (dinner) - count: 2
+[MEAL_CALC_DEBUG] Subscriber 2: plan_id=0b7e5d02-d10f-4563-8f37-140c4c2e1ea2, meals_per_day=2, status=active
+[MEAL_CALC_DEBUG] 2-meal subscriber 2 gets Chicken Kabsa (dinner) - count: 3
+[MEAL_CALC_DEBUG] Subscriber 3: plan_id=958037f4-d183-4b5a-b286-82e56ddeec0a, meals_per_day=1, status=active
+[MEAL_CALC_DEBUG] 1-meal subscriber 3: dayOfMonth=15, getsLunch=false, getsDinner=true, slot=dinner
+[MEAL_CALC_DEBUG] 1-meal subscriber 3 gets Chicken Kabsa (dinner) - count: 4
+[MEAL_CALC_DEBUG] Subscriber 4: plan_id=72bd8f87-39bd-46bf-92fc-21443baa75cb, meals_per_day=1, status=active
+[MEAL_CALC_DEBUG] 1-meal subscriber 4: dayOfMonth=15, getsLunch=false, getsDinner=true, slot=dinner
+[MEAL_CALC_DEBUG] 1-meal subscriber 4 gets Chicken Kabsa (dinner) - count: 5
+[MEAL_CALC_DEBUG] Final meal count for Chicken Kabsa (dinner): 5
+[DEBUG] Meal Chicken Kabsa will be prepared for 5 subscribers
+[DEBUG] Ingredients for meal: 3
+[DEBUG] Final prep data for 2025-10-15 : {
+  date: '2025-10-15',
+  mealsToPrepare: [
+    { mealName: 'Grilled Chicken Breast', count: 1 },
+    { mealName: 'Chicken Kabsa', count: 5 }
+  ],
+  rawMaterials: [
+    { name: 'Mushrooms, shiitake', quantity: 1150, unit: 'g' },
+    { name: 'Apples, gala, with skin, raw', quantity: 1300, unit: 'g' },
+    { name: 'Oranges, raw, navels', quantity: 1450, unit: 'g' }
+  ]
+}
+[DEBUG] Processing date: 2025-10-16 index: 2
+[DEBUG] Day assignments for 2025-10-16 (day index 2 ): 2
+[DEBUG] Found meal: Chicken Kabsa for slot: lunch
+[MEAL_CALC_DEBUG] Processing meal: Chicken Kabsa for slot: lunch on date: 2025-10-16
+[MEAL_CALC_DEBUG] Active subscribers count: 5
+[MEAL_CALC_DEBUG] Subscriber 0: plan_id=958037f4-d183-4b5a-b286-82e56ddeec0a, meals_per_day=1, status=active
+[MEAL_CALC_DEBUG] 1-meal subscriber 0: dayOfMonth=16, getsLunch=true, getsDinner=false, slot=lunch
+[MEAL_CALC_DEBUG] 1-meal subscriber 0 gets Chicken Kabsa (lunch) - count: 1
+[MEAL_CALC_DEBUG] Subscriber 1: plan_id=72bd8f87-39bd-46bf-92fc-21443baa75cb, meals_per_day=1, status=active
+[MEAL_CALC_DEBUG] 1-meal subscriber 1: dayOfMonth=16, getsLunch=true, getsDinner=false, slot=lunch
+[MEAL_CALC_DEBUG] 1-meal subscriber 1 gets Chicken Kabsa (lunch) - count: 2
+[MEAL_CALC_DEBUG] Subscriber 2: plan_id=0b7e5d02-d10f-4563-8f37-140c4c2e1ea2, meals_per_day=2, status=active
+[MEAL_CALC_DEBUG] 2-meal subscriber 2 gets Chicken Kabsa (lunch) - count: 3
+[MEAL_CALC_DEBUG] Subscriber 3: plan_id=958037f4-d183-4b5a-b286-82e56ddeec0a, meals_per_day=1, status=active
+[MEAL_CALC_DEBUG] 1-meal subscriber 3: dayOfMonth=16, getsLunch=true, getsDinner=false, slot=lunch
+[MEAL_CALC_DEBUG] 1-meal subscriber 3 gets Chicken Kabsa (lunch) - count: 4
+[MEAL_CALC_DEBUG] Subscriber 4: plan_id=72bd8f87-39bd-46bf-92fc-21443baa75cb, meals_per_day=1, status=active
+[MEAL_CALC_DEBUG] 1-meal subscriber 4: dayOfMonth=16, getsLunch=true, getsDinner=false, slot=lunch
+[MEAL_CALC_DEBUG] 1-meal subscriber 4 gets Chicken Kabsa (lunch) - count: 5
+[MEAL_CALC_DEBUG] Final meal count for Chicken Kabsa (lunch): 5
+[DEBUG] Meal Chicken Kabsa will be prepared for 5 subscribers
+[DEBUG] Ingredients for meal: 3
+[DEBUG] Found meal: Grilled Steak Platter for slot: dinner
+[MEAL_CALC_DEBUG] Processing meal: Grilled Steak Platter for slot: dinner on date: 2025-10-16
+[MEAL_CALC_DEBUG] Active subscribers count: 5
+[MEAL_CALC_DEBUG] Subscriber 0: plan_id=958037f4-d183-4b5a-b286-82e56ddeec0a, meals_per_day=1, status=active
+[MEAL_CALC_DEBUG] 1-meal subscriber 0: dayOfMonth=16, getsLunch=true, getsDinner=false, slot=dinner
+[MEAL_CALC_DEBUG] 1-meal subscriber 0 does NOT get Grilled Steak Platter (dinner) - count remains: 0
+[MEAL_CALC_DEBUG] Subscriber 1: plan_id=72bd8f87-39bd-46bf-92fc-21443baa75cb, meals_per_day=1, status=active
+[MEAL_CALC_DEBUG] 1-meal subscriber 1: dayOfMonth=16, getsLunch=true, getsDinner=false, slot=dinner
+[MEAL_CALC_DEBUG] 1-meal subscriber 1 does NOT get Grilled Steak Platter (dinner) - count remains: 0
+[MEAL_CALC_DEBUG] Subscriber 2: plan_id=0b7e5d02-d10f-4563-8f37-140c4c2e1ea2, meals_per_day=2, status=active
+[MEAL_CALC_DEBUG] 2-meal subscriber 2 gets Grilled Steak Platter (dinner) - count: 1
+[MEAL_CALC_DEBUG] Subscriber 3: plan_id=958037f4-d183-4b5a-b286-82e56ddeec0a, meals_per_day=1, status=active
+[MEAL_CALC_DEBUG] 1-meal subscriber 3: dayOfMonth=16, getsLunch=true, getsDinner=false, slot=dinner
+[MEAL_CALC_DEBUG] 1-meal subscriber 3 does NOT get Grilled Steak Platter (dinner) - count remains: 1
+[MEAL_CALC_DEBUG] Subscriber 4: plan_id=72bd8f87-39bd-46bf-92fc-21443baa75cb, meals_per_day=1, status=active
+[MEAL_CALC_DEBUG] 1-meal subscriber 4: dayOfMonth=16, getsLunch=true, getsDinner=false, slot=dinner
+[MEAL_CALC_DEBUG] 1-meal subscriber 4 does NOT get Grilled Steak Platter (dinner) - count remains: 1
+[MEAL_CALC_DEBUG] Final meal count for Grilled Steak Platter (dinner): 1
+[DEBUG] Meal Grilled Steak Platter will be prepared for 1 subscribers
+[DEBUG] Ingredients for meal: 3
+[DEBUG] Final prep data for 2025-10-16 : {
+  date: '2025-10-16',
+  mealsToPrepare: [
+    { mealName: 'Chicken Kabsa', count: 5 },
+    { mealName: 'Grilled Steak Platter', count: 1 }
+  ],
+  rawMaterials: [
+    { name: 'Mushrooms, shiitake', quantity: 1250, unit: 'g' },
+    { name: 'Apples, gala, with skin, raw', quantity: 1400, unit: 'g' },
+    { name: 'Oranges, raw, navels', quantity: 1550, unit: 'g' }
+  ]
+}
+=== ADMIN REQUEST: GET /dashboard ===
+authenticateToken: token found in Authorization header
+=== ADMIN REQUEST: GET /daily-orders ===
+authenticateToken: token found in cookie
+authenticateToken: decoded token userId= user-006
+authenticateToken: user lookup result= true
+[DEBUG] ADMIN DAILY ORDERS CALLED
+[DEBUG] Processing dates: [ '2025-10-14', '2025-10-15', '2025-10-16' ]
+[DEBUG] Active subscriptions found: 5
+[DEBUG] Sample active subscription: {
+  id: 'f6870f4b-6156-46dd-95ea-524051197f74',
+  user_id: 'user-026',
+  plan_id: '958037f4-d183-4b5a-b286-82e56ddeec0a',
+  status: 'active',
+  start_date: '2025-10-04',
+  end_date: '2025-11-03',
+  student_discount_applied: 0,
+  price_charged_aed: 550,
+  currency: 'AED',
+  created_at: '2025-10-14T19:27:24.661Z',
+  updated_at: '2025-10-14T19:27:24.661Z',
+  renewal_type: 'manual',
+  has_successful_payment: 1,
+  meals_per_day: 1,
+  base_price_aed: 600
+}
+[DEBUG] Final active subscriptions count: 5
+[DEBUG] Active menu cycles found: 1
+[DEBUG] Active cycle details: {
+  id: 'cycle_1760470044663',
+  name: 'Test Weekly Menu',
+  cycle_length_days: 7,
+  is_active: 1,
+  created_at: '2025-10-14 19:27:24',
+  updated_at: '2025-10-14 19:27:24'
+}
+[DEBUG] Menu cycle days found: 7
+[DEBUG] Sample cycle day: {
+  id: 'cycle_day_cycle_1760470044663_0',
+  cycle_id: 'cycle_1760470044663',
+  day_index: 0,
+  label: 'Day 1',
+  cycle_name: 'Test Weekly Menu'
+}
+[DEBUG] Menu assignments found: 14
+[DEBUG] Sample assignment: {
+  id: 'assignment_lunch_cycle_day_cycle_1760470044663_0',
+  cycle_day_id: 'cycle_day_cycle_1760470044663_0',
+  meal_id: '2e00e916-ae53-4815-99c1-995bee541b3f',
+  slot: 'lunch',
+  plan_id: null,
+  created_at: '2025-10-14 19:27:24',
+  updated_at: '2025-10-14 19:27:24',
+  day_index: 0,
+  cycle_name: 'Test Weekly Menu'
+}
+[DEBUG] Loaded meals: 18
+[DEBUG] Sample meal: {
+  id: '2e00e916-ae53-4815-99c1-995bee541b3f',
+  name_en: 'Mansaf',
+  name_ar: 'منسف',
+  description_en: 'Fuel your body and mind. The high-quality protein from the tender lamb aids in muscle repair after workouts, while the healthy fats in the almonds support brain function for those long study sessions. A traditional dish that provides lasting energy.',
+  description_ar: 'اشحن جسمك وعقلك. البروتين عالي الجودة من لحم الضأن الطري يساعد على استشفاء العضلات بعد التمرين، بينما تدعم الدهون الصحية في اللوز وظائف الدماغ لجلسات المذاكرة الطويلة. طبق تقليدي يمنحك طاقة تدوم.',
+  image_filename: '/mansaf.png',
+  created_at: '2025-09-22T14:19:50.403781+00:00',
+  updated_at: '2025-10-14T11:04:59.005Z',
+  nutritional_facts_en: 'Calories 1258 - Protein 59g - Carbs 168g - Fat 39g - Fiber 3g - Sodium 144mg',
+  nutritional_facts_ar: 'سعرات حرارية 1258 - بروتين 59 جم - كربوهيدرات 168 جم - دهون 39 جم - ألياف 3 جم - صوديوم 144 ملجم',
+  ingredients_en: 'Lamb, Shank, bone-in, cooked (250g)\n' +
+    'Yogurt, plain, whole milk (Jameed Sauce base) (150g)\n' +
+    'Rice, white, long-grain, regular, cooked (with Turmeric) (200g)\n' +
+    'Nuts, almonds, blanched (15g)\n' +
+    'Parsley, fresh (5g)',
+  ingredients_ar: 'لحم ضأن، موزة بالعظم، مطبوخ (250 جرام)\n' +
+    'لبن زبادي، كامل الدسم (أساس صوص الجميد) (150 جرام)\n' +
+    'أرز، أبيض، طويل الحبة، عادي، مطبوخ (مع الكركم) (200 جرام)\n' +
+    'مكسرات، لوز، مقشر (15 جرام)\n' +
+    'بقدونس، طازج (5 جرام)',
+  is_active: 1
+}
+[DEBUG] Loaded meal ingredients: 54
+[DEBUG] Sample meal ingredient: {
+  meal_id: '2e00e916-ae53-4815-99c1-995bee541b3f',
+  ingredient_id: 'baf6cb8c-b835-4ef8-90c8-fcee0554ad33',
+  weight_g: 100,
+  notes: 'Sample ingredient for Mansaf'
+}
+[DEBUG] Loaded ingredients: 344
+[DEBUG] Sample ingredient: {
+  id: 'baf6cb8c-b835-4ef8-90c8-fcee0554ad33',
+  name_en: 'Mushrooms, shiitake',
+  name_ar: 'Mushrooms, shiitake',
+  unit_base: 'g',
+  per100g_calories: 0,
+  per100g_protein_g: 2.414,
+  per100g_carbs_g: 8.171,
+  per100g_fat_g: 0.195,
+  per100g_fiber_g: 0,
+  per100g_sodium_mg: 0.936,
+  source_type: 'usda_fdc',
+  source_ref: '1750346',
+  created_at: '2025-09-16T07:12:25.527131+00:00',
+  updated_at: '2025-09-16T07:12:25.527131+00:00'
+}
+[DEBUG] Processing date: 2025-10-14 index: 0
+[DEBUG] Day assignments for 2025-10-14 (day index 0 ): 2
+[DEBUG] Found meal: Mansaf for slot: lunch
+[MEAL_CALC_DEBUG] Processing meal: Mansaf for slot: lunch on date: 2025-10-14
+[MEAL_CALC_DEBUG] Active subscribers count: 5
+[MEAL_CALC_DEBUG] Subscriber 0: plan_id=958037f4-d183-4b5a-b286-82e56ddeec0a, meals_per_day=1, status=active
+[MEAL_CALC_DEBUG] 1-meal subscriber 0: dayOfMonth=14, getsLunch=true, getsDinner=false, slot=lunch
+[MEAL_CALC_DEBUG] 1-meal subscriber 0 gets Mansaf (lunch) - count: 1
+[MEAL_CALC_DEBUG] Subscriber 1: plan_id=72bd8f87-39bd-46bf-92fc-21443baa75cb, meals_per_day=2, status=active
+[MEAL_CALC_DEBUG] 2-meal subscriber 1 gets Mansaf (lunch) - count: 2
+[MEAL_CALC_DEBUG] Subscriber 2: plan_id=0b7e5d02-d10f-4563-8f37-140c4c2e1ea2, meals_per_day=1, status=active
+[MEAL_CALC_DEBUG] 1-meal subscriber 2: dayOfMonth=14, getsLunch=true, getsDinner=false, slot=lunch
+[MEAL_CALC_DEBUG] 1-meal subscriber 2 gets Mansaf (lunch) - count: 3
+[MEAL_CALC_DEBUG] Subscriber 3: plan_id=958037f4-d183-4b5a-b286-82e56ddeec0a, meals_per_day=1, status=active
+[MEAL_CALC_DEBUG] 1-meal subscriber 3: dayOfMonth=14, getsLunch=true, getsDinner=false, slot=lunch
+[MEAL_CALC_DEBUG] 1-meal subscriber 3 gets Mansaf (lunch) - count: 4
+[MEAL_CALC_DEBUG] Subscriber 4: plan_id=72bd8f87-39bd-46bf-92fc-21443baa75cb, meals_per_day=2, status=active
+[MEAL_CALC_DEBUG] 2-meal subscriber 4 gets Mansaf (lunch) - count: 5
+[MEAL_CALC_DEBUG] Final meal count for Mansaf (lunch): 5
+[DEBUG] Meal Mansaf will be prepared for 5 subscribers
+[DEBUG] Ingredients for meal: 3
+[DEBUG] Found meal: Grilled Chicken Breast for slot: dinner
+[MEAL_CALC_DEBUG] Processing meal: Grilled Chicken Breast for slot: dinner on date: 2025-10-14
+[MEAL_CALC_DEBUG] Active subscribers count: 5
+[MEAL_CALC_DEBUG] Subscriber 0: plan_id=958037f4-d183-4b5a-b286-82e56ddeec0a, meals_per_day=1, status=active
+[MEAL_CALC_DEBUG] 1-meal subscriber 0: dayOfMonth=14, getsLunch=true, getsDinner=false, slot=dinner
+[MEAL_CALC_DEBUG] 1-meal subscriber 0 does NOT get Grilled Chicken Breast (dinner) - count remains: 0
+[MEAL_CALC_DEBUG] Subscriber 1: plan_id=72bd8f87-39bd-46bf-92fc-21443baa75cb, meals_per_day=2, status=active
+[MEAL_CALC_DEBUG] 2-meal subscriber 1 gets Grilled Chicken Breast (dinner) - count: 1
+[MEAL_CALC_DEBUG] Subscriber 2: plan_id=0b7e5d02-d10f-4563-8f37-140c4c2e1ea2, meals_per_day=1, status=active
+[MEAL_CALC_DEBUG] 1-meal subscriber 2: dayOfMonth=14, getsLunch=true, getsDinner=false, slot=dinner
+[MEAL_CALC_DEBUG] 1-meal subscriber 2 does NOT get Grilled Chicken Breast (dinner) - count remains: 1
+[MEAL_CALC_DEBUG] Subscriber 3: plan_id=958037f4-d183-4b5a-b286-82e56ddeec0a, meals_per_day=1, status=active
+[MEAL_CALC_DEBUG] 1-meal subscriber 3: dayOfMonth=14, getsLunch=true, getsDinner=false, slot=dinner
+[MEAL_CALC_DEBUG] 1-meal subscriber 3 does NOT get Grilled Chicken Breast (dinner) - count remains: 1
+[MEAL_CALC_DEBUG] Subscriber 4: plan_id=72bd8f87-39bd-46bf-92fc-21443baa75cb, meals_per_day=2, status=active
+[MEAL_CALC_DEBUG] 2-meal subscriber 4 gets Grilled Chicken Breast (dinner) - count: 2
+[MEAL_CALC_DEBUG] Final meal count for Grilled Chicken Breast (dinner): 2
+[DEBUG] Meal Grilled Chicken Breast will be prepared for 2 subscribers
+[DEBUG] Ingredients for meal: 3
+[DEBUG] Final prep data for 2025-10-14 : {
+  date: '2025-10-14',
+  mealsToPrepare: [
+    { mealName: 'Mansaf', count: 5 },
+    { mealName: 'Grilled Chicken Breast', count: 2 }
+  ],
+  rawMaterials: [
+    { name: 'Mushrooms, shiitake', quantity: 800, unit: 'g' },
+    { name: 'Apples, gala, with skin, raw', quantity: 975, unit: 'g' },
+    { name: 'Oranges, raw, navels', quantity: 1150, unit: 'g' }
+  ]
+}
+[DEBUG] Processing date: 2025-10-15 index: 1
+[DEBUG] Day assignments for 2025-10-15 (day index 1 ): 2
+[DEBUG] Found meal: Grilled Chicken Breast for slot: lunch
+[MEAL_CALC_DEBUG] Processing meal: Grilled Chicken Breast for slot: lunch on date: 2025-10-15
+[MEAL_CALC_DEBUG] Active subscribers count: 5
+[MEAL_CALC_DEBUG] Subscriber 0: plan_id=958037f4-d183-4b5a-b286-82e56ddeec0a, meals_per_day=1, status=active
+[MEAL_CALC_DEBUG] 1-meal subscriber 0: dayOfMonth=15, getsLunch=false, getsDinner=true, slot=lunch
+[MEAL_CALC_DEBUG] 1-meal subscriber 0 does NOT get Grilled Chicken Breast (lunch) - count remains: 0
+[MEAL_CALC_DEBUG] Subscriber 1: plan_id=72bd8f87-39bd-46bf-92fc-21443baa75cb, meals_per_day=2, status=active
+[MEAL_CALC_DEBUG] 2-meal subscriber 1 gets Grilled Chicken Breast (lunch) - count: 1
+[MEAL_CALC_DEBUG] Subscriber 2: plan_id=0b7e5d02-d10f-4563-8f37-140c4c2e1ea2, meals_per_day=1, status=active
+[MEAL_CALC_DEBUG] 1-meal subscriber 2: dayOfMonth=15, getsLunch=false, getsDinner=true, slot=lunch
+[MEAL_CALC_DEBUG] 1-meal subscriber 2 does NOT get Grilled Chicken Breast (lunch) - count remains: 1
+[MEAL_CALC_DEBUG] Subscriber 3: plan_id=958037f4-d183-4b5a-b286-82e56ddeec0a, meals_per_day=1, status=active
+[MEAL_CALC_DEBUG] 1-meal subscriber 3: dayOfMonth=15, getsLunch=false, getsDinner=true, slot=lunch
+[MEAL_CALC_DEBUG] 1-meal subscriber 3 does NOT get Grilled Chicken Breast (lunch) - count remains: 1
+[MEAL_CALC_DEBUG] Subscriber 4: plan_id=72bd8f87-39bd-46bf-92fc-21443baa75cb, meals_per_day=2, status=active
+[MEAL_CALC_DEBUG] 2-meal subscriber 4 gets Grilled Chicken Breast (lunch) - count: 2
+[MEAL_CALC_DEBUG] Final meal count for Grilled Chicken Breast (lunch): 2
+[DEBUG] Meal Grilled Chicken Breast will be prepared for 2 subscribers
+[DEBUG] Ingredients for meal: 3
+[DEBUG] Found meal: Chicken Kabsa for slot: dinner
+[MEAL_CALC_DEBUG] Processing meal: Chicken Kabsa for slot: dinner on date: 2025-10-15
+[MEAL_CALC_DEBUG] Active subscribers count: 5
+[MEAL_CALC_DEBUG] Subscriber 0: plan_id=958037f4-d183-4b5a-b286-82e56ddeec0a, meals_per_day=1, status=active
+[MEAL_CALC_DEBUG] 1-meal subscriber 0: dayOfMonth=15, getsLunch=false, getsDinner=true, slot=dinner
+[MEAL_CALC_DEBUG] 1-meal subscriber 0 gets Chicken Kabsa (dinner) - count: 1
+[MEAL_CALC_DEBUG] Subscriber 1: plan_id=72bd8f87-39bd-46bf-92fc-21443baa75cb, meals_per_day=2, status=active
+[MEAL_CALC_DEBUG] 2-meal subscriber 1 gets Chicken Kabsa (dinner) - count: 2
+[MEAL_CALC_DEBUG] Subscriber 2: plan_id=0b7e5d02-d10f-4563-8f37-140c4c2e1ea2, meals_per_day=1, status=active
+[MEAL_CALC_DEBUG] 1-meal subscriber 2: dayOfMonth=15, getsLunch=false, getsDinner=true, slot=dinner
+[MEAL_CALC_DEBUG] 1-meal subscriber 2 gets Chicken Kabsa (dinner) - count: 3
+[MEAL_CALC_DEBUG] Subscriber 3: plan_id=958037f4-d183-4b5a-b286-82e56ddeec0a, meals_per_day=1, status=active
+[MEAL_CALC_DEBUG] 1-meal subscriber 3: dayOfMonth=15, getsLunch=false, getsDinner=true, slot=dinner
+[MEAL_CALC_DEBUG] 1-meal subscriber 3 gets Chicken Kabsa (dinner) - count: 4
+[MEAL_CALC_DEBUG] Subscriber 4: plan_id=72bd8f87-39bd-46bf-92fc-21443baa75cb, meals_per_day=2, status=active
+[MEAL_CALC_DEBUG] 2-meal subscriber 4 gets Chicken Kabsa (dinner) - count: 5
+[MEAL_CALC_DEBUG] Final meal count for Chicken Kabsa (dinner): 5
+[DEBUG] Meal Chicken Kabsa will be prepared for 5 subscribers
+[DEBUG] Ingredients for meal: 3
+[DEBUG] Final prep data for 2025-10-15 : {
+  date: '2025-10-15',
+  mealsToPrepare: [
+    { mealName: 'Grilled Chicken Breast', count: 2 },
+    { mealName: 'Chicken Kabsa', count: 5 }
+  ],
+  rawMaterials: [
+    { name: 'Mushrooms, shiitake', quantity: 1300, unit: 'g' },
+    { name: 'Apples, gala, with skin, raw', quantity: 1475, unit: 'g' },
+    { name: 'Oranges, raw, navels', quantity: 1650, unit: 'g' }
+  ]
+}
+[DEBUG] Processing date: 2025-10-16 index: 2
+[DEBUG] Day assignments for 2025-10-16 (day index 2 ): 2
+[DEBUG] Found meal: Chicken Kabsa for slot: lunch
+[MEAL_CALC_DEBUG] Processing meal: Chicken Kabsa for slot: lunch on date: 2025-10-16
+[MEAL_CALC_DEBUG] Active subscribers count: 5
+[MEAL_CALC_DEBUG] Subscriber 0: plan_id=958037f4-d183-4b5a-b286-82e56ddeec0a, meals_per_day=1, status=active
+[MEAL_CALC_DEBUG] 1-meal subscriber 0: dayOfMonth=16, getsLunch=true, getsDinner=false, slot=lunch
+[MEAL_CALC_DEBUG] 1-meal subscriber 0 gets Chicken Kabsa (lunch) - count: 1
+[MEAL_CALC_DEBUG] Subscriber 1: plan_id=72bd8f87-39bd-46bf-92fc-21443baa75cb, meals_per_day=2, status=active
+[MEAL_CALC_DEBUG] 2-meal subscriber 1 gets Chicken Kabsa (lunch) - count: 2
+[MEAL_CALC_DEBUG] Subscriber 2: plan_id=0b7e5d02-d10f-4563-8f37-140c4c2e1ea2, meals_per_day=1, status=active
+[MEAL_CALC_DEBUG] 1-meal subscriber 2: dayOfMonth=16, getsLunch=true, getsDinner=false, slot=lunch
+[MEAL_CALC_DEBUG] 1-meal subscriber 2 gets Chicken Kabsa (lunch) - count: 3
+[MEAL_CALC_DEBUG] Subscriber 3: plan_id=958037f4-d183-4b5a-b286-82e56ddeec0a, meals_per_day=1, status=active
+[MEAL_CALC_DEBUG] 1-meal subscriber 3: dayOfMonth=16, getsLunch=true, getsDinner=false, slot=lunch
+[MEAL_CALC_DEBUG] 1-meal subscriber 3 gets Chicken Kabsa (lunch) - count: 4
+[MEAL_CALC_DEBUG] Subscriber 4: plan_id=72bd8f87-39bd-46bf-92fc-21443baa75cb, meals_per_day=2, status=active
+[MEAL_CALC_DEBUG] 2-meal subscriber 4 gets Chicken Kabsa (lunch) - count: 5
+[MEAL_CALC_DEBUG] Final meal count for Chicken Kabsa (lunch): 5
+[DEBUG] Meal Chicken Kabsa will be prepared for 5 subscribers
+[DEBUG] Ingredients for meal: 3
+[DEBUG] Found meal: Grilled Steak Platter for slot: dinner
+[MEAL_CALC_DEBUG] Processing meal: Grilled Steak Platter for slot: dinner on date: 2025-10-16
+[MEAL_CALC_DEBUG] Active subscribers count: 5
+[MEAL_CALC_DEBUG] Subscriber 0: plan_id=958037f4-d183-4b5a-b286-82e56ddeec0a, meals_per_day=1, status=active
+[MEAL_CALC_DEBUG] 1-meal subscriber 0: dayOfMonth=16, getsLunch=true, getsDinner=false, slot=dinner
+[MEAL_CALC_DEBUG] 1-meal subscriber 0 does NOT get Grilled Steak Platter (dinner) - count remains: 0
+[MEAL_CALC_DEBUG] Subscriber 1: plan_id=72bd8f87-39bd-46bf-92fc-21443baa75cb, meals_per_day=2, status=active
+[MEAL_CALC_DEBUG] 2-meal subscriber 1 gets Grilled Steak Platter (dinner) - count: 1
+[MEAL_CALC_DEBUG] Subscriber 2: plan_id=0b7e5d02-d10f-4563-8f37-140c4c2e1ea2, meals_per_day=1, status=active
+[MEAL_CALC_DEBUG] 1-meal subscriber 2: dayOfMonth=16, getsLunch=true, getsDinner=false, slot=dinner
+[MEAL_CALC_DEBUG] 1-meal subscriber 2 does NOT get Grilled Steak Platter (dinner) - count remains: 1
+[MEAL_CALC_DEBUG] Subscriber 3: plan_id=958037f4-d183-4b5a-b286-82e56ddeec0a, meals_per_day=1, status=active
+[MEAL_CALC_DEBUG] 1-meal subscriber 3: dayOfMonth=16, getsLunch=true, getsDinner=false, slot=dinner
+[MEAL_CALC_DEBUG] 1-meal subscriber 3 does NOT get Grilled Steak Platter (dinner) - count remains: 1
+[MEAL_CALC_DEBUG] Subscriber 4: plan_id=72bd8f87-39bd-46bf-92fc-21443baa75cb, meals_per_day=2, status=active
+[MEAL_CALC_DEBUG] 2-meal subscriber 4 gets Grilled Steak Platter (dinner) - count: 2
+[MEAL_CALC_DEBUG] Final meal count for Grilled Steak Platter (dinner): 2
+[DEBUG] Meal Grilled Steak Platter will be prepared for 2 subscribers
+[DEBUG] Ingredients for meal: 3
+[DEBUG] Final prep data for 2025-10-16 : {
+  date: '2025-10-16',
+  mealsToPrepare: [
+    { mealName: 'Chicken Kabsa', count: 5 },
+    { mealName: 'Grilled Steak Platter', count: 2 }
+  ],
+  rawMaterials: [
+    { name: 'Mushrooms, shiitake', quantity: 1500, unit: 'g' },
+    { name: 'Apples, gala, with skin, raw', quantity: 1675, unit: 'g' },
+    { name: 'Oranges, raw, navels', quantity: 1850, unit: 'g' }
+  ]
+}
+[DEBUG] GET /meals - Fetching active meals
+[DEBUG] Found meals from DB: 18 items
+[MEALS DEBUG] buildImageUrl: filename='/mansaf.png' -> 'images/mansaf.png'
+[MEALS DEBUG] meal.id=2e00e916-ae53-4815-99c1-995bee541b3f image_filename='/mansaf.png' -> imageUrl='images/mansaf.png' ingredientsCount=3 mealImages=0
+[MEALS DEBUG] buildImageUrl: filename='/Grilled Chicken Breast.png' -> 'images/Grilled Chicken Breast.png'
+[MEALS DEBUG] meal.id=0a8e474b-0c3c-4be6-bbb7-46b5755c188b image_filename='/Grilled Chicken Breast.png' -> imageUrl='images/Grilled Chicken Breast.png' ingredientsCount=3 mealImages=0
+[MEALS DEBUG] buildImageUrl: filename='/ChickenKabsa.png' -> 'images/ChickenKabsa.png'
+[MEALS DEBUG] meal.id=3a2cab4f-61ef-43d0-a33a-e117d86b4c84 image_filename='/ChickenKabsa.png' -> imageUrl='images/ChickenKabsa.png' ingredientsCount=3 mealImages=0
+[MEALS DEBUG] buildImageUrl: filename='/Steak.png' -> 'images/Steak.png'
+[MEALS DEBUG] meal.id=c98f8a6c-c128-4964-813d-bee192c0edba image_filename='/Steak.png' -> imageUrl='images/Steak.png' ingredientsCount=3 mealImages=0
+[MEALS DEBUG] buildImageUrl: filename='/Oozi.png' -> 'images/Oozi.png'
+[MEALS DEBUG] meal.id=1ca53568-05c5-4951-8393-4e39527883db image_filename='/Oozi.png' -> imageUrl='images/Oozi.png' ingredientsCount=3 mealImages=0
+[MEALS DEBUG] buildImageUrl: filename='/MexicanChicken.png' -> 'images/MexicanChicken.png'
+[MEALS DEBUG] meal.id=ff0161d6-e40b-4e5d-9152-e614d01621f9 image_filename='/MexicanChicken.png' -> imageUrl='images/MexicanChicken.png' ingredientsCount=3 mealImages=0
+[MEALS DEBUG] buildImageUrl: filename='/Beef Slices.png' -> 'images/Beef Slices.png'
+[MEALS DEBUG] meal.id=cdb4e667-db82-4604-a089-6dd004001006 image_filename='/Beef Slices.png' -> imageUrl='images/Beef Slices.png' ingredientsCount=3 mealImages=0
+[MEALS DEBUG] buildImageUrl: filename='/Roasted Half Chicken.png' -> 'images/Roasted Half Chicken.png'
+[MEALS DEBUG] meal.id=ac41d3c8-fa85-41bd-86fb-df9d2f7cee3d image_filename='/Roasted Half Chicken.png' -> imageUrl='images/Roasted Half Chicken.png' ingredientsCount=3 mealImages=0
+[MEALS DEBUG] buildImageUrl: filename='/Stuffed Eggplant.png' -> 'images/Stuffed Eggplant.png'
+[MEALS DEBUG] meal.id=edad9440-6381-42b3-a167-4ffbe80697c7 image_filename='/Stuffed Eggplant.png' -> imageUrl='images/Stuffed Eggplant.png' ingredientsCount=3 mealImages=0
+[MEALS DEBUG] buildImageUrl: filename='/mansaf.png' -> 'images/mansaf.png'
+[MEALS DEBUG] meal.id=77dce174-24a1-4694-ba48-fab31d5b215e image_filename='/mansaf.png' -> imageUrl='images/mansaf.png' ingredientsCount=3 mealImages=0
+[MEALS DEBUG] buildImageUrl: filename='/Grilled Chicken Breast.png' -> 'images/Grilled Chicken Breast.png'
+[MEALS DEBUG] meal.id=a468bf71-92e4-45b5-a49f-de836cd2aa50 image_filename='/Grilled Chicken Breast.png' -> imageUrl='images/Grilled Chicken Breast.png' ingredientsCount=3 mealImages=0
+[MEALS DEBUG] buildImageUrl: filename='/ChickenKabsa.png' -> 'images/ChickenKabsa.png'
+[MEALS DEBUG] meal.id=8c560f2e-e70b-41ec-a5da-e1c364ecf4cb image_filename='/ChickenKabsa.png' -> imageUrl='images/ChickenKabsa.png' ingredientsCount=3 mealImages=0
+[MEALS DEBUG] buildImageUrl: filename='/Steak.png' -> 'images/Steak.png'
+[MEALS DEBUG] meal.id=c17782af-b55d-4e3c-bced-79b4694d2c43 image_filename='/Steak.png' -> imageUrl='images/Steak.png' ingredientsCount=3 mealImages=0
+[MEALS DEBUG] buildImageUrl: filename='/Oozi.png' -> 'images/Oozi.png'
+[MEALS DEBUG] meal.id=d90d5f36-b45c-4650-98dd-50f2271e5521 image_filename='/Oozi.png' -> imageUrl='images/Oozi.png' ingredientsCount=3 mealImages=0
+[MEALS DEBUG] buildImageUrl: filename='/MexicanChicken.png' -> 'images/MexicanChicken.png'
+[MEALS DEBUG] meal.id=9f4571ae-bda7-4914-8cc6-09134d9249d0 image_filename='/MexicanChicken.png' -> imageUrl='images/MexicanChicken.png' ingredientsCount=3 mealImages=0
+[MEALS DEBUG] buildImageUrl: filename='/Beef Slices.png' -> 'images/Beef Slices.png'
+[MEALS DEBUG] meal.id=ed7e6221-5ce5-462e-963d-4b8d41d77c2c image_filename='/Beef Slices.png' -> imageUrl='images/Beef Slices.png' ingredientsCount=3 mealImages=0
+[MEALS DEBUG] buildImageUrl: filename='/Roasted Half Chicken.png' -> 'images/Roasted Half Chicken.png'
+[MEALS DEBUG] meal.id=ade29086-6c83-469d-99c2-bcfa877a8559 image_filename='/Roasted Half Chicken.png' -> imageUrl='images/Roasted Half Chicken.png' ingredientsCount=3 mealImages=0
+[MEALS DEBUG] buildImageUrl: filename='/Stuffed Eggplant.png' -> 'images/Stuffed Eggplant.png'
+[MEALS DEBUG] meal.id=b8fe7021-4eda-4120-abca-35f3840fc426 image_filename='/Stuffed Eggplant.png' -> imageUrl='images/Stuffed Eggplant.png' ingredientsCount=3 mealImages=0
+[DEBUG] Returning meals response with structure: {
+  success: true,
+  dataLength: 18,
+  firstItemId: '2e00e916-ae53-4815-99c1-995bee541b3f',
+  firstItemIdType: 'string'
+}
+[DEBUG] GET /plans - Fetching active plans
+[DEBUG] Found plans from DB: 3 items
+[DEBUG] First plan ID: 958037f4-d183-4b5a-b286-82e56ddeec0a type: string
+=== INGREDIENTS TRACE: GET /api/ingredients headers={
+  "host": "localhost:4000",
+  "connection": "keep-alive",
+  "sec-ch-ua-platform": "\"Windows\"",
+  "user-agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/141.0.0.0 Safari/537.36",
+  "accept": "application/json, text/plain, */*",
+  "sec-ch-ua": "\"Google Chrome\";v=\"141\", \"Not?A_Brand\";v=\"8\", \"Chromium\";v=\"141\"",
+  "sec-ch-ua-mobile": "?0",
+  "origin": "http://localhost:4200",
+  "sec-fetch-site": "same-site",
+  "sec-fetch-mode": "cors",
+  "sec-fetch-dest": "empty",
+  "referer": "http://localhost:4200/",
+  "accept-encoding": "gzip, deflate, br, zstd",
+  "accept-language": "en-US,en;q=0.9,ar;q=0.8",
+  "cookie": "sb-fmujrcnwogqnayjdzabv-auth-token=base64-eyJhY2Nlc3NfdG9rZW4iOiJleUpoYkdjaU9pSklVekkxTmlJc0ltdHBaQ0k2SWk4cldUbG1SMUoyYTNSNGRpdHBNbWdpTENKMGVYQWlPaUpLVjFRaWZRLmV5SnBjM01pT2lKb2RIUndjem92TDJadGRXcHlZMjUzYjJkeGJtRjVhbVI2WVdKMkxuTjFjR0ZpWVhObExtTnZMMkYxZEdndmRqRWlMQ0p6ZFdJaU9pSTBZV1UwTXpNMllTMDFNV0prTFRSaE9EVXRZVEV4TkMwNU5XRTVZV1E1TWpKaE1UQWlMQ0poZFdRaU9pSmhkWFJvWlc1MGFXTmhkR1ZrSWl3aVpYaHdJam94TnpVNU5ETXhORGczTENKcFlYUWlPakUzTlRrME1qYzRPRGNzSW1WdFlXbHNJam9pYlc5ellXSnpZWGw1WldSQWIzVjBiRzl2YXk1amIyMGlMQ0p3YUc5dVpTSTZJaUlzSW1Gd2NGOXRaWFJoWkdGMFlTSTZleUp3Y205MmFXUmxjaUk2SW1WdFlXbHNJaXdpY0hKdmRtbGtaWEp6SWpwYkltVnRZV2xzSWwxOUxDSjFjMlZ5WDIxbGRHRmtZWFJoSWpwN0ltVnRZV2xzWDNabGNtbG1hV1ZrSWpwMGNuVmxMQ0ptZFd4c1gyNWhiV1VpT2lKdGJ5QnRJaXdpY205c1pTSTZJbUZ1WVd4NWMzUWlmU3dpY205c1pTSTZJbUYxZEdobGJuUnBZMkYwWldRaUxDSmhZV3dpT2lKaFlXd3hJaXdpWVcxeUlqcGJleUp0WlhSb2IyUWlPaUp3WVhOemQyOXlaQ0lzSW5ScGJXVnpkR0Z0Y0NJNk1UYzFPVEV5TXpnek5YMWRMQ0p6WlhOemFXOXVYMmxrSWpvaVltTm1NREE1TURRdE9HUTFPUzAwTkdKaUxXSTJNbVl0TXpKaU5qZGxOelE1TlRWaklpd2lhWE5mWVc1dmJubHRiM1Z6SWpwbVlXeHpaWDAuN2FBODVIYllpR2JQTElDd2Y3VVdwZUdUbW1TYlh6dHBTNjBFeUFvTG1KOCIsInRva2VuX3R5cGUiOiJiZWFyZXIiLCJleHBpcmVzX2luIjozNjAwLCJleHBpcmVzX2F0IjoxNzU5NDMxNDg3LCJyZWZyZXNoX3Rva2VuIjoiandmYnFic2JsemR5IiwidXNlciI6eyJpZCI6IjRhZTQzMzZhLTUxYmQtNGE4NS1hMTE0LTk1YTlhZDkyMmExMCIsImF1ZCI6ImF1dGhlbnRpY2F0ZWQiLCJyb2xlIjoiYXV0aGVudGljYXRlZCIsImVtYWlsIjoibW9zYWJzYXl5ZWRAb3V0bG9vay5jb20iLCJlbWFpbF9jb25maXJtZWRfYXQiOiIyMDI1LTA5LTI5VDA1OjI5OjE2LjM4OTQ0NFoiLCJwaG9uZSI6IiIsImNvbmZpcm1lZF9hdCI6IjIwMjUtMDktMjlUMDU6Mjk6MTYuMzg5NDQ0WiIsImxhc3Rfc2lnbl9pbl9hdCI6IjIwMjUtMDktMjlUMjE6NTA6MzMuNjg0NDc5WiIsImFwcF9tZXRhZGF0YSI6eyJwcm92aWRlciI6ImVtYWlsIiwicHJvdmlkZXJzIjpbImVtYWlsIl19LCJ1c2VyX21ldGFkYXRhIjp7ImVtYWlsX3ZlcmlmaWVkIjp0cnVlLCJmdWxsX25hbWUiOiJtbyBtIiwicm9sZSI6ImFuYWx5c3QifSwiaWRlbnRpdGllcyI6W3siaWRlbnRpdHlfaWQiOiI2N2Q2M2U5Yi0yMmE5LTQ1NmUtYmVlOS0yYWNmYjk4YzYxMjEiLCJpZCI6IjRhZTQzMzZhLTUxYmQtNGE4NS1hMTE0LTk1YTlhZDkyMmExMCIsInVzZXJfaWQiOiI0YWU0MzM2YS01MWJkLTRhODUtYTExNC05NWE5YWQ5MjJhMTAiLCJpZGVudGl0eV9kYXRhIjp7ImVtYWlsIjoibW9zYWJzYXl5ZWRAb3V0bG9vay5jb20iLCJlbWFpbF92ZXJpZmllZCI6ZmFsc2UsInBob25lX3ZlcmlmaWVkIjpmYWxzZSwic3ViIjoiNGFlNDMzNmEtNTFiZC00YTg1LWExMTQtOTVhOWFkOTIyYTEwIn0sInByb3ZpZGVyIjoiZW1haWwiLCJsYXN0X3NpZ25faW5fYXQiOiIyMDI1LTA5LTI5VDA1OjI5OjE2LjM3NDI1WiIsImNyZWF0ZWRfYXQiOiIyMDI1LTA5LTI5VDA1OjI5OjE2LjM3NTAxMloiLCJ1cGRhdGVkX2F0IjoiMjAyNS0wOS0yOVQwNToyOToxNi4zNzUwMTJaIiwiZW1haWwiOiJtb3NhYnNheXllZEBvdXRsb29rLmNvbSJ9XSwiY3JlYXRlZF9hdCI6IjIwMjUtMDktMjlUMDU6Mjk6MTYuMzYzNjY3WiIsInVwZGF0ZWRfYXQiOiIyMDI1LTEwLTAyVDE3OjU4OjA3LjU1MTk1OVoiLCJpc19hbm9ueW1vdXMiOmZhbHNlfX0; __stripe_mid=b0e6c13c-5cf9-4f80-bbf6-e6ae460d7e7c016406; csrftoken=Si2VttZRHIN73KBneY64TBITwEuP6M6J; token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiJ1c2VyLTAwNiIsImVtYWlsIjoiYWRtaW5AaWJuZXhwLmNvbSIsImlzQWRtaW4iOjEsImlhdCI6MTc2MDQ0NjY2MCwiZXhwIjoxNzYxMDUxNDYwfQ.vrQRv2rAvq1JR1m6Xz1NqDVRe3NWX9X2wWEGFigTyo8",
+  "if-none-match": "W/\"24b8e-Q/GxXYpWNO45WcALXceBI366NuA\""
+}
+[DEBUG] GET /ingredients - Fetching all ingredients
+[DEBUG] Found ingredients from DB: 344 items
+=== ADMIN REQUEST: GET /users ===
+authenticateToken: token found in cookie
+authenticateToken: decoded token userId= user-006
+authenticateToken: user lookup result= true
+=== ADMIN REQUEST: GET /dashboard ===
+authenticateToken: token found in Authorization header
+authenticateToken: token found in cookie
+authenticateToken: decoded token userId= user-006
+authenticateToken: user lookup result= true
+=== ADMIN REQUEST: GET /users ===
+authenticateToken: token found in cookie
+authenticateToken: decoded token userId= user-006
+authenticateToken: user lookup result= true
+=== ADMIN REQUEST: GET /subscriptions ===
+authenticateToken: token found in Authorization header
+authenticateToken: using dummy token for testing
+=== ADMIN REQUEST: GET /dashboard ===
+authenticateToken: token found in Authorization header
+authenticateToken: using dummy token for testing
+=== ADMIN DASHBOARD CALLED ===
+[CALENDAR_DEBUG] Sub f6870f4b-6156-46dd-95ea-524051197f74: plan_id=958037f4-d183-4b5a-b286-82e56ddeec0a, plan.meals_per_day=1
+[CALENDAR_DEBUG] Sub bdfa5bf1-554a-4669-b3c3-c8cf58019491: plan_id=72bd8f87-39bd-46bf-92fc-21443baa75cb, plan.meals_per_day=2
+[CALENDAR_DEBUG] Sub de1db6f6-724e-4484-9791-c578b3daff84: plan_id=0b7e5d02-d10f-4563-8f37-140c4c2e1ea2, plan.meals_per_day=1
+[CALENDAR_DEBUG] Sub 7f498846-5908-4b90-ab6a-826019cb8567: plan_id=958037f4-d183-4b5a-b286-82e56ddeec0a, plan.meals_per_day=1
+[CALENDAR_DEBUG] Sub 2d6724f1-66d4-44b3-9ab5-b6208659f837: plan_id=72bd8f87-39bd-46bf-92fc-21443baa75cb, plan.meals_per_day=2
+[CALENDAR_DEBUG] One-meal subscribers: 3, Two-meal subscribers: 2
+[CALENDAR_DEBUG] One-meal subscriber details: [
+  {
+    id: 'f6870f4b-6156-46dd-95ea-524051197f74',
+    plan_id: '958037f4-d183-4b5a-b286-82e56ddeec0a',
+    plan_code: 'FUEL'
+  },
+  {
+    id: 'de1db6f6-724e-4484-9791-c578b3daff84',
+    plan_id: '0b7e5d02-d10f-4563-8f37-140c4c2e1ea2',
+    plan_code: 'FLEX'
+  },
+  {
+    id: '7f498846-5908-4b90-ab6a-826019cb8567',
+    plan_id: '958037f4-d183-4b5a-b286-82e56ddeec0a',
+    plan_code: 'FUEL'
+  }
+]
+[CALENDAR_DEBUG] Two-meal subscriber details: [
+  {
+    id: 'bdfa5bf1-554a-4669-b3c3-c8cf58019491',
+    plan_id: '72bd8f87-39bd-46bf-92fc-21443baa75cb',
+    plan_code: 'FOCUS'
+  },
+  {
+    id: '2d6724f1-66d4-44b3-9ab5-b6208659f837',
+    plan_id: '72bd8f87-39bd-46bf-92fc-21443baa75cb',
+    plan_code: 'FOCUS'
+  }
+]
+[CALENDAR DEBUG] Generated 42 calendar cells (31 actual days)
+[CALENDAR DEBUG] Today (2025-10-14) is day 14, weekday Tue
+[CALENDAR DEBUG] Sample current month day: {"date":"2025-09-30","dayName":"Wed","dayNumber":1,"lunchCount":4,"dinnerCount":4,"totalMeals":8,"isCurrentMonth":true}
+=== ADMIN REQUEST: GET /users ===
+authenticateToken: token found in cookie
+authenticateToken: decoded token userId= user-006
+authenticateToken: user lookup result= true
+authenticateToken: token found in cookie
+authenticateToken: decoded token userId= user-006
+authenticateToken: user lookup result= true
+=== ADMIN REQUEST: GET /subscriptions ===
+authenticateToken: token found in Authorization header
+authenticateToken: using dummy token for testing
+=== ADMIN REQUEST: GET /dashboard ===
+authenticateToken: token found in Authorization header
+authenticateToken: using dummy token for testing
+=== ADMIN DASHBOARD CALLED ===
+[CALENDAR_DEBUG] Sub f6870f4b-6156-46dd-95ea-524051197f74: plan_id=958037f4-d183-4b5a-b286-82e56ddeec0a, plan.meals_per_day=1
+[CALENDAR_DEBUG] Sub bdfa5bf1-554a-4669-b3c3-c8cf58019491: plan_id=72bd8f87-39bd-46bf-92fc-21443baa75cb, plan.meals_per_day=2
+[CALENDAR_DEBUG] Sub de1db6f6-724e-4484-9791-c578b3daff84: plan_id=0b7e5d02-d10f-4563-8f37-140c4c2e1ea2, plan.meals_per_day=1
+[CALENDAR_DEBUG] Sub 7f498846-5908-4b90-ab6a-826019cb8567: plan_id=958037f4-d183-4b5a-b286-82e56ddeec0a, plan.meals_per_day=1
+[CALENDAR_DEBUG] Sub 2d6724f1-66d4-44b3-9ab5-b6208659f837: plan_id=72bd8f87-39bd-46bf-92fc-21443baa75cb, plan.meals_per_day=2
+[CALENDAR_DEBUG] One-meal subscribers: 3, Two-meal subscribers: 2
+[CALENDAR_DEBUG] One-meal subscriber details: [
+  {
+    id: 'f6870f4b-6156-46dd-95ea-524051197f74',
+    plan_id: '958037f4-d183-4b5a-b286-82e56ddeec0a',
+    plan_code: 'FUEL'
+  },
+  {
+    id: 'de1db6f6-724e-4484-9791-c578b3daff84',
+    plan_id: '0b7e5d02-d10f-4563-8f37-140c4c2e1ea2',
+    plan_code: 'FLEX'
+  },
+  {
+    id: '7f498846-5908-4b90-ab6a-826019cb8567',
+    plan_id: '958037f4-d183-4b5a-b286-82e56ddeec0a',
+    plan_code: 'FUEL'
+  }
+]
+[CALENDAR_DEBUG] Two-meal subscriber details: [
+  {
+    id: 'bdfa5bf1-554a-4669-b3c3-c8cf58019491',
+    plan_id: '72bd8f87-39bd-46bf-92fc-21443baa75cb',
+    plan_code: 'FOCUS'
+  },
+  {
+    id: '2d6724f1-66d4-44b3-9ab5-b6208659f837',
+    plan_id: '72bd8f87-39bd-46bf-92fc-21443baa75cb',
+    plan_code: 'FOCUS'
+  }
+]
+[CALENDAR DEBUG] Generated 42 calendar cells (31 actual days)
+[CALENDAR DEBUG] Today (2025-10-14) is day 14, weekday Tue
+[CALENDAR DEBUG] Sample current month day: {"date":"2025-09-30","dayName":"Wed","dayNumber":1,"lunchCount":4,"dinnerCount":4,"totalMeals":8,"isCurrentMonth":true}
+authenticateToken: token found in cookie
+authenticateToken: decoded token userId= user-006
+authenticateToken: user lookup result= true
+=== ADMIN REQUEST: GET /subscriptions ===
+authenticateToken: token found in Authorization header
+authenticateToken: using dummy token for testing
+=== ADMIN REQUEST: GET /dashboard ===
+authenticateToken: token found in Authorization header
+authenticateToken: using dummy token for testing
+=== ADMIN DASHBOARD CALLED ===
+[CALENDAR_DEBUG] Sub f6870f4b-6156-46dd-95ea-524051197f74: plan_id=958037f4-d183-4b5a-b286-82e56ddeec0a, plan.meals_per_day=1
+[CALENDAR_DEBUG] Sub bdfa5bf1-554a-4669-b3c3-c8cf58019491: plan_id=72bd8f87-39bd-46bf-92fc-21443baa75cb, plan.meals_per_day=2
+[CALENDAR_DEBUG] Sub de1db6f6-724e-4484-9791-c578b3daff84: plan_id=0b7e5d02-d10f-4563-8f37-140c4c2e1ea2, plan.meals_per_day=1
+[CALENDAR_DEBUG] Sub 7f498846-5908-4b90-ab6a-826019cb8567: plan_id=958037f4-d183-4b5a-b286-82e56ddeec0a, plan.meals_per_day=1
+[CALENDAR_DEBUG] Sub 2d6724f1-66d4-44b3-9ab5-b6208659f837: plan_id=72bd8f87-39bd-46bf-92fc-21443baa75cb, plan.meals_per_day=2
+[CALENDAR_DEBUG] One-meal subscribers: 3, Two-meal subscribers: 2
+[CALENDAR_DEBUG] One-meal subscriber details: [
+  {
+    id: 'f6870f4b-6156-46dd-95ea-524051197f74',
+    plan_id: '958037f4-d183-4b5a-b286-82e56ddeec0a',
+    plan_code: 'FUEL'
+  },
+  {
+    id: 'de1db6f6-724e-4484-9791-c578b3daff84',
+    plan_id: '0b7e5d02-d10f-4563-8f37-140c4c2e1ea2',
+    plan_code: 'FLEX'
+  },
+  {
+    id: '7f498846-5908-4b90-ab6a-826019cb8567',
+    plan_id: '958037f4-d183-4b5a-b286-82e56ddeec0a',
+    plan_code: 'FUEL'
+  }
+]
+[CALENDAR_DEBUG] Two-meal subscriber details: [
+  {
+    id: 'bdfa5bf1-554a-4669-b3c3-c8cf58019491',
+    plan_id: '72bd8f87-39bd-46bf-92fc-21443baa75cb',
+    plan_code: 'FOCUS'
+  },
+  {
+    id: '2d6724f1-66d4-44b3-9ab5-b6208659f837',
+    plan_id: '72bd8f87-39bd-46bf-92fc-21443baa75cb',
+    plan_code: 'FOCUS'
+  }
+]
+[CALENDAR DEBUG] Generated 42 calendar cells (31 actual days)
+[CALENDAR DEBUG] Today (2025-10-14) is day 14, weekday Tue
+[CALENDAR DEBUG] Sample current month day: {"date":"2025-09-30","dayName":"Wed","dayNumber":1,"lunchCount":4,"dinnerCount":4,"totalMeals":8,"isCurrentMonth":true}
+authenticateToken: token found in cookie
+authenticateToken: decoded token userId= user-006
+authenticateToken: user lookup result= true
+=== ADMIN REQUEST: GET /subscriptions ===
+authenticateToken: token found in Authorization header
+authenticateToken: using dummy token for testing
+=== ADMIN REQUEST: GET /dashboard ===
+authenticateToken: token found in Authorization header
+authenticateToken: using dummy token for testing
+=== ADMIN DASHBOARD CALLED ===
+[CALENDAR_DEBUG] Sub f6870f4b-6156-46dd-95ea-524051197f74: plan_id=958037f4-d183-4b5a-b286-82e56ddeec0a, plan.meals_per_day=1
+[CALENDAR_DEBUG] Sub bdfa5bf1-554a-4669-b3c3-c8cf58019491: plan_id=72bd8f87-39bd-46bf-92fc-21443baa75cb, plan.meals_per_day=2
+[CALENDAR_DEBUG] Sub de1db6f6-724e-4484-9791-c578b3daff84: plan_id=0b7e5d02-d10f-4563-8f37-140c4c2e1ea2, plan.meals_per_day=1
+[CALENDAR_DEBUG] Sub 7f498846-5908-4b90-ab6a-826019cb8567: plan_id=958037f4-d183-4b5a-b286-82e56ddeec0a, plan.meals_per_day=1
+[CALENDAR_DEBUG] Sub 2d6724f1-66d4-44b3-9ab5-b6208659f837: plan_id=72bd8f87-39bd-46bf-92fc-21443baa75cb, plan.meals_per_day=2
+[CALENDAR_DEBUG] One-meal subscribers: 3, Two-meal subscribers: 2
+[CALENDAR_DEBUG] One-meal subscriber details: [
+  {
+    id: 'f6870f4b-6156-46dd-95ea-524051197f74',
+    plan_id: '958037f4-d183-4b5a-b286-82e56ddeec0a',
+    plan_code: 'FUEL'
+  },
+  {
+    id: 'de1db6f6-724e-4484-9791-c578b3daff84',
+    plan_id: '0b7e5d02-d10f-4563-8f37-140c4c2e1ea2',
+    plan_code: 'FLEX'
+  },
+  {
+    id: '7f498846-5908-4b90-ab6a-826019cb8567',
+    plan_id: '958037f4-d183-4b5a-b286-82e56ddeec0a',
+    plan_code: 'FUEL'
+  }
+]
+[CALENDAR_DEBUG] Two-meal subscriber details: [
+  {
+    id: 'bdfa5bf1-554a-4669-b3c3-c8cf58019491',
+    plan_id: '72bd8f87-39bd-46bf-92fc-21443baa75cb',
+    plan_code: 'FOCUS'
+  },
+  {
+    id: '2d6724f1-66d4-44b3-9ab5-b6208659f837',
+    plan_id: '72bd8f87-39bd-46bf-92fc-21443baa75cb',
+    plan_code: 'FOCUS'
+  }
+]
+[CALENDAR DEBUG] Generated 42 calendar cells (31 actual days)
+[CALENDAR DEBUG] Today (2025-10-14) is day 14, weekday Tue
+[CALENDAR DEBUG] Sample current month day: {"date":"2025-09-30","dayName":"Wed","dayNumber":1,"lunchCount":4,"dinnerCount":4,"totalMeals":8,"isCurrentMonth":true}
+=== ADMIN REQUEST: GET /dashboard ===
+authenticateToken: token found in Authorization header
+=== ADMIN REQUEST: GET /dashboard ===
+authenticateToken: token found in Authorization header
+=== ADMIN REQUEST: GET /dashboard ===
+authenticateToken: token found in Authorization header
+authenticateToken: using dummy token for testing
+=== ADMIN DASHBOARD CALLED ===
+[CALENDAR_DEBUG] Sub 7467e4c1-249b-47a2-9d82-646307fc0b81: plan_id=958037f4-d183-4b5a-b286-82e56ddeec0a, plan.meals_per_day=1
+[CALENDAR_DEBUG] Sub 014e407d-52af-407e-a5dc-5cf861b07844: plan_id=72bd8f87-39bd-46bf-92fc-21443baa75cb, plan.meals_per_day=2
+[CALENDAR_DEBUG] Sub 5d9dd1dd-e591-4b9c-903f-4795904bb9a3: plan_id=0b7e5d02-d10f-4563-8f37-140c4c2e1ea2, plan.meals_per_day=1
+[CALENDAR_DEBUG] Sub 516c1770-1df2-4867-9ccc-d0b013507d3a: plan_id=958037f4-d183-4b5a-b286-82e56ddeec0a, plan.meals_per_day=1
+[CALENDAR_DEBUG] Sub fd311925-7726-44ad-a343-8b1cf879f7ab: plan_id=72bd8f87-39bd-46bf-92fc-21443baa75cb, plan.meals_per_day=2
+[CALENDAR_DEBUG] One-meal subscribers: 3, Two-meal subscribers: 2
+[CALENDAR_DEBUG] One-meal subscriber details: [
+  {
+    id: '7467e4c1-249b-47a2-9d82-646307fc0b81',
+    plan_id: '958037f4-d183-4b5a-b286-82e56ddeec0a',
+    plan_code: 'FUEL'
+  },
+  {
+    id: '5d9dd1dd-e591-4b9c-903f-4795904bb9a3',
+    plan_id: '0b7e5d02-d10f-4563-8f37-140c4c2e1ea2',
+    plan_code: 'FLEX'
+  },
+  {
+    id: '516c1770-1df2-4867-9ccc-d0b013507d3a',
+    plan_id: '958037f4-d183-4b5a-b286-82e56ddeec0a',
+    plan_code: 'FUEL'
+  }
+]
+[CALENDAR_DEBUG] Two-meal subscriber details: [
+  {
+    id: '014e407d-52af-407e-a5dc-5cf861b07844',
+    plan_id: '72bd8f87-39bd-46bf-92fc-21443baa75cb',
+    plan_code: 'FOCUS'
+  },
+  {
+    id: 'fd311925-7726-44ad-a343-8b1cf879f7ab',
+    plan_id: '72bd8f87-39bd-46bf-92fc-21443baa75cb',
+    plan_code: 'FOCUS'
+  }
+]
+[CALENDAR DEBUG] Generated 42 calendar cells (31 actual days)
+[CALENDAR DEBUG] Today (2025-10-14) is day 14, weekday Tue
+[CALENDAR DEBUG] Sample current month day: {"date":"2025-09-30","dayName":"Wed","dayNumber":1,"lunchCount":4,"dinnerCount":4,"totalMeals":8,"isCurrentMonth":true}
+SIGTERM received, shutting down gracefully

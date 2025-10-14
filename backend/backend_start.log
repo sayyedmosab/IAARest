@@ -1,0 +1,613 @@
+
+> ibnexp-backend@1.0.0 start
+> node dist/index.js
+
+Database connected: /home/mosab/projects/ibnexp2/backend/data/ibnexp.db
+🚀 Starting Ibnexp Backend Server...
+✅ Server running on port 4000
+🌍 Environment: development
+🔗 Frontend URL: http://localhost:3100
+authenticateToken: token found in cookie
+authenticateToken: decoded token userId= user-006
+authenticateToken: user lookup result= true
+Failed to parse nutritional_facts_en for meal 2e00e916-ae53-4815-99c1-995bee541b3f SyntaxError: Unexpected token 'C', "Calories 1"... is not valid JSON
+    at JSON.parse (<anonymous>)
+    at /home/mosab/projects/ibnexp2/backend/dist/routes/meals.js:36:35
+    at Array.map (<anonymous>)
+    at /home/mosab/projects/ibnexp2/backend/dist/routes/meals.js:30:39
+    at Layer.handle [as handle_request] (/home/mosab/projects/ibnexp2/backend/node_modules/express/lib/router/layer.js:95:5)
+    at next (/home/mosab/projects/ibnexp2/backend/node_modules/express/lib/router/route.js:149:13)
+    at Route.dispatch (/home/mosab/projects/ibnexp2/backend/node_modules/express/lib/router/route.js:119:3)
+    at Layer.handle [as handle_request] (/home/mosab/projects/ibnexp2/backend/node_modules/express/lib/router/layer.js:95:5)
+    at /home/mosab/projects/ibnexp2/backend/node_modules/express/lib/router/index.js:284:15
+    at Function.process_params (/home/mosab/projects/ibnexp2/backend/node_modules/express/lib/router/index.js:346:12)
+Failed to parse nutritional_facts_en for meal 0a8e474b-0c3c-4be6-bbb7-46b5755c188b SyntaxError: Unexpected token 'C', "Calories 1"... is not valid JSON
+    at JSON.parse (<anonymous>)
+    at /home/mosab/projects/ibnexp2/backend/dist/routes/meals.js:36:35
+    at Array.map (<anonymous>)
+    at /home/mosab/projects/ibnexp2/backend/dist/routes/meals.js:30:39
+    at Layer.handle [as handle_request] (/home/mosab/projects/ibnexp2/backend/node_modules/express/lib/router/layer.js:95:5)
+    at next (/home/mosab/projects/ibnexp2/backend/node_modules/express/lib/router/route.js:149:13)
+    at Route.dispatch (/home/mosab/projects/ibnexp2/backend/node_modules/express/lib/router/route.js:119:3)
+    at Layer.handle [as handle_request] (/home/mosab/projects/ibnexp2/backend/node_modules/express/lib/router/layer.js:95:5)
+    at /home/mosab/projects/ibnexp2/backend/node_modules/express/lib/router/index.js:284:15
+    at Function.process_params (/home/mosab/projects/ibnexp2/backend/node_modules/express/lib/router/index.js:346:12)
+Failed to parse nutritional_facts_en for meal 3a2cab4f-61ef-43d0-a33a-e117d86b4c84 SyntaxError: Unexpected token 'C', "Calories 1"... is not valid JSON
+    at JSON.parse (<anonymous>)
+    at /home/mosab/projects/ibnexp2/backend/dist/routes/meals.js:36:35
+    at Array.map (<anonymous>)
+    at /home/mosab/projects/ibnexp2/backend/dist/routes/meals.js:30:39
+    at Layer.handle [as handle_request] (/home/mosab/projects/ibnexp2/backend/node_modules/express/lib/router/layer.js:95:5)
+    at next (/home/mosab/projects/ibnexp2/backend/node_modules/express/lib/router/route.js:149:13)
+    at Route.dispatch (/home/mosab/projects/ibnexp2/backend/node_modules/express/lib/router/route.js:119:3)
+    at Layer.handle [as handle_request] (/home/mosab/projects/ibnexp2/backend/node_modules/express/lib/router/layer.js:95:5)
+    at /home/mosab/projects/ibnexp2/backend/node_modules/express/lib/router/index.js:284:15
+    at Function.process_params (/home/mosab/projects/ibnexp2/backend/node_modules/express/lib/router/index.js:346:12)
+Failed to parse nutritional_facts_en for meal c98f8a6c-c128-4964-813d-bee192c0edba SyntaxError: Unexpected token 'C', "Calories 5"... is not valid JSON
+    at JSON.parse (<anonymous>)
+    at /home/mosab/projects/ibnexp2/backend/dist/routes/meals.js:36:35
+    at Array.map (<anonymous>)
+    at /home/mosab/projects/ibnexp2/backend/dist/routes/meals.js:30:39
+    at Layer.handle [as handle_request] (/home/mosab/projects/ibnexp2/backend/node_modules/express/lib/router/layer.js:95:5)
+    at next (/home/mosab/projects/ibnexp2/backend/node_modules/express/lib/router/route.js:149:13)
+    at Route.dispatch (/home/mosab/projects/ibnexp2/backend/node_modules/express/lib/router/route.js:119:3)
+    at Layer.handle [as handle_request] (/home/mosab/projects/ibnexp2/backend/node_modules/express/lib/router/layer.js:95:5)
+    at /home/mosab/projects/ibnexp2/backend/node_modules/express/lib/router/index.js:284:15
+    at Function.process_params (/home/mosab/projects/ibnexp2/backend/node_modules/express/lib/router/index.js:346:12)
+Failed to parse nutritional_facts_en for meal 1ca53568-05c5-4951-8393-4e39527883db SyntaxError: Unexpected token 'P', "Protein 46"... is not valid JSON
+    at JSON.parse (<anonymous>)
+    at /home/mosab/projects/ibnexp2/backend/dist/routes/meals.js:36:35
+    at Array.map (<anonymous>)
+    at /home/mosab/projects/ibnexp2/backend/dist/routes/meals.js:30:39
+    at Layer.handle [as handle_request] (/home/mosab/projects/ibnexp2/backend/node_modules/express/lib/router/layer.js:95:5)
+    at next (/home/mosab/projects/ibnexp2/backend/node_modules/express/lib/router/route.js:149:13)
+    at Route.dispatch (/home/mosab/projects/ibnexp2/backend/node_modules/express/lib/router/route.js:119:3)
+    at Layer.handle [as handle_request] (/home/mosab/projects/ibnexp2/backend/node_modules/express/lib/router/layer.js:95:5)
+    at /home/mosab/projects/ibnexp2/backend/node_modules/express/lib/router/index.js:284:15
+    at Function.process_params (/home/mosab/projects/ibnexp2/backend/node_modules/express/lib/router/index.js:346:12)
+Failed to parse nutritional_facts_en for meal ff0161d6-e40b-4e5d-9152-e614d01621f9 SyntaxError: Unexpected token 'C', " Calories 5"... is not valid JSON
+    at JSON.parse (<anonymous>)
+    at /home/mosab/projects/ibnexp2/backend/dist/routes/meals.js:36:35
+    at Array.map (<anonymous>)
+    at /home/mosab/projects/ibnexp2/backend/dist/routes/meals.js:30:39
+    at Layer.handle [as handle_request] (/home/mosab/projects/ibnexp2/backend/node_modules/express/lib/router/layer.js:95:5)
+    at next (/home/mosab/projects/ibnexp2/backend/node_modules/express/lib/router/route.js:149:13)
+    at Route.dispatch (/home/mosab/projects/ibnexp2/backend/node_modules/express/lib/router/route.js:119:3)
+    at Layer.handle [as handle_request] (/home/mosab/projects/ibnexp2/backend/node_modules/express/lib/router/layer.js:95:5)
+    at /home/mosab/projects/ibnexp2/backend/node_modules/express/lib/router/index.js:284:15
+    at Function.process_params (/home/mosab/projects/ibnexp2/backend/node_modules/express/lib/router/index.js:346:12)
+Failed to parse nutritional_facts_en for meal cdb4e667-db82-4604-a089-6dd004001006 SyntaxError: Unexpected token 'C', "Calories 6"... is not valid JSON
+    at JSON.parse (<anonymous>)
+    at /home/mosab/projects/ibnexp2/backend/dist/routes/meals.js:36:35
+    at Array.map (<anonymous>)
+    at /home/mosab/projects/ibnexp2/backend/dist/routes/meals.js:30:39
+    at Layer.handle [as handle_request] (/home/mosab/projects/ibnexp2/backend/node_modules/express/lib/router/layer.js:95:5)
+    at next (/home/mosab/projects/ibnexp2/backend/node_modules/express/lib/router/route.js:149:13)
+    at Route.dispatch (/home/mosab/projects/ibnexp2/backend/node_modules/express/lib/router/route.js:119:3)
+    at Layer.handle [as handle_request] (/home/mosab/projects/ibnexp2/backend/node_modules/express/lib/router/layer.js:95:5)
+    at /home/mosab/projects/ibnexp2/backend/node_modules/express/lib/router/index.js:284:15
+    at Function.process_params (/home/mosab/projects/ibnexp2/backend/node_modules/express/lib/router/index.js:346:12)
+Failed to parse nutritional_facts_en for meal ac41d3c8-fa85-41bd-86fb-df9d2f7cee3d SyntaxError: Unexpected token 'C', "Calories 1"... is not valid JSON
+    at JSON.parse (<anonymous>)
+    at /home/mosab/projects/ibnexp2/backend/dist/routes/meals.js:36:35
+    at Array.map (<anonymous>)
+    at /home/mosab/projects/ibnexp2/backend/dist/routes/meals.js:30:39
+    at Layer.handle [as handle_request] (/home/mosab/projects/ibnexp2/backend/node_modules/express/lib/router/layer.js:95:5)
+    at next (/home/mosab/projects/ibnexp2/backend/node_modules/express/lib/router/route.js:149:13)
+    at Route.dispatch (/home/mosab/projects/ibnexp2/backend/node_modules/express/lib/router/route.js:119:3)
+    at Layer.handle [as handle_request] (/home/mosab/projects/ibnexp2/backend/node_modules/express/lib/router/layer.js:95:5)
+    at /home/mosab/projects/ibnexp2/backend/node_modules/express/lib/router/index.js:284:15
+    at Function.process_params (/home/mosab/projects/ibnexp2/backend/node_modules/express/lib/router/index.js:346:12)
+Failed to parse nutritional_facts_en for meal edad9440-6381-42b3-a167-4ffbe80697c7 SyntaxError: Unexpected token 'C', "Calories 4"... is not valid JSON
+    at JSON.parse (<anonymous>)
+    at /home/mosab/projects/ibnexp2/backend/dist/routes/meals.js:36:35
+    at Array.map (<anonymous>)
+    at /home/mosab/projects/ibnexp2/backend/dist/routes/meals.js:30:39
+    at Layer.handle [as handle_request] (/home/mosab/projects/ibnexp2/backend/node_modules/express/lib/router/layer.js:95:5)
+    at next (/home/mosab/projects/ibnexp2/backend/node_modules/express/lib/router/route.js:149:13)
+    at Route.dispatch (/home/mosab/projects/ibnexp2/backend/node_modules/express/lib/router/route.js:119:3)
+    at Layer.handle [as handle_request] (/home/mosab/projects/ibnexp2/backend/node_modules/express/lib/router/layer.js:95:5)
+    at /home/mosab/projects/ibnexp2/backend/node_modules/express/lib/router/index.js:284:15
+    at Function.process_params (/home/mosab/projects/ibnexp2/backend/node_modules/express/lib/router/index.js:346:12)
+Failed to parse nutritional_facts_en for meal 77dce174-24a1-4694-ba48-fab31d5b215e SyntaxError: Unexpected token 'C', "Calories 1"... is not valid JSON
+    at JSON.parse (<anonymous>)
+    at /home/mosab/projects/ibnexp2/backend/dist/routes/meals.js:36:35
+    at Array.map (<anonymous>)
+    at /home/mosab/projects/ibnexp2/backend/dist/routes/meals.js:30:39
+    at Layer.handle [as handle_request] (/home/mosab/projects/ibnexp2/backend/node_modules/express/lib/router/layer.js:95:5)
+    at next (/home/mosab/projects/ibnexp2/backend/node_modules/express/lib/router/route.js:149:13)
+    at Route.dispatch (/home/mosab/projects/ibnexp2/backend/node_modules/express/lib/router/route.js:119:3)
+    at Layer.handle [as handle_request] (/home/mosab/projects/ibnexp2/backend/node_modules/express/lib/router/layer.js:95:5)
+    at /home/mosab/projects/ibnexp2/backend/node_modules/express/lib/router/index.js:284:15
+    at Function.process_params (/home/mosab/projects/ibnexp2/backend/node_modules/express/lib/router/index.js:346:12)
+Failed to parse nutritional_facts_en for meal a468bf71-92e4-45b5-a49f-de836cd2aa50 SyntaxError: Unexpected token 'C', "Calories 1"... is not valid JSON
+    at JSON.parse (<anonymous>)
+    at /home/mosab/projects/ibnexp2/backend/dist/routes/meals.js:36:35
+    at Array.map (<anonymous>)
+    at /home/mosab/projects/ibnexp2/backend/dist/routes/meals.js:30:39
+    at Layer.handle [as handle_request] (/home/mosab/projects/ibnexp2/backend/node_modules/express/lib/router/layer.js:95:5)
+    at next (/home/mosab/projects/ibnexp2/backend/node_modules/express/lib/router/route.js:149:13)
+    at Route.dispatch (/home/mosab/projects/ibnexp2/backend/node_modules/express/lib/router/route.js:119:3)
+    at Layer.handle [as handle_request] (/home/mosab/projects/ibnexp2/backend/node_modules/express/lib/router/layer.js:95:5)
+    at /home/mosab/projects/ibnexp2/backend/node_modules/express/lib/router/index.js:284:15
+    at Function.process_params (/home/mosab/projects/ibnexp2/backend/node_modules/express/lib/router/index.js:346:12)
+Failed to parse nutritional_facts_en for meal 8c560f2e-e70b-41ec-a5da-e1c364ecf4cb SyntaxError: Unexpected token 'C', "Calories 1"... is not valid JSON
+    at JSON.parse (<anonymous>)
+    at /home/mosab/projects/ibnexp2/backend/dist/routes/meals.js:36:35
+    at Array.map (<anonymous>)
+    at /home/mosab/projects/ibnexp2/backend/dist/routes/meals.js:30:39
+    at Layer.handle [as handle_request] (/home/mosab/projects/ibnexp2/backend/node_modules/express/lib/router/layer.js:95:5)
+    at next (/home/mosab/projects/ibnexp2/backend/node_modules/express/lib/router/route.js:149:13)
+    at Route.dispatch (/home/mosab/projects/ibnexp2/backend/node_modules/express/lib/router/route.js:119:3)
+    at Layer.handle [as handle_request] (/home/mosab/projects/ibnexp2/backend/node_modules/express/lib/router/layer.js:95:5)
+    at /home/mosab/projects/ibnexp2/backend/node_modules/express/lib/router/index.js:284:15
+    at Function.process_params (/home/mosab/projects/ibnexp2/backend/node_modules/express/lib/router/index.js:346:12)
+Failed to parse nutritional_facts_en for meal c17782af-b55d-4e3c-bced-79b4694d2c43 SyntaxError: Unexpected token 'C', "Calories 5"... is not valid JSON
+    at JSON.parse (<anonymous>)
+    at /home/mosab/projects/ibnexp2/backend/dist/routes/meals.js:36:35
+    at Array.map (<anonymous>)
+    at /home/mosab/projects/ibnexp2/backend/dist/routes/meals.js:30:39
+    at Layer.handle [as handle_request] (/home/mosab/projects/ibnexp2/backend/node_modules/express/lib/router/layer.js:95:5)
+    at next (/home/mosab/projects/ibnexp2/backend/node_modules/express/lib/router/route.js:149:13)
+    at Route.dispatch (/home/mosab/projects/ibnexp2/backend/node_modules/express/lib/router/route.js:119:3)
+    at Layer.handle [as handle_request] (/home/mosab/projects/ibnexp2/backend/node_modules/express/lib/router/layer.js:95:5)
+    at /home/mosab/projects/ibnexp2/backend/node_modules/express/lib/router/index.js:284:15
+    at Function.process_params (/home/mosab/projects/ibnexp2/backend/node_modules/express/lib/router/index.js:346:12)
+Failed to parse nutritional_facts_en for meal d90d5f36-b45c-4650-98dd-50f2271e5521 SyntaxError: Unexpected token 'P', "Protein 46"... is not valid JSON
+    at JSON.parse (<anonymous>)
+    at /home/mosab/projects/ibnexp2/backend/dist/routes/meals.js:36:35
+    at Array.map (<anonymous>)
+    at /home/mosab/projects/ibnexp2/backend/dist/routes/meals.js:30:39
+    at Layer.handle [as handle_request] (/home/mosab/projects/ibnexp2/backend/node_modules/express/lib/router/layer.js:95:5)
+    at next (/home/mosab/projects/ibnexp2/backend/node_modules/express/lib/router/route.js:149:13)
+    at Route.dispatch (/home/mosab/projects/ibnexp2/backend/node_modules/express/lib/router/route.js:119:3)
+    at Layer.handle [as handle_request] (/home/mosab/projects/ibnexp2/backend/node_modules/express/lib/router/layer.js:95:5)
+    at /home/mosab/projects/ibnexp2/backend/node_modules/express/lib/router/index.js:284:15
+    at Function.process_params (/home/mosab/projects/ibnexp2/backend/node_modules/express/lib/router/index.js:346:12)
+Failed to parse nutritional_facts_en for meal 9f4571ae-bda7-4914-8cc6-09134d9249d0 SyntaxError: Unexpected token 'C', " Calories 5"... is not valid JSON
+    at JSON.parse (<anonymous>)
+    at /home/mosab/projects/ibnexp2/backend/dist/routes/meals.js:36:35
+    at Array.map (<anonymous>)
+    at /home/mosab/projects/ibnexp2/backend/dist/routes/meals.js:30:39
+    at Layer.handle [as handle_request] (/home/mosab/projects/ibnexp2/backend/node_modules/express/lib/router/layer.js:95:5)
+    at next (/home/mosab/projects/ibnexp2/backend/node_modules/express/lib/router/route.js:149:13)
+    at Route.dispatch (/home/mosab/projects/ibnexp2/backend/node_modules/express/lib/router/route.js:119:3)
+    at Layer.handle [as handle_request] (/home/mosab/projects/ibnexp2/backend/node_modules/express/lib/router/layer.js:95:5)
+    at /home/mosab/projects/ibnexp2/backend/node_modules/express/lib/router/index.js:284:15
+    at Function.process_params (/home/mosab/projects/ibnexp2/backend/node_modules/express/lib/router/index.js:346:12)
+Failed to parse nutritional_facts_en for meal ed7e6221-5ce5-462e-963d-4b8d41d77c2c SyntaxError: Unexpected token 'C', "Calories 6"... is not valid JSON
+    at JSON.parse (<anonymous>)
+    at /home/mosab/projects/ibnexp2/backend/dist/routes/meals.js:36:35
+    at Array.map (<anonymous>)
+    at /home/mosab/projects/ibnexp2/backend/dist/routes/meals.js:30:39
+    at Layer.handle [as handle_request] (/home/mosab/projects/ibnexp2/backend/node_modules/express/lib/router/layer.js:95:5)
+    at next (/home/mosab/projects/ibnexp2/backend/node_modules/express/lib/router/route.js:149:13)
+    at Route.dispatch (/home/mosab/projects/ibnexp2/backend/node_modules/express/lib/router/route.js:119:3)
+    at Layer.handle [as handle_request] (/home/mosab/projects/ibnexp2/backend/node_modules/express/lib/router/layer.js:95:5)
+    at /home/mosab/projects/ibnexp2/backend/node_modules/express/lib/router/index.js:284:15
+    at Function.process_params (/home/mosab/projects/ibnexp2/backend/node_modules/express/lib/router/index.js:346:12)
+Failed to parse nutritional_facts_en for meal ade29086-6c83-469d-99c2-bcfa877a8559 SyntaxError: Unexpected token 'C', "Calories 1"... is not valid JSON
+    at JSON.parse (<anonymous>)
+    at /home/mosab/projects/ibnexp2/backend/dist/routes/meals.js:36:35
+    at Array.map (<anonymous>)
+    at /home/mosab/projects/ibnexp2/backend/dist/routes/meals.js:30:39
+    at Layer.handle [as handle_request] (/home/mosab/projects/ibnexp2/backend/node_modules/express/lib/router/layer.js:95:5)
+    at next (/home/mosab/projects/ibnexp2/backend/node_modules/express/lib/router/route.js:149:13)
+    at Route.dispatch (/home/mosab/projects/ibnexp2/backend/node_modules/express/lib/router/route.js:119:3)
+    at Layer.handle [as handle_request] (/home/mosab/projects/ibnexp2/backend/node_modules/express/lib/router/layer.js:95:5)
+    at /home/mosab/projects/ibnexp2/backend/node_modules/express/lib/router/index.js:284:15
+    at Function.process_params (/home/mosab/projects/ibnexp2/backend/node_modules/express/lib/router/index.js:346:12)
+Failed to parse nutritional_facts_en for meal b8fe7021-4eda-4120-abca-35f3840fc426 SyntaxError: Unexpected token 'C', "Calories 4"... is not valid JSON
+    at JSON.parse (<anonymous>)
+    at /home/mosab/projects/ibnexp2/backend/dist/routes/meals.js:36:35
+    at Array.map (<anonymous>)
+    at /home/mosab/projects/ibnexp2/backend/dist/routes/meals.js:30:39
+    at Layer.handle [as handle_request] (/home/mosab/projects/ibnexp2/backend/node_modules/express/lib/router/layer.js:95:5)
+    at next (/home/mosab/projects/ibnexp2/backend/node_modules/express/lib/router/route.js:149:13)
+    at Route.dispatch (/home/mosab/projects/ibnexp2/backend/node_modules/express/lib/router/route.js:119:3)
+    at Layer.handle [as handle_request] (/home/mosab/projects/ibnexp2/backend/node_modules/express/lib/router/layer.js:95:5)
+    at /home/mosab/projects/ibnexp2/backend/node_modules/express/lib/router/index.js:284:15
+    at Function.process_params (/home/mosab/projects/ibnexp2/backend/node_modules/express/lib/router/index.js:346:12)
+authenticateToken: token found in cookie
+authenticateToken: decoded token userId= user-006
+authenticateToken: user lookup result= true
+Failed to parse nutritional_facts_en for meal 2e00e916-ae53-4815-99c1-995bee541b3f SyntaxError: Unexpected token 'C', "Calories 1"... is not valid JSON
+    at JSON.parse (<anonymous>)
+    at /home/mosab/projects/ibnexp2/backend/dist/routes/meals.js:36:35
+    at Array.map (<anonymous>)
+    at /home/mosab/projects/ibnexp2/backend/dist/routes/meals.js:30:39
+    at Layer.handle [as handle_request] (/home/mosab/projects/ibnexp2/backend/node_modules/express/lib/router/layer.js:95:5)
+    at next (/home/mosab/projects/ibnexp2/backend/node_modules/express/lib/router/route.js:149:13)
+    at Route.dispatch (/home/mosab/projects/ibnexp2/backend/node_modules/express/lib/router/route.js:119:3)
+    at Layer.handle [as handle_request] (/home/mosab/projects/ibnexp2/backend/node_modules/express/lib/router/layer.js:95:5)
+    at /home/mosab/projects/ibnexp2/backend/node_modules/express/lib/router/index.js:284:15
+    at Function.process_params (/home/mosab/projects/ibnexp2/backend/node_modules/express/lib/router/index.js:346:12)
+Failed to parse nutritional_facts_en for meal 0a8e474b-0c3c-4be6-bbb7-46b5755c188b SyntaxError: Unexpected token 'C', "Calories 1"... is not valid JSON
+    at JSON.parse (<anonymous>)
+    at /home/mosab/projects/ibnexp2/backend/dist/routes/meals.js:36:35
+    at Array.map (<anonymous>)
+    at /home/mosab/projects/ibnexp2/backend/dist/routes/meals.js:30:39
+    at Layer.handle [as handle_request] (/home/mosab/projects/ibnexp2/backend/node_modules/express/lib/router/layer.js:95:5)
+    at next (/home/mosab/projects/ibnexp2/backend/node_modules/express/lib/router/route.js:149:13)
+    at Route.dispatch (/home/mosab/projects/ibnexp2/backend/node_modules/express/lib/router/route.js:119:3)
+    at Layer.handle [as handle_request] (/home/mosab/projects/ibnexp2/backend/node_modules/express/lib/router/layer.js:95:5)
+    at /home/mosab/projects/ibnexp2/backend/node_modules/express/lib/router/index.js:284:15
+    at Function.process_params (/home/mosab/projects/ibnexp2/backend/node_modules/express/lib/router/index.js:346:12)
+Failed to parse nutritional_facts_en for meal 3a2cab4f-61ef-43d0-a33a-e117d86b4c84 SyntaxError: Unexpected token 'C', "Calories 1"... is not valid JSON
+    at JSON.parse (<anonymous>)
+    at /home/mosab/projects/ibnexp2/backend/dist/routes/meals.js:36:35
+    at Array.map (<anonymous>)
+    at /home/mosab/projects/ibnexp2/backend/dist/routes/meals.js:30:39
+    at Layer.handle [as handle_request] (/home/mosab/projects/ibnexp2/backend/node_modules/express/lib/router/layer.js:95:5)
+    at next (/home/mosab/projects/ibnexp2/backend/node_modules/express/lib/router/route.js:149:13)
+    at Route.dispatch (/home/mosab/projects/ibnexp2/backend/node_modules/express/lib/router/route.js:119:3)
+    at Layer.handle [as handle_request] (/home/mosab/projects/ibnexp2/backend/node_modules/express/lib/router/layer.js:95:5)
+    at /home/mosab/projects/ibnexp2/backend/node_modules/express/lib/router/index.js:284:15
+    at Function.process_params (/home/mosab/projects/ibnexp2/backend/node_modules/express/lib/router/index.js:346:12)
+Failed to parse nutritional_facts_en for meal c98f8a6c-c128-4964-813d-bee192c0edba SyntaxError: Unexpected token 'C', "Calories 5"... is not valid JSON
+    at JSON.parse (<anonymous>)
+    at /home/mosab/projects/ibnexp2/backend/dist/routes/meals.js:36:35
+    at Array.map (<anonymous>)
+    at /home/mosab/projects/ibnexp2/backend/dist/routes/meals.js:30:39
+    at Layer.handle [as handle_request] (/home/mosab/projects/ibnexp2/backend/node_modules/express/lib/router/layer.js:95:5)
+    at next (/home/mosab/projects/ibnexp2/backend/node_modules/express/lib/router/route.js:149:13)
+    at Route.dispatch (/home/mosab/projects/ibnexp2/backend/node_modules/express/lib/router/route.js:119:3)
+    at Layer.handle [as handle_request] (/home/mosab/projects/ibnexp2/backend/node_modules/express/lib/router/layer.js:95:5)
+    at /home/mosab/projects/ibnexp2/backend/node_modules/express/lib/router/index.js:284:15
+    at Function.process_params (/home/mosab/projects/ibnexp2/backend/node_modules/express/lib/router/index.js:346:12)
+Failed to parse nutritional_facts_en for meal 1ca53568-05c5-4951-8393-4e39527883db SyntaxError: Unexpected token 'P', "Protein 46"... is not valid JSON
+    at JSON.parse (<anonymous>)
+    at /home/mosab/projects/ibnexp2/backend/dist/routes/meals.js:36:35
+    at Array.map (<anonymous>)
+    at /home/mosab/projects/ibnexp2/backend/dist/routes/meals.js:30:39
+    at Layer.handle [as handle_request] (/home/mosab/projects/ibnexp2/backend/node_modules/express/lib/router/layer.js:95:5)
+    at next (/home/mosab/projects/ibnexp2/backend/node_modules/express/lib/router/route.js:149:13)
+    at Route.dispatch (/home/mosab/projects/ibnexp2/backend/node_modules/express/lib/router/route.js:119:3)
+    at Layer.handle [as handle_request] (/home/mosab/projects/ibnexp2/backend/node_modules/express/lib/router/layer.js:95:5)
+    at /home/mosab/projects/ibnexp2/backend/node_modules/express/lib/router/index.js:284:15
+    at Function.process_params (/home/mosab/projects/ibnexp2/backend/node_modules/express/lib/router/index.js:346:12)
+Failed to parse nutritional_facts_en for meal ff0161d6-e40b-4e5d-9152-e614d01621f9 SyntaxError: Unexpected token 'C', " Calories 5"... is not valid JSON
+    at JSON.parse (<anonymous>)
+    at /home/mosab/projects/ibnexp2/backend/dist/routes/meals.js:36:35
+    at Array.map (<anonymous>)
+    at /home/mosab/projects/ibnexp2/backend/dist/routes/meals.js:30:39
+    at Layer.handle [as handle_request] (/home/mosab/projects/ibnexp2/backend/node_modules/express/lib/router/layer.js:95:5)
+    at next (/home/mosab/projects/ibnexp2/backend/node_modules/express/lib/router/route.js:149:13)
+    at Route.dispatch (/home/mosab/projects/ibnexp2/backend/node_modules/express/lib/router/route.js:119:3)
+    at Layer.handle [as handle_request] (/home/mosab/projects/ibnexp2/backend/node_modules/express/lib/router/layer.js:95:5)
+    at /home/mosab/projects/ibnexp2/backend/node_modules/express/lib/router/index.js:284:15
+    at Function.process_params (/home/mosab/projects/ibnexp2/backend/node_modules/express/lib/router/index.js:346:12)
+Failed to parse nutritional_facts_en for meal cdb4e667-db82-4604-a089-6dd004001006 SyntaxError: Unexpected token 'C', "Calories 6"... is not valid JSON
+    at JSON.parse (<anonymous>)
+    at /home/mosab/projects/ibnexp2/backend/dist/routes/meals.js:36:35
+    at Array.map (<anonymous>)
+    at /home/mosab/projects/ibnexp2/backend/dist/routes/meals.js:30:39
+    at Layer.handle [as handle_request] (/home/mosab/projects/ibnexp2/backend/node_modules/express/lib/router/layer.js:95:5)
+    at next (/home/mosab/projects/ibnexp2/backend/node_modules/express/lib/router/route.js:149:13)
+    at Route.dispatch (/home/mosab/projects/ibnexp2/backend/node_modules/express/lib/router/route.js:119:3)
+    at Layer.handle [as handle_request] (/home/mosab/projects/ibnexp2/backend/node_modules/express/lib/router/layer.js:95:5)
+    at /home/mosab/projects/ibnexp2/backend/node_modules/express/lib/router/index.js:284:15
+    at Function.process_params (/home/mosab/projects/ibnexp2/backend/node_modules/express/lib/router/index.js:346:12)
+Failed to parse nutritional_facts_en for meal ac41d3c8-fa85-41bd-86fb-df9d2f7cee3d SyntaxError: Unexpected token 'C', "Calories 1"... is not valid JSON
+    at JSON.parse (<anonymous>)
+    at /home/mosab/projects/ibnexp2/backend/dist/routes/meals.js:36:35
+    at Array.map (<anonymous>)
+    at /home/mosab/projects/ibnexp2/backend/dist/routes/meals.js:30:39
+    at Layer.handle [as handle_request] (/home/mosab/projects/ibnexp2/backend/node_modules/express/lib/router/layer.js:95:5)
+    at next (/home/mosab/projects/ibnexp2/backend/node_modules/express/lib/router/route.js:149:13)
+    at Route.dispatch (/home/mosab/projects/ibnexp2/backend/node_modules/express/lib/router/route.js:119:3)
+    at Layer.handle [as handle_request] (/home/mosab/projects/ibnexp2/backend/node_modules/express/lib/router/layer.js:95:5)
+    at /home/mosab/projects/ibnexp2/backend/node_modules/express/lib/router/index.js:284:15
+    at Function.process_params (/home/mosab/projects/ibnexp2/backend/node_modules/express/lib/router/index.js:346:12)
+Failed to parse nutritional_facts_en for meal edad9440-6381-42b3-a167-4ffbe80697c7 SyntaxError: Unexpected token 'C', "Calories 4"... is not valid JSON
+    at JSON.parse (<anonymous>)
+    at /home/mosab/projects/ibnexp2/backend/dist/routes/meals.js:36:35
+    at Array.map (<anonymous>)
+    at /home/mosab/projects/ibnexp2/backend/dist/routes/meals.js:30:39
+    at Layer.handle [as handle_request] (/home/mosab/projects/ibnexp2/backend/node_modules/express/lib/router/layer.js:95:5)
+    at next (/home/mosab/projects/ibnexp2/backend/node_modules/express/lib/router/route.js:149:13)
+    at Route.dispatch (/home/mosab/projects/ibnexp2/backend/node_modules/express/lib/router/route.js:119:3)
+    at Layer.handle [as handle_request] (/home/mosab/projects/ibnexp2/backend/node_modules/express/lib/router/layer.js:95:5)
+    at /home/mosab/projects/ibnexp2/backend/node_modules/express/lib/router/index.js:284:15
+    at Function.process_params (/home/mosab/projects/ibnexp2/backend/node_modules/express/lib/router/index.js:346:12)
+Failed to parse nutritional_facts_en for meal 77dce174-24a1-4694-ba48-fab31d5b215e SyntaxError: Unexpected token 'C', "Calories 1"... is not valid JSON
+    at JSON.parse (<anonymous>)
+    at /home/mosab/projects/ibnexp2/backend/dist/routes/meals.js:36:35
+    at Array.map (<anonymous>)
+    at /home/mosab/projects/ibnexp2/backend/dist/routes/meals.js:30:39
+    at Layer.handle [as handle_request] (/home/mosab/projects/ibnexp2/backend/node_modules/express/lib/router/layer.js:95:5)
+    at next (/home/mosab/projects/ibnexp2/backend/node_modules/express/lib/router/route.js:149:13)
+    at Route.dispatch (/home/mosab/projects/ibnexp2/backend/node_modules/express/lib/router/route.js:119:3)
+    at Layer.handle [as handle_request] (/home/mosab/projects/ibnexp2/backend/node_modules/express/lib/router/layer.js:95:5)
+    at /home/mosab/projects/ibnexp2/backend/node_modules/express/lib/router/index.js:284:15
+    at Function.process_params (/home/mosab/projects/ibnexp2/backend/node_modules/express/lib/router/index.js:346:12)
+Failed to parse nutritional_facts_en for meal a468bf71-92e4-45b5-a49f-de836cd2aa50 SyntaxError: Unexpected token 'C', "Calories 1"... is not valid JSON
+    at JSON.parse (<anonymous>)
+    at /home/mosab/projects/ibnexp2/backend/dist/routes/meals.js:36:35
+    at Array.map (<anonymous>)
+    at /home/mosab/projects/ibnexp2/backend/dist/routes/meals.js:30:39
+    at Layer.handle [as handle_request] (/home/mosab/projects/ibnexp2/backend/node_modules/express/lib/router/layer.js:95:5)
+    at next (/home/mosab/projects/ibnexp2/backend/node_modules/express/lib/router/route.js:149:13)
+    at Route.dispatch (/home/mosab/projects/ibnexp2/backend/node_modules/express/lib/router/route.js:119:3)
+    at Layer.handle [as handle_request] (/home/mosab/projects/ibnexp2/backend/node_modules/express/lib/router/layer.js:95:5)
+    at /home/mosab/projects/ibnexp2/backend/node_modules/express/lib/router/index.js:284:15
+    at Function.process_params (/home/mosab/projects/ibnexp2/backend/node_modules/express/lib/router/index.js:346:12)
+Failed to parse nutritional_facts_en for meal 8c560f2e-e70b-41ec-a5da-e1c364ecf4cb SyntaxError: Unexpected token 'C', "Calories 1"... is not valid JSON
+    at JSON.parse (<anonymous>)
+    at /home/mosab/projects/ibnexp2/backend/dist/routes/meals.js:36:35
+    at Array.map (<anonymous>)
+    at /home/mosab/projects/ibnexp2/backend/dist/routes/meals.js:30:39
+    at Layer.handle [as handle_request] (/home/mosab/projects/ibnexp2/backend/node_modules/express/lib/router/layer.js:95:5)
+    at next (/home/mosab/projects/ibnexp2/backend/node_modules/express/lib/router/route.js:149:13)
+    at Route.dispatch (/home/mosab/projects/ibnexp2/backend/node_modules/express/lib/router/route.js:119:3)
+    at Layer.handle [as handle_request] (/home/mosab/projects/ibnexp2/backend/node_modules/express/lib/router/layer.js:95:5)
+    at /home/mosab/projects/ibnexp2/backend/node_modules/express/lib/router/index.js:284:15
+    at Function.process_params (/home/mosab/projects/ibnexp2/backend/node_modules/express/lib/router/index.js:346:12)
+Failed to parse nutritional_facts_en for meal c17782af-b55d-4e3c-bced-79b4694d2c43 SyntaxError: Unexpected token 'C', "Calories 5"... is not valid JSON
+    at JSON.parse (<anonymous>)
+    at /home/mosab/projects/ibnexp2/backend/dist/routes/meals.js:36:35
+    at Array.map (<anonymous>)
+    at /home/mosab/projects/ibnexp2/backend/dist/routes/meals.js:30:39
+    at Layer.handle [as handle_request] (/home/mosab/projects/ibnexp2/backend/node_modules/express/lib/router/layer.js:95:5)
+    at next (/home/mosab/projects/ibnexp2/backend/node_modules/express/lib/router/route.js:149:13)
+    at Route.dispatch (/home/mosab/projects/ibnexp2/backend/node_modules/express/lib/router/route.js:119:3)
+    at Layer.handle [as handle_request] (/home/mosab/projects/ibnexp2/backend/node_modules/express/lib/router/layer.js:95:5)
+    at /home/mosab/projects/ibnexp2/backend/node_modules/express/lib/router/index.js:284:15
+    at Function.process_params (/home/mosab/projects/ibnexp2/backend/node_modules/express/lib/router/index.js:346:12)
+Failed to parse nutritional_facts_en for meal d90d5f36-b45c-4650-98dd-50f2271e5521 SyntaxError: Unexpected token 'P', "Protein 46"... is not valid JSON
+    at JSON.parse (<anonymous>)
+    at /home/mosab/projects/ibnexp2/backend/dist/routes/meals.js:36:35
+    at Array.map (<anonymous>)
+    at /home/mosab/projects/ibnexp2/backend/dist/routes/meals.js:30:39
+    at Layer.handle [as handle_request] (/home/mosab/projects/ibnexp2/backend/node_modules/express/lib/router/layer.js:95:5)
+    at next (/home/mosab/projects/ibnexp2/backend/node_modules/express/lib/router/route.js:149:13)
+    at Route.dispatch (/home/mosab/projects/ibnexp2/backend/node_modules/express/lib/router/route.js:119:3)
+    at Layer.handle [as handle_request] (/home/mosab/projects/ibnexp2/backend/node_modules/express/lib/router/layer.js:95:5)
+    at /home/mosab/projects/ibnexp2/backend/node_modules/express/lib/router/index.js:284:15
+    at Function.process_params (/home/mosab/projects/ibnexp2/backend/node_modules/express/lib/router/index.js:346:12)
+Failed to parse nutritional_facts_en for meal 9f4571ae-bda7-4914-8cc6-09134d9249d0 SyntaxError: Unexpected token 'C', " Calories 5"... is not valid JSON
+    at JSON.parse (<anonymous>)
+    at /home/mosab/projects/ibnexp2/backend/dist/routes/meals.js:36:35
+    at Array.map (<anonymous>)
+    at /home/mosab/projects/ibnexp2/backend/dist/routes/meals.js:30:39
+    at Layer.handle [as handle_request] (/home/mosab/projects/ibnexp2/backend/node_modules/express/lib/router/layer.js:95:5)
+    at next (/home/mosab/projects/ibnexp2/backend/node_modules/express/lib/router/route.js:149:13)
+    at Route.dispatch (/home/mosab/projects/ibnexp2/backend/node_modules/express/lib/router/route.js:119:3)
+    at Layer.handle [as handle_request] (/home/mosab/projects/ibnexp2/backend/node_modules/express/lib/router/layer.js:95:5)
+    at /home/mosab/projects/ibnexp2/backend/node_modules/express/lib/router/index.js:284:15
+    at Function.process_params (/home/mosab/projects/ibnexp2/backend/node_modules/express/lib/router/index.js:346:12)
+Failed to parse nutritional_facts_en for meal ed7e6221-5ce5-462e-963d-4b8d41d77c2c SyntaxError: Unexpected token 'C', "Calories 6"... is not valid JSON
+    at JSON.parse (<anonymous>)
+    at /home/mosab/projects/ibnexp2/backend/dist/routes/meals.js:36:35
+    at Array.map (<anonymous>)
+    at /home/mosab/projects/ibnexp2/backend/dist/routes/meals.js:30:39
+    at Layer.handle [as handle_request] (/home/mosab/projects/ibnexp2/backend/node_modules/express/lib/router/layer.js:95:5)
+    at next (/home/mosab/projects/ibnexp2/backend/node_modules/express/lib/router/route.js:149:13)
+    at Route.dispatch (/home/mosab/projects/ibnexp2/backend/node_modules/express/lib/router/route.js:119:3)
+    at Layer.handle [as handle_request] (/home/mosab/projects/ibnexp2/backend/node_modules/express/lib/router/layer.js:95:5)
+    at /home/mosab/projects/ibnexp2/backend/node_modules/express/lib/router/index.js:284:15
+    at Function.process_params (/home/mosab/projects/ibnexp2/backend/node_modules/express/lib/router/index.js:346:12)
+Failed to parse nutritional_facts_en for meal ade29086-6c83-469d-99c2-bcfa877a8559 SyntaxError: Unexpected token 'C', "Calories 1"... is not valid JSON
+    at JSON.parse (<anonymous>)
+    at /home/mosab/projects/ibnexp2/backend/dist/routes/meals.js:36:35
+    at Array.map (<anonymous>)
+    at /home/mosab/projects/ibnexp2/backend/dist/routes/meals.js:30:39
+    at Layer.handle [as handle_request] (/home/mosab/projects/ibnexp2/backend/node_modules/express/lib/router/layer.js:95:5)
+    at next (/home/mosab/projects/ibnexp2/backend/node_modules/express/lib/router/route.js:149:13)
+    at Route.dispatch (/home/mosab/projects/ibnexp2/backend/node_modules/express/lib/router/route.js:119:3)
+    at Layer.handle [as handle_request] (/home/mosab/projects/ibnexp2/backend/node_modules/express/lib/router/layer.js:95:5)
+    at /home/mosab/projects/ibnexp2/backend/node_modules/express/lib/router/index.js:284:15
+    at Function.process_params (/home/mosab/projects/ibnexp2/backend/node_modules/express/lib/router/index.js:346:12)
+Failed to parse nutritional_facts_en for meal b8fe7021-4eda-4120-abca-35f3840fc426 SyntaxError: Unexpected token 'C', "Calories 4"... is not valid JSON
+    at JSON.parse (<anonymous>)
+    at /home/mosab/projects/ibnexp2/backend/dist/routes/meals.js:36:35
+    at Array.map (<anonymous>)
+    at /home/mosab/projects/ibnexp2/backend/dist/routes/meals.js:30:39
+    at Layer.handle [as handle_request] (/home/mosab/projects/ibnexp2/backend/node_modules/express/lib/router/layer.js:95:5)
+    at next (/home/mosab/projects/ibnexp2/backend/node_modules/express/lib/router/route.js:149:13)
+    at Route.dispatch (/home/mosab/projects/ibnexp2/backend/node_modules/express/lib/router/route.js:119:3)
+    at Layer.handle [as handle_request] (/home/mosab/projects/ibnexp2/backend/node_modules/express/lib/router/layer.js:95:5)
+    at /home/mosab/projects/ibnexp2/backend/node_modules/express/lib/router/index.js:284:15
+    at Function.process_params (/home/mosab/projects/ibnexp2/backend/node_modules/express/lib/router/index.js:346:12)
+authenticateToken: token found in cookie
+authenticateToken: decoded token userId= user-006
+authenticateToken: user lookup result= true
+Failed to parse nutritional_facts_en for meal 2e00e916-ae53-4815-99c1-995bee541b3f SyntaxError: Unexpected token 'C', "Calories 1"... is not valid JSON
+    at JSON.parse (<anonymous>)
+    at /home/mosab/projects/ibnexp2/backend/dist/routes/meals.js:36:35
+    at Array.map (<anonymous>)
+    at /home/mosab/projects/ibnexp2/backend/dist/routes/meals.js:30:39
+    at Layer.handle [as handle_request] (/home/mosab/projects/ibnexp2/backend/node_modules/express/lib/router/layer.js:95:5)
+    at next (/home/mosab/projects/ibnexp2/backend/node_modules/express/lib/router/route.js:149:13)
+    at Route.dispatch (/home/mosab/projects/ibnexp2/backend/node_modules/express/lib/router/route.js:119:3)
+    at Layer.handle [as handle_request] (/home/mosab/projects/ibnexp2/backend/node_modules/express/lib/router/layer.js:95:5)
+    at /home/mosab/projects/ibnexp2/backend/node_modules/express/lib/router/index.js:284:15
+    at Function.process_params (/home/mosab/projects/ibnexp2/backend/node_modules/express/lib/router/index.js:346:12)
+Failed to parse nutritional_facts_en for meal 0a8e474b-0c3c-4be6-bbb7-46b5755c188b SyntaxError: Unexpected token 'C', "Calories 1"... is not valid JSON
+    at JSON.parse (<anonymous>)
+    at /home/mosab/projects/ibnexp2/backend/dist/routes/meals.js:36:35
+    at Array.map (<anonymous>)
+    at /home/mosab/projects/ibnexp2/backend/dist/routes/meals.js:30:39
+    at Layer.handle [as handle_request] (/home/mosab/projects/ibnexp2/backend/node_modules/express/lib/router/layer.js:95:5)
+    at next (/home/mosab/projects/ibnexp2/backend/node_modules/express/lib/router/route.js:149:13)
+    at Route.dispatch (/home/mosab/projects/ibnexp2/backend/node_modules/express/lib/router/route.js:119:3)
+    at Layer.handle [as handle_request] (/home/mosab/projects/ibnexp2/backend/node_modules/express/lib/router/layer.js:95:5)
+    at /home/mosab/projects/ibnexp2/backend/node_modules/express/lib/router/index.js:284:15
+    at Function.process_params (/home/mosab/projects/ibnexp2/backend/node_modules/express/lib/router/index.js:346:12)
+Failed to parse nutritional_facts_en for meal 3a2cab4f-61ef-43d0-a33a-e117d86b4c84 SyntaxError: Unexpected token 'C', "Calories 1"... is not valid JSON
+    at JSON.parse (<anonymous>)
+    at /home/mosab/projects/ibnexp2/backend/dist/routes/meals.js:36:35
+    at Array.map (<anonymous>)
+    at /home/mosab/projects/ibnexp2/backend/dist/routes/meals.js:30:39
+    at Layer.handle [as handle_request] (/home/mosab/projects/ibnexp2/backend/node_modules/express/lib/router/layer.js:95:5)
+    at next (/home/mosab/projects/ibnexp2/backend/node_modules/express/lib/router/route.js:149:13)
+    at Route.dispatch (/home/mosab/projects/ibnexp2/backend/node_modules/express/lib/router/route.js:119:3)
+    at Layer.handle [as handle_request] (/home/mosab/projects/ibnexp2/backend/node_modules/express/lib/router/layer.js:95:5)
+    at /home/mosab/projects/ibnexp2/backend/node_modules/express/lib/router/index.js:284:15
+    at Function.process_params (/home/mosab/projects/ibnexp2/backend/node_modules/express/lib/router/index.js:346:12)
+Failed to parse nutritional_facts_en for meal c98f8a6c-c128-4964-813d-bee192c0edba SyntaxError: Unexpected token 'C', "Calories 5"... is not valid JSON
+    at JSON.parse (<anonymous>)
+    at /home/mosab/projects/ibnexp2/backend/dist/routes/meals.js:36:35
+    at Array.map (<anonymous>)
+    at /home/mosab/projects/ibnexp2/backend/dist/routes/meals.js:30:39
+    at Layer.handle [as handle_request] (/home/mosab/projects/ibnexp2/backend/node_modules/express/lib/router/layer.js:95:5)
+    at next (/home/mosab/projects/ibnexp2/backend/node_modules/express/lib/router/route.js:149:13)
+    at Route.dispatch (/home/mosab/projects/ibnexp2/backend/node_modules/express/lib/router/route.js:119:3)
+    at Layer.handle [as handle_request] (/home/mosab/projects/ibnexp2/backend/node_modules/express/lib/router/layer.js:95:5)
+    at /home/mosab/projects/ibnexp2/backend/node_modules/express/lib/router/index.js:284:15
+    at Function.process_params (/home/mosab/projects/ibnexp2/backend/node_modules/express/lib/router/index.js:346:12)
+Failed to parse nutritional_facts_en for meal 1ca53568-05c5-4951-8393-4e39527883db SyntaxError: Unexpected token 'P', "Protein 46"... is not valid JSON
+    at JSON.parse (<anonymous>)
+    at /home/mosab/projects/ibnexp2/backend/dist/routes/meals.js:36:35
+    at Array.map (<anonymous>)
+    at /home/mosab/projects/ibnexp2/backend/dist/routes/meals.js:30:39
+    at Layer.handle [as handle_request] (/home/mosab/projects/ibnexp2/backend/node_modules/express/lib/router/layer.js:95:5)
+    at next (/home/mosab/projects/ibnexp2/backend/node_modules/express/lib/router/route.js:149:13)
+    at Route.dispatch (/home/mosab/projects/ibnexp2/backend/node_modules/express/lib/router/route.js:119:3)
+    at Layer.handle [as handle_request] (/home/mosab/projects/ibnexp2/backend/node_modules/express/lib/router/layer.js:95:5)
+    at /home/mosab/projects/ibnexp2/backend/node_modules/express/lib/router/index.js:284:15
+    at Function.process_params (/home/mosab/projects/ibnexp2/backend/node_modules/express/lib/router/index.js:346:12)
+Failed to parse nutritional_facts_en for meal ff0161d6-e40b-4e5d-9152-e614d01621f9 SyntaxError: Unexpected token 'C', " Calories 5"... is not valid JSON
+    at JSON.parse (<anonymous>)
+    at /home/mosab/projects/ibnexp2/backend/dist/routes/meals.js:36:35
+    at Array.map (<anonymous>)
+    at /home/mosab/projects/ibnexp2/backend/dist/routes/meals.js:30:39
+    at Layer.handle [as handle_request] (/home/mosab/projects/ibnexp2/backend/node_modules/express/lib/router/layer.js:95:5)
+    at next (/home/mosab/projects/ibnexp2/backend/node_modules/express/lib/router/route.js:149:13)
+    at Route.dispatch (/home/mosab/projects/ibnexp2/backend/node_modules/express/lib/router/route.js:119:3)
+    at Layer.handle [as handle_request] (/home/mosab/projects/ibnexp2/backend/node_modules/express/lib/router/layer.js:95:5)
+    at /home/mosab/projects/ibnexp2/backend/node_modules/express/lib/router/index.js:284:15
+    at Function.process_params (/home/mosab/projects/ibnexp2/backend/node_modules/express/lib/router/index.js:346:12)
+Failed to parse nutritional_facts_en for meal cdb4e667-db82-4604-a089-6dd004001006 SyntaxError: Unexpected token 'C', "Calories 6"... is not valid JSON
+    at JSON.parse (<anonymous>)
+    at /home/mosab/projects/ibnexp2/backend/dist/routes/meals.js:36:35
+    at Array.map (<anonymous>)
+    at /home/mosab/projects/ibnexp2/backend/dist/routes/meals.js:30:39
+    at Layer.handle [as handle_request] (/home/mosab/projects/ibnexp2/backend/node_modules/express/lib/router/layer.js:95:5)
+    at next (/home/mosab/projects/ibnexp2/backend/node_modules/express/lib/router/route.js:149:13)
+    at Route.dispatch (/home/mosab/projects/ibnexp2/backend/node_modules/express/lib/router/route.js:119:3)
+    at Layer.handle [as handle_request] (/home/mosab/projects/ibnexp2/backend/node_modules/express/lib/router/layer.js:95:5)
+    at /home/mosab/projects/ibnexp2/backend/node_modules/express/lib/router/index.js:284:15
+    at Function.process_params (/home/mosab/projects/ibnexp2/backend/node_modules/express/lib/router/index.js:346:12)
+Failed to parse nutritional_facts_en for meal ac41d3c8-fa85-41bd-86fb-df9d2f7cee3d SyntaxError: Unexpected token 'C', "Calories 1"... is not valid JSON
+    at JSON.parse (<anonymous>)
+    at /home/mosab/projects/ibnexp2/backend/dist/routes/meals.js:36:35
+    at Array.map (<anonymous>)
+    at /home/mosab/projects/ibnexp2/backend/dist/routes/meals.js:30:39
+    at Layer.handle [as handle_request] (/home/mosab/projects/ibnexp2/backend/node_modules/express/lib/router/layer.js:95:5)
+    at next (/home/mosab/projects/ibnexp2/backend/node_modules/express/lib/router/route.js:149:13)
+    at Route.dispatch (/home/mosab/projects/ibnexp2/backend/node_modules/express/lib/router/route.js:119:3)
+    at Layer.handle [as handle_request] (/home/mosab/projects/ibnexp2/backend/node_modules/express/lib/router/layer.js:95:5)
+    at /home/mosab/projects/ibnexp2/backend/node_modules/express/lib/router/index.js:284:15
+    at Function.process_params (/home/mosab/projects/ibnexp2/backend/node_modules/express/lib/router/index.js:346:12)
+Failed to parse nutritional_facts_en for meal edad9440-6381-42b3-a167-4ffbe80697c7 SyntaxError: Unexpected token 'C', "Calories 4"... is not valid JSON
+    at JSON.parse (<anonymous>)
+    at /home/mosab/projects/ibnexp2/backend/dist/routes/meals.js:36:35
+    at Array.map (<anonymous>)
+    at /home/mosab/projects/ibnexp2/backend/dist/routes/meals.js:30:39
+    at Layer.handle [as handle_request] (/home/mosab/projects/ibnexp2/backend/node_modules/express/lib/router/layer.js:95:5)
+    at next (/home/mosab/projects/ibnexp2/backend/node_modules/express/lib/router/route.js:149:13)
+    at Route.dispatch (/home/mosab/projects/ibnexp2/backend/node_modules/express/lib/router/route.js:119:3)
+    at Layer.handle [as handle_request] (/home/mosab/projects/ibnexp2/backend/node_modules/express/lib/router/layer.js:95:5)
+    at /home/mosab/projects/ibnexp2/backend/node_modules/express/lib/router/index.js:284:15
+    at Function.process_params (/home/mosab/projects/ibnexp2/backend/node_modules/express/lib/router/index.js:346:12)
+Failed to parse nutritional_facts_en for meal 77dce174-24a1-4694-ba48-fab31d5b215e SyntaxError: Unexpected token 'C', "Calories 1"... is not valid JSON
+    at JSON.parse (<anonymous>)
+    at /home/mosab/projects/ibnexp2/backend/dist/routes/meals.js:36:35
+    at Array.map (<anonymous>)
+    at /home/mosab/projects/ibnexp2/backend/dist/routes/meals.js:30:39
+    at Layer.handle [as handle_request] (/home/mosab/projects/ibnexp2/backend/node_modules/express/lib/router/layer.js:95:5)
+    at next (/home/mosab/projects/ibnexp2/backend/node_modules/express/lib/router/route.js:149:13)
+    at Route.dispatch (/home/mosab/projects/ibnexp2/backend/node_modules/express/lib/router/route.js:119:3)
+    at Layer.handle [as handle_request] (/home/mosab/projects/ibnexp2/backend/node_modules/express/lib/router/layer.js:95:5)
+    at /home/mosab/projects/ibnexp2/backend/node_modules/express/lib/router/index.js:284:15
+    at Function.process_params (/home/mosab/projects/ibnexp2/backend/node_modules/express/lib/router/index.js:346:12)
+Failed to parse nutritional_facts_en for meal a468bf71-92e4-45b5-a49f-de836cd2aa50 SyntaxError: Unexpected token 'C', "Calories 1"... is not valid JSON
+    at JSON.parse (<anonymous>)
+    at /home/mosab/projects/ibnexp2/backend/dist/routes/meals.js:36:35
+    at Array.map (<anonymous>)
+    at /home/mosab/projects/ibnexp2/backend/dist/routes/meals.js:30:39
+    at Layer.handle [as handle_request] (/home/mosab/projects/ibnexp2/backend/node_modules/express/lib/router/layer.js:95:5)
+    at next (/home/mosab/projects/ibnexp2/backend/node_modules/express/lib/router/route.js:149:13)
+    at Route.dispatch (/home/mosab/projects/ibnexp2/backend/node_modules/express/lib/router/route.js:119:3)
+    at Layer.handle [as handle_request] (/home/mosab/projects/ibnexp2/backend/node_modules/express/lib/router/layer.js:95:5)
+    at /home/mosab/projects/ibnexp2/backend/node_modules/express/lib/router/index.js:284:15
+    at Function.process_params (/home/mosab/projects/ibnexp2/backend/node_modules/express/lib/router/index.js:346:12)
+Failed to parse nutritional_facts_en for meal 8c560f2e-e70b-41ec-a5da-e1c364ecf4cb SyntaxError: Unexpected token 'C', "Calories 1"... is not valid JSON
+    at JSON.parse (<anonymous>)
+    at /home/mosab/projects/ibnexp2/backend/dist/routes/meals.js:36:35
+    at Array.map (<anonymous>)
+    at /home/mosab/projects/ibnexp2/backend/dist/routes/meals.js:30:39
+    at Layer.handle [as handle_request] (/home/mosab/projects/ibnexp2/backend/node_modules/express/lib/router/layer.js:95:5)
+    at next (/home/mosab/projects/ibnexp2/backend/node_modules/express/lib/router/route.js:149:13)
+    at Route.dispatch (/home/mosab/projects/ibnexp2/backend/node_modules/express/lib/router/route.js:119:3)
+    at Layer.handle [as handle_request] (/home/mosab/projects/ibnexp2/backend/node_modules/express/lib/router/layer.js:95:5)
+    at /home/mosab/projects/ibnexp2/backend/node_modules/express/lib/router/index.js:284:15
+    at Function.process_params (/home/mosab/projects/ibnexp2/backend/node_modules/express/lib/router/index.js:346:12)
+Failed to parse nutritional_facts_en for meal c17782af-b55d-4e3c-bced-79b4694d2c43 SyntaxError: Unexpected token 'C', "Calories 5"... is not valid JSON
+    at JSON.parse (<anonymous>)
+    at /home/mosab/projects/ibnexp2/backend/dist/routes/meals.js:36:35
+    at Array.map (<anonymous>)
+    at /home/mosab/projects/ibnexp2/backend/dist/routes/meals.js:30:39
+    at Layer.handle [as handle_request] (/home/mosab/projects/ibnexp2/backend/node_modules/express/lib/router/layer.js:95:5)
+    at next (/home/mosab/projects/ibnexp2/backend/node_modules/express/lib/router/route.js:149:13)
+    at Route.dispatch (/home/mosab/projects/ibnexp2/backend/node_modules/express/lib/router/route.js:119:3)
+    at Layer.handle [as handle_request] (/home/mosab/projects/ibnexp2/backend/node_modules/express/lib/router/layer.js:95:5)
+    at /home/mosab/projects/ibnexp2/backend/node_modules/express/lib/router/index.js:284:15
+    at Function.process_params (/home/mosab/projects/ibnexp2/backend/node_modules/express/lib/router/index.js:346:12)
+Failed to parse nutritional_facts_en for meal d90d5f36-b45c-4650-98dd-50f2271e5521 SyntaxError: Unexpected token 'P', "Protein 46"... is not valid JSON
+    at JSON.parse (<anonymous>)
+    at /home/mosab/projects/ibnexp2/backend/dist/routes/meals.js:36:35
+    at Array.map (<anonymous>)
+    at /home/mosab/projects/ibnexp2/backend/dist/routes/meals.js:30:39
+    at Layer.handle [as handle_request] (/home/mosab/projects/ibnexp2/backend/node_modules/express/lib/router/layer.js:95:5)
+    at next (/home/mosab/projects/ibnexp2/backend/node_modules/express/lib/router/route.js:149:13)
+    at Route.dispatch (/home/mosab/projects/ibnexp2/backend/node_modules/express/lib/router/route.js:119:3)
+    at Layer.handle [as handle_request] (/home/mosab/projects/ibnexp2/backend/node_modules/express/lib/router/layer.js:95:5)
+    at /home/mosab/projects/ibnexp2/backend/node_modules/express/lib/router/index.js:284:15
+    at Function.process_params (/home/mosab/projects/ibnexp2/backend/node_modules/express/lib/router/index.js:346:12)
+Failed to parse nutritional_facts_en for meal 9f4571ae-bda7-4914-8cc6-09134d9249d0 SyntaxError: Unexpected token 'C', " Calories 5"... is not valid JSON
+    at JSON.parse (<anonymous>)
+    at /home/mosab/projects/ibnexp2/backend/dist/routes/meals.js:36:35
+    at Array.map (<anonymous>)
+    at /home/mosab/projects/ibnexp2/backend/dist/routes/meals.js:30:39
+    at Layer.handle [as handle_request] (/home/mosab/projects/ibnexp2/backend/node_modules/express/lib/router/layer.js:95:5)
+    at next (/home/mosab/projects/ibnexp2/backend/node_modules/express/lib/router/route.js:149:13)
+    at Route.dispatch (/home/mosab/projects/ibnexp2/backend/node_modules/express/lib/router/route.js:119:3)
+    at Layer.handle [as handle_request] (/home/mosab/projects/ibnexp2/backend/node_modules/express/lib/router/layer.js:95:5)
+    at /home/mosab/projects/ibnexp2/backend/node_modules/express/lib/router/index.js:284:15
+    at Function.process_params (/home/mosab/projects/ibnexp2/backend/node_modules/express/lib/router/index.js:346:12)
+Failed to parse nutritional_facts_en for meal ed7e6221-5ce5-462e-963d-4b8d41d77c2c SyntaxError: Unexpected token 'C', "Calories 6"... is not valid JSON
+    at JSON.parse (<anonymous>)
+    at /home/mosab/projects/ibnexp2/backend/dist/routes/meals.js:36:35
+    at Array.map (<anonymous>)
+    at /home/mosab/projects/ibnexp2/backend/dist/routes/meals.js:30:39
+    at Layer.handle [as handle_request] (/home/mosab/projects/ibnexp2/backend/node_modules/express/lib/router/layer.js:95:5)
+    at next (/home/mosab/projects/ibnexp2/backend/node_modules/express/lib/router/route.js:149:13)
+    at Route.dispatch (/home/mosab/projects/ibnexp2/backend/node_modules/express/lib/router/route.js:119:3)
+    at Layer.handle [as handle_request] (/home/mosab/projects/ibnexp2/backend/node_modules/express/lib/router/layer.js:95:5)
+    at /home/mosab/projects/ibnexp2/backend/node_modules/express/lib/router/index.js:284:15
+    at Function.process_params (/home/mosab/projects/ibnexp2/backend/node_modules/express/lib/router/index.js:346:12)
+Failed to parse nutritional_facts_en for meal ade29086-6c83-469d-99c2-bcfa877a8559 SyntaxError: Unexpected token 'C', "Calories 1"... is not valid JSON
+    at JSON.parse (<anonymous>)
+    at /home/mosab/projects/ibnexp2/backend/dist/routes/meals.js:36:35
+    at Array.map (<anonymous>)
+    at /home/mosab/projects/ibnexp2/backend/dist/routes/meals.js:30:39
+    at Layer.handle [as handle_request] (/home/mosab/projects/ibnexp2/backend/node_modules/express/lib/router/layer.js:95:5)
+    at next (/home/mosab/projects/ibnexp2/backend/node_modules/express/lib/router/route.js:149:13)
+    at Route.dispatch (/home/mosab/projects/ibnexp2/backend/node_modules/express/lib/router/route.js:119:3)
+    at Layer.handle [as handle_request] (/home/mosab/projects/ibnexp2/backend/node_modules/express/lib/router/layer.js:95:5)
+    at /home/mosab/projects/ibnexp2/backend/node_modules/express/lib/router/index.js:284:15
+    at Function.process_params (/home/mosab/projects/ibnexp2/backend/node_modules/express/lib/router/index.js:346:12)
+Failed to parse nutritional_facts_en for meal b8fe7021-4eda-4120-abca-35f3840fc426 SyntaxError: Unexpected token 'C', "Calories 4"... is not valid JSON
+    at JSON.parse (<anonymous>)
+    at /home/mosab/projects/ibnexp2/backend/dist/routes/meals.js:36:35
+    at Array.map (<anonymous>)
+    at /home/mosab/projects/ibnexp2/backend/dist/routes/meals.js:30:39
+    at Layer.handle [as handle_request] (/home/mosab/projects/ibnexp2/backend/node_modules/express/lib/router/layer.js:95:5)
+    at next (/home/mosab/projects/ibnexp2/backend/node_modules/express/lib/router/route.js:149:13)
+    at Route.dispatch (/home/mosab/projects/ibnexp2/backend/node_modules/express/lib/router/route.js:119:3)
+    at Layer.handle [as handle_request] (/home/mosab/projects/ibnexp2/backend/node_modules/express/lib/router/layer.js:95:5)
+    at /home/mosab/projects/ibnexp2/backend/node_modules/express/lib/router/index.js:284:15
+    at Function.process_params (/home/mosab/projects/ibnexp2/backend/node_modules/express/lib/router/index.js:346:12)
+SIGTERM received, shutting down gracefully

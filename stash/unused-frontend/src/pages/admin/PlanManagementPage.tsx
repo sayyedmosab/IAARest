@@ -1,0 +1,1 @@
+export default function PlanManagementPage() { return <div>Plan Management Page</div>; }

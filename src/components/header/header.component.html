@@ -1,0 +1,98 @@
+
+<nav class="bg-white shadow-md sticky top-0 z-40">
+  <div class="container mx-auto px-4 sm:px-6 lg:px-8">
+    <div class="flex items-center justify-between h-16">
+      <div class="flex items-center">
+        <a [routerLink]="isArabic() ? '/ar-home' : '/home'" class="flex-shrink-0 flex items-center gap-2">
+          <img class="h-10 w-auto" src="/images/LogoChef.png" alt="Ibn Al Arab Logo">
+          <span class="font-bold text-xl tracking-tight text-gray-900">Ibn Al Arab</span>
+        </a>
+      </div>
+      <div class="hidden sm:flex sm:items-center sm:ml-6">
+        <div class="flex space-x-4">
+          <a [routerLink]="isArabic() ? '/ar-home' : '/home'" routerLinkActive="border-red-500 text-gray-900" [routerLinkActiveOptions]="{exact: true}" class="text-gray-500 hover:text-gray-900 px-3 py-2 text-sm font-medium border-b-2 border-transparent">
+            {{ isArabic() ? 'الرئيسية' : 'Home' }}
+          </a>
+          <a [routerLink]="isArabic() ? '/ar-menu' : '/menu'" routerLinkActive="border-red-500 text-gray-900" class="text-gray-500 hover:text-gray-900 px-3 py-2 text-sm font-medium border-b-2 border-transparent">
+            {{ isArabic() ? 'قائمة الطعام' : 'Upcoming Menu' }}
+          </a>
+        </div>
+      </div>
+      <div class="flex items-center">
+        <div class="hidden sm:flex items-center space-x-2 ml-4">
+          @if(authService.currentUser(); as user) {
+            <span class="text-sm text-gray-700">{{ isArabic() ? 'مرحباً،' : 'Welcome,' }} {{ user.name }}</span>
+            @if(authService.isAdmin()){
+              <a routerLink="/admin" class="px-4 py-2 border border-transparent text-sm font-medium text-white bg-red-600 hover:bg-red-700">
+                {{ isArabic() ? 'لوحة التحكم' : 'Admin Panel' }}
+              </a>
+            }
+            <button (click)="logout()" class="px-4 py-2 border border-gray-300 text-sm font-medium text-gray-700 bg-white hover:bg-gray-50">
+              {{ isArabic() ? 'تسجيل الخروج' : 'Logout' }}
+            </button>
+          } @else {
+            <a [routerLink]="isArabic() ? '/ar-login' : '/login'" class="px-4 py-2 border border-transparent text-sm font-medium text-red-600 hover:bg-red-50">
+              {{ isArabic() ? 'تسجيل الدخول' : 'Log in' }}
+            </a>
+            <a [routerLink]="isArabic() ? '/ar-register' : '/register'" class="px-4 py-2 border border-transparent text-sm font-medium text-white bg-red-600 hover:bg-red-700">
+              {{ isArabic() ? 'التسجيل' : 'Register' }}
+            </a>
+          }
+           <!-- Language Switcher -->
+           <a [routerLink]="isArabic() ? '/home' : '/ar-home'" class="ml-4 text-sm font-medium text-gray-500 hover:text-gray-900">
+            {{ isArabic() ? 'English' : 'العربية' }}
+          </a>
+        </div>
+        <div class="sm:hidden ml-2">
+          <button (click)="toggleMenu()" type="button" class="inline-flex items-center justify-center p-2 text-gray-400 hover:text-gray-500 hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-inset focus:ring-red-500" aria-controls="mobile-menu" aria-expanded="false">
+            <span class="sr-only">Open main menu</span>
+            <svg class="block h-6 w-6" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" />
+            </svg>
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Mobile menu, show/hide based on menu state. -->
+  <div class="sm:hidden" id="mobile-menu" [class.hidden]="!isMenuOpen()">
+    <div class="px-2 pt-2 pb-3 space-y-1">
+      <a (click)="closeMenu()" [routerLink]="isArabic() ? '/ar-home' : '/home'" routerLinkActive="bg-red-50 border-red-500 text-red-700" [routerLinkActiveOptions]="{exact: true}" class="text-gray-600 hover:bg-gray-50 hover:border-gray-300 hover:text-gray-800 block pl-3 pr-4 py-2 border-l-4 text-base font-medium">
+        {{ isArabic() ? 'الرئيسية' : 'Home' }}
+      </a>
+      <a (click)="closeMenu()" [routerLink]="isArabic() ? '/ar-menu' : '/menu'" routerLinkActive="bg-red-50 border-red-500 text-red-700" class="text-gray-600 hover:bg-gray-50 hover:border-gray-300 hover:text-gray-800 block pl-3 pr-4 py-2 border-l-4 text-base font-medium">
+        {{ isArabic() ? 'قائمة الطعام' : 'Upcoming Menu' }}
+      </a>
+    </div>
+    <div class="pt-4 pb-3 border-t border-gray-200">
+      <div class="px-2 space-y-1">
+         @if(authService.currentUser(); as user) {
+            <div class="px-3 py-2">
+                <p class="text-base font-medium text-gray-800">{{ user.name }}</p>
+                <p class="text-sm font-medium text-gray-500">{{ user.email }}</p>
+            </div>
+             @if(authService.isAdmin()){
+                <a (click)="closeMenu()" routerLink="/admin" class="block px-3 py-2 text-base font-medium text-gray-500 hover:text-gray-800 hover:bg-gray-100">
+                    {{ isArabic() ? 'لوحة التحكم' : 'Admin Panel' }}
+                </a>
+            }
+            <a (click)="logout()" href="#" class="block px-3 py-2 text-base font-medium text-gray-500 hover:text-gray-800 hover:bg-gray-100">
+                {{ isArabic() ? 'تسجيل الخروج' : 'Logout' }}
+            </a>
+          } @else {
+            <a (click)="closeMenu()" [routerLink]="isArabic() ? '/ar-login' : '/login'" class="block px-3 py-2 text-base font-medium text-gray-500 hover:text-gray-800 hover:bg-gray-100">
+                {{ isArabic() ? 'تسجيل الدخول' : 'Log in' }}
+            </a>
+            <a (click)="closeMenu()" [routerLink]="isArabic() ? '/ar-register' : '/register'" class="block px-3 py-2 text-base font-medium text-gray-500 hover:text-gray-800 hover:bg-gray-100">
+                {{ isArabic() ? 'التسجيل' : 'Register' }}
+            </a>
+          }
+          <!-- Language Switcher Mobile -->
+          <a (click)="closeMenu()" [routerLink]="isArabic() ? '/home' : '/ar-home'" class="block px-3 py-2 text-base font-medium text-gray-500 hover:text-gray-800 hover:bg-gray-100">
+            {{ isArabic() ? 'Switch to English' : 'التبديل إلى العربية' }}
+          </a>
+      </div>
+    </div>
+  </div>
+</nav>

@@ -1,0 +1,109 @@
+
+<div class="bg-gray-50 py-12">
+  <div class="container mx-auto px-4 sm:px-6 lg:px-8">
+    @if (plan(); as selectedPlan) {
+      <div class="max-w-4xl mx-auto">
+        
+        @if(showSuccessMessage()) {
+          <div class="bg-white p-8 shadow-md text-center">
+            <svg class="w-16 h-16 text-green-500 mx-auto" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
+            <h2 class="mt-4 text-2xl font-bold text-gray-800">Subscription Successful!</h2>
+            <p class="mt-2 text-gray-600">Your subscription for the <strong>{{ selectedPlan.name }}</strong> is now pending approval. We will notify you once it's active.</p>
+            <a routerLink="/home" class="mt-6 inline-block bg-red-600 text-white px-6 py-2 text-sm font-medium hover:bg-red-700">Back to Home</a>
+          </div>
+        } @else {
+          <div class="text-center mb-8">
+            <h2 class="text-3xl font-extrabold text-gray-900">Checkout</h2>
+            <p class="mt-2 text-lg text-gray-500">You are subscribing to the <span class="font-bold text-gray-800">{{ selectedPlan.name }}</span> plan.</p>
+          </div>
+
+          <div class="bg-white p-6 shadow-md border">
+            <!-- Payment Method Selection -->
+            <div class="mb-6">
+              <h3 class="text-lg font-medium text-gray-900">Payment Method</h3>
+              <fieldset class="mt-4">
+                <legend class="sr-only">Payment type</legend>
+                <div class="space-y-4 sm:flex sm:items-center sm:space-y-0 sm:space-x-10">
+                  <div class="flex items-center">
+                    <input id="wire_transfer" name="payment-type" type="radio" [checked]="paymentMethod() === 'wire_transfer'" (change)="paymentMethod.set('wire_transfer')" class="focus:ring-red-500 h-4 w-4 text-red-600 border-gray-300">
+                    <label for="wire_transfer" class="ml-3 block text-sm font-medium text-gray-700"> Local Wire Transfer </label>
+                  </div>
+                  <div class="flex items-center">
+                    <input id="credit_card" name="payment-type" type="radio" [checked]="paymentMethod() === 'credit_card'" (change)="paymentMethod.set('credit_card')" class="focus:ring-red-500 h-4 w-4 text-red-600 border-gray-300">
+                    <label for="credit_card" class="ml-3 block text-sm font-medium text-gray-700"> Credit Card </label>
+                  </div>
+                </div>
+              </fieldset>
+            </div>
+
+            <!-- Payment Details -->
+            @if(paymentMethod() === 'wire_transfer') {
+              <div>
+                <h3 class="text-lg font-medium text-gray-900 border-t pt-6">Wire Transfer Details</h3>
+                <div class="mt-4 bg-gray-50 p-4 border">
+                  <p class="text-sm text-gray-600">Please transfer <strong>AED {{ selectedPlan.pricePerMonth }}</strong> to the following account:</p>
+                  <ul class="mt-2 text-sm text-gray-800">
+                    <li><strong>Bank Name:</strong> Sharjah Digital Bank</li>
+                    <li><strong>Account Name:</strong> Student Meal Services LLC</li>
+                    <li><strong>IBAN:</strong> AE12 3456 7890 1234 5678 901</li>
+                  </ul>
+                  <p class="mt-2 text-sm text-gray-600">After transferring, please upload proof of payment (e.g., a screenshot or PDF receipt).</p>
+                </div>
+                <div class="mt-4">
+                  <label for="payment-proof" class="block text-sm font-medium text-gray-700">Upload Proof of Payment (Optional)</label>
+                  <div class="mt-1 flex justify-center px-6 pt-5 pb-6 border-2 border-gray-300 border-dashed">
+                    <div class="space-y-1 text-center">
+                      <svg class="mx-auto h-12 w-12 text-gray-400" stroke="currentColor" fill="none" viewBox="0 0 48 48" aria-hidden="true">
+                        <path d="M28 8H12a4 4 0 00-4 4v20m32-12v8m0 0v8a4 4 0 01-4 4H12a4 4 0 01-4-4v-4m32-4l-3.172-3.172a4 4 0 00-5.656 0L28 28M8 32l9.172-9.172a4 4 0 015.656 0L28 28m0 0l4 4m4-24h8m-4-4v8" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+                      </svg>
+                      <div class="flex text-sm text-gray-600">
+                        <label for="file-upload" class="relative cursor-pointer bg-white font-medium text-red-600 hover:text-red-500 focus-within:outline-none focus-within:ring-2 focus-within:ring-offset-2 focus-within:ring-red-500">
+                          <span>Upload a file</span>
+                          <input id="file-upload" name="file-upload" type="file" class="sr-only" (change)="onFileChange($event)" accept="image/*,.pdf">
+                        </label>
+                        <p class="pl-1">or drag and drop</p>
+                      </div>
+                      <p class="text-xs text-gray-500">PNG, JPG, PDF up to 10MB</p>
+                      @if(paymentProofName()) {
+                        <p class="text-sm font-medium text-green-600 pt-2">File selected: {{ paymentProofName() }}</p>
+                      }
+                    </div>
+                  </div>
+                </div>
+              </div>
+            }
+            @if(paymentMethod() === 'credit_card') {
+               <div>
+                <h3 class="text-lg font-medium text-gray-900 border-t pt-6">Credit Card Details</h3>
+                 <div class="mt-4 relative bg-gray-100 p-4 border opacity-50">
+                   <div class="absolute inset-0 z-10 flex items-center justify-center">
+                      <span class="bg-gray-800 text-white font-bold text-lg px-4 py-2">COMING SOON</span>
+                   </div>
+                   <div class="space-y-4 filter blur-sm">
+                      <div><label class="block text-sm">Card Number</label><input type="text" disabled class="w-full mt-1"></div>
+                      <div class="grid grid-cols-3 gap-4">
+                        <div class="col-span-2"><label class="block text-sm">Expiration</label><input type="text" disabled class="w-full mt-1"></div>
+                        <div><label class="block text-sm">CVC</label><input type="text" disabled class="w-full mt-1"></div>
+                      </div>
+                   </div>
+                </div>
+              </div>
+            }
+
+            <div class="border-t mt-6 pt-6">
+               <button (click)="confirmSubscription()" [disabled]="paymentMethod() === 'credit_card'" class="w-full flex justify-center py-3 px-4 border border-transparent shadow-sm text-sm font-medium text-white bg-red-600 hover:bg-red-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-red-500 disabled:bg-gray-400">
+                 Confirm & Subscribe for AED {{ selectedPlan.pricePerMonth }}
+               </button>
+            </div>
+          </div>
+        }
+      </div>
+    } @else {
+      <div class="text-center">
+        <h2 class="text-2xl font-bold text-gray-800">No Plan Selected</h2>
+        <p class="mt-2 text-gray-600">Please select a plan before proceeding to checkout.</p>
+        <a routerLink="/home" class="mt-4 inline-block bg-red-600 text-white px-6 py-2 text-sm font-medium hover:bg-red-700">View Plans</a>
+      </div>
+    }
+  </div>
+</div>

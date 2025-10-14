@@ -1,0 +1,55 @@
+
+<div class="bg-white py-12">
+  <div class="container mx-auto px-4 sm:px-6 lg:px-8">
+    <div class="text-center mb-12">
+      <h2 class="text-3xl font-extrabold text-gray-900">قائمة الطعام القادمة</h2>
+      <p class="mt-2 text-lg text-gray-500">إليك ما يتم طهيه للأسبوعين القادمين.</p>
+    </div>
+
+    <div class="space-y-8">
+      @for(date of dates; track date) {
+        @let daySchedule = schedule()[formatDateKey(date)];
+        <div class="bg-gray-50 border p-4" [class.bg-red-50]="isToday(date)" [class.border-red-200]="isToday(date)">
+          <div class="flex justify-between items-center mb-4">
+            <h3 class="text-xl font-bold text-gray-800">{{ date | date:'fullDate' }}</h3>
+            @if(isToday(date)) {
+              <span class="text-sm font-bold text-red-600 bg-red-100 px-3 py-1">اليوم</span>
+            }
+          </div>
+          <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+            <!-- Lunch -->
+            <div class="bg-white p-4 shadow-sm border">
+              <h4 class="text-lg font-semibold text-gray-700 border-b pb-2 mb-2">الغداء</h4>
+              @if(daySchedule && getMeal(daySchedule.lunch); as lunch) {
+                <div class="flex gap-4">
+                  <img [src]="lunch.image_filename | imagePath" [alt]="lunch.arName" class="w-24 h-24 object-cover flex-shrink-0">
+                  <div>
+                    <h5 class="font-bold text-gray-900">{{ lunch.arName }}</h5>
+                    <p class="text-sm text-gray-600 mt-1">{{ lunch.arDescription }}</p>
+                  </div>
+                </div>
+              } @else {
+                <div class="text-center text-gray-500 py-8">لا يوجد غداء مجدول</div>
+              }
+            </div>
+            <!-- Dinner -->
+            <div class="bg-white p-4 shadow-sm border">
+              <h4 class="text-lg font-semibold text-gray-700 border-b pb-2 mb-2">العشاء</h4>
+               @if(daySchedule && getMeal(daySchedule.dinner); as dinner) {
+                <div class="flex gap-4">
+                  <img [src]="dinner.image_filename | imagePath" [alt]="dinner.arName" class="w-24 h-24 object-cover flex-shrink-0">
+                  <div>
+                    <h5 class="font-bold text-gray-900">{{ dinner.arName }}</h5>
+                    <p class="text-sm text-gray-600 mt-1">{{ dinner.arDescription }}</p>
+                  </div>
+                </div>
+              } @else {
+                <div class="text-center text-gray-500 py-8">لا يوجد عشاء مجدول</div>
+              }
+            </div>
+          </div>
+        </div>
+      }
+    </div>
+  </div>
+</div>

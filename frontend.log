@@ -1,0 +1,65 @@
+nohup: ignoring input
+
+> student-meal-subscription-app@0.0.0 dev
+> ng serve
+
+❯ Building...
+✔ Building...
+Initial chunk files | Names         |  Raw size
+main.js             | main          | 392.45 kB | 
+styles.css          | styles        | 293 bytes | 
+
+                    | Initial total | 392.74 kB
+
+Application bundle generation complete. [1.796 seconds] - 2025-10-13T04:42:54.095Z
+
+Watch mode enabled. Watching for file changes...
+NOTE: Raw file sizes do not reflect development server per-request transformations.
+  ➜  Local:   http://localhost:3100/
+❯ Changes detected. Rebuilding...
+✔ Changes detected. Rebuilding...
+
+No output file changes.
+
+Application bundle generation complete. [0.005 seconds] - 2025-10-13T05:06:25.345Z
+
+Page reload sent to client(s).
+❯ Changes detected. Rebuilding...
+✔ Changes detected. Rebuilding...
+
+No output file changes.
+
+Application bundle generation complete. [0.003 seconds] - 2025-10-13T05:06:51.013Z
+
+Page reload sent to client(s).
+❯ Changes detected. Rebuilding...
+✔ Changes detected. Rebuilding...
+
+No output file changes.
+
+Application bundle generation complete. [0.004 seconds] - 2025-10-13T05:07:09.084Z
+
+Page reload sent to client(s).
+❯ Changes detected. Rebuilding...
+✔ Changes detected. Rebuilding...
+
+No output file changes.
+
+Application bundle generation complete. [0.002 seconds] - 2025-10-13T05:07:14.540Z
+
+Page reload sent to client(s).
+❯ Changes detected. Rebuilding...
+✔ Changes detected. Rebuilding...
+
+No output file changes.
+
+Application bundle generation complete. [0.003 seconds] - 2025-10-13T05:07:32.673Z
+
+Page reload sent to client(s).
+❯ Changes detected. Rebuilding...
+✔ Changes detected. Rebuilding...
+Application bundle generation failed. [0.764 seconds] - 2025-10-13T05:20:26.462Z
+
+[31m✘ [41;31m[[41;97mERROR[41;31m][0m [1mCould not resolve "/home/mosab/projects/ibnexp2/index.tsx"[0m
+
+

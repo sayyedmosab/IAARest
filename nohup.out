@@ -1,0 +1,5 @@
+npm error Missing script: "│"
+npm error
+npm error To see a list of scripts, run:
+npm error   npm run
+npm error A complete log of this run can be found in: /home/mosab/.npm/_logs/2025-10-13T05_25_11_214Z-debug-0.log

@@ -1,0 +1,1 @@
+export default function DailyOrdersPage() { return <div>Daily Orders Page</div>; }

@@ -1,0 +1,27 @@
+
+> student-meal-subscription-app@0.0.0 dev
+> npx ng serve
+
+
+Warning: This is a simple server for use in testing or debugging Angular applications
+locally. It hasn't been reviewed for security issues.
+
+Binding this server to an open connection can result in compromising your application or
+computer. Using a different host than the one passed to the "--host" flag might result in
+websocket connection issues.
+    
+❯ Building...
+✔ Building...
+Initial chunk files | Names         |  Raw size
+main.js             | main          | 392.24 kB | 
+styles.css          | styles        | 293 bytes | 
+
+                    | Initial total | 392.53 kB
+
+Application bundle generation complete. [1.736 seconds] - 2025-10-13T05:21:43.787Z
+
+Watch mode enabled. Watching for file changes...
+NOTE: Raw file sizes do not reflect development server per-request transformations.
+  ➜  Local:   http://localhost:4200/
+  ➜  Network: http://10.255.255.254:4200/
+  ➜  Network: http://172.31.88.220:4200/

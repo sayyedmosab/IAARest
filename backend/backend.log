@@ -1,0 +1,5 @@
+nohup: ignoring input
+
+> ibnexp-backend@1.0.0 dev
+> npx tsx watch src/index.ts
+

@@ -1,0 +1,58 @@
+
+<div class="min-h-full flex items-center justify-center py-12 px-4 sm:px-6 lg:px-8">
+  <div class="max-w-md w-full space-y-8">
+    <div>
+      <h2 class="mt-6 text-center text-3xl font-extrabold text-gray-900">
+        Create your account
+      </h2>
+      <p class="mt-2 text-center text-sm text-gray-600">
+        Or <a routerLink="/login" class="font-medium text-red-600 hover:text-red-500">sign in to an existing account</a>
+      </p>
+    </div>
+    <form class="mt-8 space-y-6" [formGroup]="registerForm" (ngSubmit)="onSubmit()">
+      <div class="shadow-sm -space-y-px">
+        <div>
+          <label for="name" class="sr-only">Full Name</label>
+          <input id="name" name="name" type="text" formControlName="name" required class="appearance-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 focus:outline-none focus:ring-red-500 focus:border-red-500 focus:z-10 sm:text-sm" placeholder="Full Name">
+        </div>
+        <div>
+          <label for="email-address" class="sr-only">Email address</label>
+          <input id="email-address" name="email" type="email" formControlName="email" required class="appearance-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 focus:outline-none focus:ring-red-500 focus:border-red-500 focus:z-10 sm:text-sm" placeholder="Email address">
+        </div>
+        <div>
+          <label for="phone" class="sr-only">Phone Number</label>
+          <input id="phone" name="phone" type="tel" formControlName="phone" required class="appearance-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 focus:outline-none focus:ring-red-500 focus:border-red-500 focus:z-10 sm:text-sm" placeholder="Phone Number">
+        </div>
+        <div>
+          <label for="password" class="sr-only">Password</label>
+          <input id="password" name="password" type="password" formControlName="password" required class="appearance-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 focus:outline-none focus:ring-red-500 focus:border-red-500 focus:z-10 sm:text-sm" placeholder="Password (min. 6 characters)">
+        </div>
+        <div>
+          <label for="street" class="sr-only">Street Address</label>
+          <input id="street" name="street" type="text" formControlName="street" required class="appearance-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 focus:outline-none focus:ring-red-500 focus:border-red-500 focus:z-10 sm:text-sm" placeholder="Street Address">
+        </div>
+         <div>
+          <label for="district" class="sr-only">District</label>
+          <select id="district" formControlName="district" required class="appearance-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 focus:outline-none focus:ring-red-500 focus:border-red-500 focus:z-10 sm:text-sm">
+            <option value="" disabled>Select your district</option>
+            @for(district of districts; track district) {
+              <option [value]="district">{{ district }}</option>
+            }
+          </select>
+        </div>
+      </div>
+
+      @if(error()){
+      <div class="bg-red-100 border border-red-400 text-red-700 px-4 py-3 relative" role="alert">
+        <span class="block sm:inline">{{ error() }}</span>
+      </div>
+      }
+
+      <div>
+        <button type="submit" [disabled]="registerForm.invalid" class="group relative w-full flex justify-center py-2 px-4 border border-transparent text-sm font-medium text-white bg-red-600 hover:bg-red-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-red-500 disabled:bg-gray-400">
+          Register
+        </button>
+      </div>
+    </form>
+  </div>
+</div>
