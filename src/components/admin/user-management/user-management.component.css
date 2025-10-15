@@ -1,0 +1,498 @@
+/* User Management Component Styles */
+
+.user-management {
+  @apply max-w-7xl mx-auto;
+}
+
+/* Badge Styles */
+.badge {
+  @apply inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium;
+}
+
+/* User Status Styles */
+.status-active {
+  @apply bg-green-100 text-green-800;
+}
+
+.status-inactive {
+  @apply bg-gray-100 text-gray-800;
+}
+
+.status-suspended {
+  @apply bg-red-100 text-red-800;
+}
+
+/* Subscription Status Styles */
+.status-pending_payment {
+  @apply bg-yellow-100 text-yellow-800;
+}
+
+.status-Pending_Approval {
+  @apply bg-orange-100 text-orange-800;
+}
+
+.status-New_Joiner {
+  @apply bg-blue-100 text-blue-800;
+}
+
+.status-Curious {
+  @apply bg-purple-100 text-purple-800;
+}
+
+.status-Active {
+  @apply bg-green-100 text-green-800;
+}
+
+.status-Frozen {
+  @apply bg-cyan-100 text-cyan-800;
+}
+
+.status-Exiting {
+  @apply bg-amber-100 text-amber-800;
+}
+
+.status-cancelled {
+  @apply bg-red-100 text-red-800;
+}
+
+.status-none {
+  @apply bg-gray-100 text-gray-800;
+}
+
+.status-expired {
+  @apply bg-gray-100 text-gray-800;
+}
+
+/* Role Styles */
+.role-admin {
+  @apply bg-purple-100 text-purple-800;
+}
+
+.role-student {
+  @apply bg-blue-100 text-blue-800;
+}
+
+.role-user {
+  @apply bg-gray-100 text-gray-800;
+}
+
+/* Table Styles */
+.table-container {
+  @apply overflow-x-auto;
+}
+
+.user-table {
+  @apply min-w-full divide-y divide-gray-200;
+}
+
+.user-table th {
+  @apply px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider bg-gray-50;
+}
+
+.user-table td {
+  @apply px-6 py-4 whitespace-nowrap text-sm text-gray-900;
+}
+
+.user-table tr:hover {
+  @apply bg-gray-50;
+}
+
+/* Modal Styles */
+.modal-overlay {
+  @apply fixed inset-0 bg-gray-500 bg-opacity-75 transition-opacity;
+}
+
+.modal-container {
+  @apply inline-block align-bottom bg-white rounded-lg text-left overflow-hidden shadow-xl transform transition-all sm:my-8 sm:align-middle sm:max-w-lg sm:w-full;
+}
+
+.modal-header {
+  @apply bg-white px-4 pt-5 pb-4 sm:p-6 sm:pb-4;
+}
+
+.modal-body {
+  @apply bg-white px-4 pt-5 pb-4 sm:p-6 sm:pb-4;
+}
+
+.modal-footer {
+  @apply bg-gray-50 px-4 py-3 sm:px-6 sm:flex sm:flex-row-reverse;
+}
+
+/* Form Styles */
+.form-group {
+  @apply mb-4;
+}
+
+.form-label {
+  @apply block text-sm font-medium text-gray-700 mb-1;
+}
+
+.form-input {
+  @apply mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-red-500 focus:border-red-500 sm:text-sm;
+}
+
+.form-input-error {
+  @apply border-red-500;
+}
+
+.form-error {
+  @apply mt-1 text-sm text-red-600;
+}
+
+.form-select {
+  @apply mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-red-500 focus:border-red-500 sm:text-sm;
+}
+
+/* Button Styles */
+.btn {
+  @apply inline-flex items-center justify-center px-4 py-2 border border-transparent text-sm font-medium rounded-md focus:outline-none focus:ring-2 focus:ring-offset-2 transition-colors;
+}
+
+.btn-primary {
+  @apply bg-red-600 text-white hover:bg-red-700 focus:ring-red-500;
+}
+
+.btn-secondary {
+  @apply bg-white text-gray-700 border-gray-300 hover:bg-gray-50 focus:ring-red-500;
+}
+
+.btn-success {
+  @apply bg-green-600 text-white hover:bg-green-700 focus:ring-green-500;
+}
+
+.btn-danger {
+  @apply bg-red-600 text-white hover:bg-red-700 focus:ring-red-500;
+}
+
+.btn-warning {
+  @apply bg-yellow-600 text-white hover:bg-yellow-700 focus:ring-yellow-500;
+}
+
+.btn-sm {
+  @apply px-3 py-1 text-xs;
+}
+
+.btn:disabled {
+  @apply opacity-50 cursor-not-allowed;
+}
+
+/* Loading Spinner */
+.spinner {
+  @apply animate-spin rounded-full h-4 w-4 border-b-2 border-current;
+}
+
+.spinner-lg {
+  @apply h-8 w-8;
+}
+
+/* Alert Styles */
+.alert {
+  @apply p-4 rounded-md border;
+}
+
+.alert-success {
+  @apply bg-green-50 border-green-200 text-green-800;
+}
+
+.alert-error {
+  @apply bg-red-50 border-red-200 text-red-800;
+}
+
+.alert-warning {
+  @apply bg-yellow-50 border-yellow-200 text-yellow-800;
+}
+
+.alert-info {
+  @apply bg-blue-50 border-blue-200 text-blue-800;
+}
+
+/* Card Styles */
+.card {
+  @apply bg-white shadow overflow-hidden sm:rounded-md;
+}
+
+.card-header {
+  @apply px-4 py-5 sm:px-6 border-b border-gray-200;
+}
+
+.card-body {
+  @apply px-4 py-5 sm:p-6;
+}
+
+/* Filter Section */
+.filter-section {
+  @apply bg-white shadow rounded-lg p-4 mb-6;
+}
+
+.filter-grid {
+  @apply grid grid-cols-1 md:grid-cols-4 gap-4;
+}
+
+/* Bulk Actions */
+.bulk-actions {
+  @apply bg-blue-50 border border-blue-200 rounded-lg p-4 mb-6;
+}
+
+.bulk-actions-header {
+  @apply flex items-center justify-between;
+}
+
+.bulk-actions-buttons {
+  @apply flex space-x-2;
+}
+
+/* Pagination */
+.pagination {
+  @apply bg-white px-4 py-3 flex items-center justify-between border-t border-gray-200 sm:px-6;
+}
+
+.pagination-info {
+  @apply text-sm text-gray-700;
+}
+
+.pagination-controls {
+  @apply flex items-center space-x-1;
+}
+
+.pagination-button {
+  @apply relative inline-flex items-center px-4 py-2 border text-sm font-medium rounded-md focus:outline-none focus:ring-2 focus:ring-offset-2;
+}
+
+.pagination-button-active {
+  @apply z-10 bg-red-50 border-red-500 text-red-600;
+}
+
+.pagination-button-inactive {
+  @apply bg-white border-gray-300 text-gray-500 hover:bg-gray-50;
+}
+
+.pagination-button-disabled {
+  @apply opacity-50 cursor-not-allowed;
+}
+
+/* Checkbox Styles */
+.checkbox {
+  @apply h-4 w-4 text-red-600 focus:ring-red-500 border-gray-300 rounded;
+}
+
+/* Search Input */
+.search-input {
+  @apply w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-red-500 focus:border-red-500;
+}
+
+/* User Avatar */
+.user-avatar {
+  @apply flex-shrink-0 h-10 w-10;
+}
+
+.user-avatar-placeholder {
+  @apply h-10 w-10 rounded-full bg-gray-300 flex items-center justify-center;
+}
+
+.user-avatar-text {
+  @apply text-sm font-medium text-gray-600;
+}
+
+/* Empty State */
+.empty-state {
+  @apply text-center py-12;
+}
+
+.empty-state-icon {
+  @apply mx-auto h-12 w-12 text-gray-400;
+}
+
+.empty-state-text {
+  @apply mt-2 text-sm text-gray-500;
+}
+
+/* Pending Approvals */
+.pending-approvals {
+  @apply mb-8;
+}
+
+.pending-approvals-list {
+  @apply divide-y divide-gray-200;
+}
+
+.pending-approval-item {
+  @apply px-6 py-4;
+}
+
+.pending-approval-content {
+  @apply flex items-center justify-between;
+}
+
+/* Utility Classes */
+.text-truncate {
+  @apply truncate;
+}
+
+.text-ellipsis {
+  @apply overflow-hidden whitespace-nowrap text-ellipsis;
+}
+
+/* Responsive Design */
+@media (max-width: 640px) {
+  .user-management {
+    @apply px-2;
+  }
+  
+  .filter-grid {
+    @apply grid-cols-1;
+  }
+  
+  .modal-container {
+    @apply mx-4;
+  }
+  
+  .bulk-actions-header {
+    @apply flex-col items-start space-y-2;
+  }
+  
+  .bulk-actions-buttons {
+    @apply w-full justify-start space-x-0 space-y-2 flex-col;
+  }
+  
+  .pagination {
+    @apply flex-col space-y-2;
+  }
+  
+  .pagination-controls {
+    @apply justify-center;
+  }
+  
+  .user-table {
+    @apply text-xs;
+  }
+  
+  .user-table th,
+  .user-table td {
+    @apply px-2 py-2;
+  }
+  
+  .btn {
+    @apply px-2 py-1 text-xs;
+  }
+  
+  .pending-approval-content {
+    @apply flex-col items-start space-y-2;
+  }
+  
+  .pending-approval-actions {
+    @apply w-full justify-between;
+  }
+}
+
+@media (max-width: 768px) {
+  .filter-grid {
+    @apply grid-cols-1;
+  }
+  
+  .modal-container {
+    @apply mx-4;
+  }
+}
+
+/* Dark Mode Support (if needed in future) */
+@media (prefers-color-scheme: dark) {
+  .dark-mode-support {
+    /* Dark mode styles can be added here if needed */
+  }
+}
+
+/* Animation Classes */
+.fade-in {
+  animation: fadeIn 0.3s ease-in-out;
+}
+
+.slide-up {
+  animation: slideUp 0.3s ease-in-out;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes slideUp {
+  from {
+    transform: translateY(20px);
+    opacity: 0;
+  }
+  to {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
+
+/* Focus Styles for Accessibility */
+.focus-visible:focus {
+  @apply outline-none ring-2 ring-red-500 ring-offset-2;
+}
+
+/* High Contrast Mode Support */
+@media (prefers-contrast: high) {
+  .btn {
+    @apply border-2 border-current;
+  }
+  
+  .form-input {
+    @apply border-2 border-gray-600;
+  }
+  
+  .user-table th {
+    @apply border-b-2 border-gray-600;
+  }
+  
+  .user-table tr:hover {
+    @apply bg-gray-100;
+  }
+}
+
+/* Reduced Motion Support */
+@media (prefers-reduced-motion: reduce) {
+  .fade-in,
+  .slide-up {
+    animation: none;
+  }
+  
+  .spinner {
+    animation: none;
+  }
+  
+  .modal-overlay {
+    transition: none;
+  }
+  
+  .modal-container {
+    transition: none;
+  }
+}
+
+/* Print Styles */
+@media print {
+  .user-management {
+    @apply text-black;
+  }
+  
+  .btn,
+  .bulk-actions,
+  .filter-section,
+  .pagination {
+    @apply hidden;
+  }
+  
+  .user-table {
+    @apply text-xs;
+  }
+  
+  .modal-overlay,
+  .modal-container {
+    @apply hidden;
+  }
+}

@@ -62,12 +62,28 @@ router.get('/dashboard', authenticateToken, requireAdmin, async (req: AuthReques
     // Get all plans for segmentation
     const allPlans = planRepo.findAll();
     
-    // Customer Pipeline - Row 1: Main boxes
-    const newSubscriptions = subscriptionRepo.query(`
+    // Customer Pipeline - Row 1: Main boxes with enhanced subscription states
+    const pendingApprovalSubscriptions = subscriptionRepo.query(`
       SELECT s.*, p.base_price_aed, p.code as plan_code
       FROM subscriptions s
       JOIN plans p ON s.plan_id = p.id
-      WHERE s.status = 'pending_payment'
+      WHERE s.status = 'Pending_Approval'
+      ORDER BY s.created_at DESC
+    `);
+    
+    const newJoinerSubscriptions = subscriptionRepo.query(`
+      SELECT s.*, p.base_price_aed, p.code as plan_code
+      FROM subscriptions s
+      JOIN plans p ON s.plan_id = p.id
+      WHERE s.status = 'New_Joiner'
+      ORDER BY s.created_at DESC
+    `);
+    
+    const curiousSubscriptions = subscriptionRepo.query(`
+      SELECT s.*, p.base_price_aed, p.code as plan_code
+      FROM subscriptions s
+      JOIN plans p ON s.plan_id = p.id
+      WHERE s.status = 'Curious'
       ORDER BY s.created_at DESC
     `);
     
@@ -75,10 +91,26 @@ router.get('/dashboard', authenticateToken, requireAdmin, async (req: AuthReques
       SELECT s.*, p.base_price_aed, p.code as plan_code
       FROM subscriptions s
       JOIN plans p ON s.plan_id = p.id
-      WHERE s.status = 'active'
+      WHERE s.status = 'Active'
+    `);
+    
+    const frozenSubscriptions = subscriptionRepo.query(`
+      SELECT s.*, p.base_price_aed, p.code as plan_code
+      FROM subscriptions s
+      JOIN plans p ON s.plan_id = p.id
+      WHERE s.status = 'Frozen'
+      ORDER BY s.created_at DESC
     `);
     
     const exitingSubscriptions = subscriptionRepo.query(`
+      SELECT s.*, p.base_price_aed, p.code as plan_code
+      FROM subscriptions s
+      JOIN plans p ON s.plan_id = p.id
+      WHERE s.status = 'Exiting'
+      ORDER BY s.end_date DESC
+    `);
+    
+    const cancelledSubscriptions = subscriptionRepo.query(`
       SELECT s.*, p.base_price_aed, p.code as plan_code
       FROM subscriptions s
       JOIN plans p ON s.plan_id = p.id
@@ -87,14 +119,46 @@ router.get('/dashboard', authenticateToken, requireAdmin, async (req: AuthReques
     `);
 
     // Calculate revenue for each category
-    const newRevenue = newSubscriptions.reduce((sum, sub) => sum + (sub.price_charged_aed || sub.base_price_aed), 0);
+    const pendingApprovalRevenue = pendingApprovalSubscriptions.reduce((sum, sub) => sum + (sub.price_charged_aed || sub.base_price_aed), 0);
+    const newJoinerRevenue = newJoinerSubscriptions.reduce((sum, sub) => sum + (sub.price_charged_aed || sub.base_price_aed), 0);
+    const curiousRevenue = curiousSubscriptions.reduce((sum, sub) => sum + (sub.price_charged_aed || sub.base_price_aed), 0);
     const activeRevenue = activeSubscriptions.reduce((sum, sub) => sum + (sub.price_charged_aed || sub.base_price_aed), 0);
+    const frozenRevenue = frozenSubscriptions.reduce((sum, sub) => sum + (sub.price_charged_aed || sub.base_price_aed), 0);
     const exitingRevenue = exitingSubscriptions.reduce((sum, sub) => sum + (sub.price_charged_aed || sub.base_price_aed), 0);
+    const cancelledRevenue = cancelledSubscriptions.reduce((sum, sub) => sum + (sub.price_charged_aed || sub.base_price_aed), 0);
 
-    // Customer Pipeline - Row 2: Segmentation by plan
-    const newByPlan = allPlans.map(plan => {
-      const count = newSubscriptions.filter(sub => sub.plan_id === plan.id).length;
-      const revenue = newSubscriptions
+    // Customer Pipeline - Row 2: Segmentation by plan for each state
+    const pendingApprovalByPlan = allPlans.map(plan => {
+      const count = pendingApprovalSubscriptions.filter(sub => sub.plan_id === plan.id).length;
+      const revenue = pendingApprovalSubscriptions
+        .filter(sub => sub.plan_id === plan.id)
+        .reduce((sum, sub) => sum + (sub.price_charged_aed || sub.base_price_aed), 0);
+      return {
+        planId: plan.id,
+        planCode: plan.code,
+        planName: plan.name_en,
+        count,
+        revenue
+      };
+    });
+
+    const newJoinerByPlan = allPlans.map(plan => {
+      const count = newJoinerSubscriptions.filter(sub => sub.plan_id === plan.id).length;
+      const revenue = newJoinerSubscriptions
+        .filter(sub => sub.plan_id === plan.id)
+        .reduce((sum, sub) => sum + (sub.price_charged_aed || sub.base_price_aed), 0);
+      return {
+        planId: plan.id,
+        planCode: plan.code,
+        planName: plan.name_en,
+        count,
+        revenue
+      };
+    });
+
+    const curiousByPlan = allPlans.map(plan => {
+      const count = curiousSubscriptions.filter(sub => sub.plan_id === plan.id).length;
+      const revenue = curiousSubscriptions
         .filter(sub => sub.plan_id === plan.id)
         .reduce((sum, sub) => sum + (sub.price_charged_aed || sub.base_price_aed), 0);
       return {
@@ -120,9 +184,37 @@ router.get('/dashboard', authenticateToken, requireAdmin, async (req: AuthReques
       };
     });
 
+    const frozenByPlan = allPlans.map(plan => {
+      const count = frozenSubscriptions.filter(sub => sub.plan_id === plan.id).length;
+      const revenue = frozenSubscriptions
+        .filter(sub => sub.plan_id === plan.id)
+        .reduce((sum, sub) => sum + (sub.price_charged_aed || sub.base_price_aed), 0);
+      return {
+        planId: plan.id,
+        planCode: plan.code,
+        planName: plan.name_en,
+        count,
+        revenue
+      };
+    });
+
     const exitingByPlan = allPlans.map(plan => {
       const count = exitingSubscriptions.filter(sub => sub.plan_id === plan.id).length;
       const revenue = exitingSubscriptions
+        .filter(sub => sub.plan_id === plan.id)
+        .reduce((sum, sub) => sum + (sub.price_charged_aed || sub.base_price_aed), 0);
+      return {
+        planId: plan.id,
+        planCode: plan.code,
+        planName: plan.name_en,
+        count,
+        revenue
+      };
+    });
+
+    const cancelledByPlan = allPlans.map(plan => {
+      const count = cancelledSubscriptions.filter(sub => sub.plan_id === plan.id).length;
+      const revenue = cancelledSubscriptions
         .filter(sub => sub.plan_id === plan.id)
         .reduce((sum, sub) => sum + (sub.price_charged_aed || sub.base_price_aed), 0);
       return {
@@ -138,7 +230,7 @@ router.get('/dashboard', authenticateToken, requireAdmin, async (req: AuthReques
     const calendarData = [];
     const today = new Date();
     
-    // Group subscriptions by plan for accurate meal calculation
+    // Group subscriptions by plan for accurate meal calculation (Active + Frozen)
     const subscriptionsByPlan = new Map();
     activeSubscriptions.forEach(sub => {
       const plan = allPlans.find(p => p.id === sub.plan_id);
@@ -270,20 +362,40 @@ router.get('/dashboard', authenticateToken, requireAdmin, async (req: AuthReques
       success: true,
       data: {
         customerPipeline: {
-          new: {
-            count: newSubscriptions.length,
-            revenue: newRevenue,
-            byPlan: newByPlan
+          pendingApproval: {
+            count: pendingApprovalSubscriptions.length,
+            revenue: pendingApprovalRevenue,
+            byPlan: pendingApprovalByPlan
+          },
+          newJoiner: {
+            count: newJoinerSubscriptions.length,
+            revenue: newJoinerRevenue,
+            byPlan: newJoinerByPlan
+          },
+          curious: {
+            count: curiousSubscriptions.length,
+            revenue: curiousRevenue,
+            byPlan: curiousByPlan
           },
           active: {
             count: activeSubscriptions.length,
             revenue: activeRevenue,
             byPlan: activeByPlan
           },
+          frozen: {
+            count: frozenSubscriptions.length,
+            revenue: frozenRevenue,
+            byPlan: frozenByPlan
+          },
           exiting: {
             count: exitingSubscriptions.length,
             revenue: exitingRevenue,
             byPlan: exitingByPlan
+          },
+          cancelled: {
+            count: cancelledSubscriptions.length,
+            revenue: cancelledRevenue,
+            byPlan: cancelledByPlan
           }
         },
         calendar: calendarData
@@ -324,9 +436,9 @@ router.get('/daily-orders', authenticateToken, requireAdmin, async (req: Request
         SELECT s.*, p.meals_per_day, p.base_price_aed, p.delivery_pattern, p.billing_cycle
         FROM subscriptions s
         JOIN plans p ON s.plan_id = p.id
-        WHERE s.status = 'active'
+        WHERE s.status IN ('Active', 'Frozen')
       `);
-      console.log('[DEBUG] Active subscriptions found:', activeSubscriptions.length);
+      console.log('[DEBUG] Active and Frozen subscriptions found:', activeSubscriptions.length);
       
       if (activeSubscriptions.length > 0) {
         console.log('[DEBUG] Sample active subscription:', activeSubscriptions[0]);
@@ -721,6 +833,149 @@ router.post('/menu-schedule', authenticateToken, requireAdmin, async (req: Reque
   }
 });
 
+// Get users with pagination and filtering (admin only) - MUST come before /users/:id
+router.get('/users/paginated', authenticateToken, requireAdmin, async (req: Request, res: Response) => {
+  try {
+    console.log('=== INSIDE PAGINATED ENDPOINT ===');
+    const page = parseInt(req.query.page as string) || 1;
+    const limit = parseInt(req.query.limit as string) || 10;
+    const search = req.query.search as string;
+    const status = req.query.status as string;
+    const role = req.query.role as string;
+
+    const offset = (page - 1) * limit;
+
+    // Build WHERE clause
+    let whereClause = '1 = 1';
+    const params: any[] = [];
+
+    if (search) {
+      whereClause += ' AND (first_name LIKE ? OR last_name LIKE ? OR email LIKE ?)';
+      const searchTerm = `%${search}%`;
+      params.push(searchTerm, searchTerm, searchTerm);
+    }
+
+    // Status field doesn't exist in the profiles table, so we'll skip this filter for now
+    // In a real implementation, you might want to add a status field to the profiles table
+    // or derive status from other fields (e.g., subscription status)
+    if (status && status !== 'all') {
+      // whereClause += ' AND status = ?';
+      // params.push(status);
+    }
+
+    if (role && role !== 'all') {
+      if (role === 'admin') {
+        whereClause += ' AND is_admin = 1';
+      } else if (role === 'student') {
+        whereClause += ' AND is_student = 1';
+      } else if (role === 'user') {
+        whereClause += ' AND is_admin = 0 AND is_student = 0';
+      }
+    }
+
+    // Get total count
+    const countQuery = `SELECT COUNT(*) as total FROM profiles WHERE ${whereClause}`;
+    console.log('[DEBUG] Count query:', countQuery);
+    console.log('[DEBUG] Count params:', params);
+    const countResult = profileRepo.query(countQuery, params);
+    console.log('[DEBUG] Count result:', countResult);
+    const total = countResult[0].total;
+
+    // Get users with pagination
+    const usersQuery = `
+      SELECT * FROM profiles
+      WHERE ${whereClause}
+      ORDER BY created_at DESC
+      LIMIT ? OFFSET ?
+    `;
+    console.log('[DEBUG] Users query:', usersQuery);
+    console.log('[DEBUG] Users params:', [...params, limit, offset]);
+    const users = profileRepo.query(usersQuery, [...params, limit, offset]);
+    console.log('[DEBUG] Users result count:', users.length);
+
+    // Transform to match frontend User interface
+    const transformedUsers = users.map(user => ({
+      id: user.user_id,
+      name: `${user.first_name} ${user.last_name}`,
+      email: user.email,
+      phone: user.phone_e164,
+      is_admin: Boolean(user.is_admin),
+      is_student: Boolean(user.is_student),
+      status: user.status || 'active',
+      language_pref: user.language_pref || 'en',
+      created_at: user.created_at,
+      updated_at: user.updated_at,
+      address: {
+        street: user.address || '',
+        city: 'Sharjah', // Default city
+        district: user.district || ''
+      }
+    }));
+
+    const totalPages = Math.ceil(total / limit);
+
+    res.json({
+      success: true,
+      data: {
+        users: transformedUsers,
+        pagination: {
+          page,
+          limit,
+          total,
+          totalPages
+        }
+      }
+    });
+
+  } catch (error) {
+    console.error('Get paginated users error:', error);
+    res.status(500).json({
+      success: false,
+      error: 'Failed to fetch users'
+    });
+  }
+});
+
+// Get user by ID (admin only)
+router.get('/users/:id', authenticateToken, requireAdmin, async (req: Request, res: Response) => {
+  try {
+    const { id } = req.params;
+
+    const user = profileRepo.findByUserId(id);
+    if (!user) {
+      return res.status(404).json({
+        success: false,
+        error: 'User not found'
+      });
+    }
+
+    // Transform raw DB data to match frontend User interface
+    const transformedUser = {
+      name: `${user.first_name} ${user.last_name}`,
+      email: user.email,
+      phone: user.phone_e164,
+      is_admin: user.is_admin,
+      address: {
+        street: user.address || '',
+        city: 'Sharjah', // Default city
+        district: user.district || ''
+      }
+    };
+
+    res.json({
+      success: true,
+      data: transformedUser
+    });
+
+  } catch (error) {
+    console.error('Get user error:', error);
+    res.status(500).json({
+      success: false,
+      error: 'Failed to fetch user'
+    });
+  }
+});
+
 // Get all users (admin only)
 router.get('/users', authenticateToken, requireAdmin, async (req: Request, res: Response) => {
   try {
@@ -753,42 +1008,408 @@ router.get('/users', authenticateToken, requireAdmin, async (req: Request, res: 
   }
 });
 
-// Get user by ID (admin only)
-router.get('/users/:id', authenticateToken, requireAdmin, async (req: Request, res: Response) => {
+// Create user (admin only)
+router.post('/users', authenticateToken, requireAdmin, async (req: Request, res: Response) => {
+  try {
+    const userData = req.body;
+    console.log('[DEBUG] Creating user:', userData);
+    
+    // Validate required fields
+    if (!userData.name || !userData.email || !userData.phone || !userData.password) {
+      return res.status(400).json({
+        success: false,
+        error: 'Name, email, phone, and password are required'
+      });
+    }
+
+    // Check if email already exists
+    const existingUser = profileRepo.findByEmail(userData.email);
+    if (existingUser) {
+      return res.status(400).json({
+        success: false,
+        error: 'Email already exists'
+      });
+    }
+
+    // Hash password (in a real implementation, you'd use bcrypt)
+    const hashedPassword = userData.password; // In production: await bcrypt.hash(userData.password, 10);
+
+    // Create user
+    const newUser = profileRepo.create({
+      email: userData.email,
+      first_name: userData.name.split(' ')[0] || userData.name,
+      last_name: userData.name.split(' ').slice(1).join(' ') || '',
+      phone_e164: userData.phone,
+      password: hashedPassword, // In production: hashedPassword
+      is_admin: Boolean(userData.is_admin),
+      is_student: Boolean(userData.is_student),
+      language_pref: userData.language_pref || 'en',
+      address: userData.address?.street || '',
+      district: userData.address?.district || '',
+      university_email: userData.university_email || '',
+      student_id_expiry: userData.student_id_expiry || ''
+    });
+
+    // Transform to match frontend User interface
+    const transformedUser = {
+      id: newUser.user_id,
+      name: `${newUser.first_name} ${newUser.last_name}`,
+      email: newUser.email,
+      phone: newUser.phone_e164,
+      is_admin: Boolean(newUser.is_admin),
+      is_student: Boolean(newUser.is_student),
+      status: 'active', // Default status for new users
+      language_pref: newUser.language_pref,
+      created_at: newUser.created_at,
+      updated_at: newUser.updated_at,
+      address: {
+        street: newUser.address || '',
+        city: userData.address?.city || 'Sharjah',
+        district: newUser.district || ''
+      }
+    };
+
+    res.status(201).json({
+      success: true,
+      data: transformedUser,
+      message: 'User created successfully'
+    });
+
+  } catch (error) {
+    console.error('Create user error:', error);
+    res.status(500).json({
+      success: false,
+      error: 'Failed to create user'
+    });
+  }
+});
+
+// Bulk update users (admin only) - MUST come before /users/:id
+router.put('/users/bulk', authenticateToken, requireAdmin, async (req: Request, res: Response) => {
+  try {
+    console.log('=== ADMIN REQUEST: PUT /users/bulk ===');
+    const { userIds, updates } = req.body;
+    
+    if (!userIds || !Array.isArray(userIds) || userIds.length === 0) {
+      return res.status(400).json({
+        success: false,
+        error: 'User IDs array is required'
+      });
+    }
+
+    if (!updates || typeof updates !== 'object') {
+      return res.status(400).json({
+        success: false,
+        error: 'Updates object is required'
+      });
+    }
+
+    console.log('[DEBUG] Bulk updating users:', userIds, updates);
+
+    const updatedUsers: any[] = [];
+    const notFoundUsers: string[] = [];
+
+    for (const userId of userIds) {
+      console.log(`[DEBUG] Processing user: ${userId}`);
+      
+      // Check if user exists
+      const existingUser = profileRepo.findByUserId(userId);
+      console.log(`[DEBUG] User ${userId} exists:`, !!existingUser);
+      
+      if (!existingUser) {
+        console.log(`[DEBUG] User ${userId} not found, adding to notFoundUsers`);
+        notFoundUsers.push(userId);
+        continue;
+      }
+
+      // Prevent bulk update of the current admin user
+      if (req.user && req.user.user_id === userId) {
+        console.log(`[DEBUG] Skipping current admin user: ${userId}`);
+        continue;
+      }
+
+      // Prepare update data
+      const updateData: any = {};
+      
+      if (updates.status !== undefined) updateData.status = updates.status;
+      if (updates.is_admin !== undefined) updateData.is_admin = updates.is_admin ? 1 : 0;
+      if (updates.is_student !== undefined) updateData.is_student = updates.is_student ? 1 : 0;
+      if (updates.language_pref !== undefined) updateData.language_pref = updates.language_pref;
+      
+      console.log(`[DEBUG] Update data for user ${userId}:`, updateData);
+
+      // Update user - need to use custom update since base repo uses 'id' field
+      const updateFields = Object.keys(updateData);
+      const values = Object.values(updateData);
+      
+      if (updateFields.length > 0) {
+        const setClause = updateFields.map(field => `${field} = ?`).join(', ');
+        const sql = `UPDATE profiles SET ${setClause}, updated_at = ? WHERE user_id = ?`;
+        console.log(`[DEBUG] Executing SQL: ${sql}`);
+        console.log(`[DEBUG] SQL params:`, [...values, new Date().toISOString(), userId]);
+        
+        profileRepo.execute(sql, [...values, new Date().toISOString(), userId]);
+        console.log(`[DEBUG] Update executed for user ${userId}`);
+      }
+      
+      const updatedUser = profileRepo.findByUserId(userId);
+      console.log(`[DEBUG] Updated user ${userId} found:`, !!updatedUser);
+
+      if (updatedUser) {
+        // Transform to match frontend User interface
+        const transformedUser = {
+          id: updatedUser.user_id,
+          name: `${updatedUser.first_name} ${updatedUser.last_name}`,
+          email: updatedUser.email,
+          phone: updatedUser.phone_e164,
+          is_admin: Boolean(updatedUser.is_admin),
+          is_student: Boolean(updatedUser.is_student),
+          status: 'active', // Default status as it's not in the Profile model
+          language_pref: updatedUser.language_pref,
+          created_at: updatedUser.created_at,
+          updated_at: updatedUser.updated_at,
+          address: {
+            street: updatedUser.address || '',
+            city: 'Sharjah',
+            district: updatedUser.district || ''
+          }
+        };
+        
+        console.log(`[DEBUG] Adding transformed user to results:`, transformedUser.id);
+        updatedUsers.push(transformedUser);
+      }
+    }
+
+    console.log(`[DEBUG] Bulk update complete. Updated: ${updatedUsers.length}, Not found: ${notFoundUsers.length}`);
+    
+    if (notFoundUsers.length > 0) {
+      console.log(`[DEBUG] Users not found:`, notFoundUsers);
+    }
+
+    // If no users were updated and some weren't found, return an error
+    if (updatedUsers.length === 0 && notFoundUsers.length > 0) {
+      return res.status(404).json({
+        success: false,
+        error: 'User not found',
+        details: `Users not found: ${notFoundUsers.join(', ')}`
+      });
+    }
+
+    res.json({
+      success: true,
+      data: updatedUsers,
+      message: `${updatedUsers.length} users updated successfully`
+    });
+
+  } catch (error) {
+    console.error('Bulk update users error:', error);
+    res.status(500).json({
+      success: false,
+      error: 'Failed to update users'
+    });
+  }
+});
+
+// Update user (admin only)
+router.put('/users/:id', authenticateToken, requireAdmin, async (req: Request, res: Response) => {
   try {
     const { id } = req.params;
-
-    const user = profileRepo.findById(id);
-    if (!user) {
+    const userData = req.body;
+    console.log('[DEBUG] Updating user:', id, userData);
+    
+    // Check if user exists
+    const existingUser = profileRepo.findByUserId(id);
+    if (!existingUser) {
       return res.status(404).json({
         success: false,
         error: 'User not found'
       });
     }
 
-    // Transform raw DB data to match frontend User interface
+    // Check if email already exists (if changing email)
+    if (userData.email && userData.email !== existingUser.email) {
+      const emailExists = profileRepo.findByEmail(userData.email);
+      if (emailExists) {
+        return res.status(400).json({
+          success: false,
+          error: 'Email already exists'
+        });
+      }
+    }
+
+    // Prepare update data
+    const updateData: any = {};
+    
+    if (userData.name !== undefined) {
+      updateData.first_name = userData.name.split(' ')[0] || userData.name;
+      updateData.last_name = userData.name.split(' ').slice(1).join(' ') || '';
+    }
+    
+    if (userData.email !== undefined) updateData.email = userData.email;
+    if (userData.phone !== undefined) updateData.phone_e164 = userData.phone;
+    if (userData.is_admin !== undefined) updateData.is_admin = Boolean(userData.is_admin);
+    if (userData.is_student !== undefined) updateData.is_student = Boolean(userData.is_student);
+    if (userData.language_pref !== undefined) updateData.language_pref = userData.language_pref;
+    
+    if (userData.address) {
+      if (userData.address.street !== undefined) updateData.address = userData.address.street;
+      if (userData.address.district !== undefined) updateData.district = userData.address.district;
+    }
+    
+    // Hash password if provided
+    if (userData.password) {
+      updateData.password = userData.password; // In production: await bcrypt.hash(userData.password, 10);
+    }
+    
+    updateData.updated_at = new Date().toISOString();
+
+    // Update user - need to use custom update since base repo uses 'id' field
+    const updateFields = Object.keys(updateData);
+    const values = Object.values(updateData);
+    
+    if (updateFields.length > 0) {
+      const setClause = updateFields.map(field => `${field} = ?`).join(', ');
+      const sql = `UPDATE profiles SET ${setClause}, updated_at = ? WHERE user_id = ?`;
+      profileRepo.execute(sql, [...values, new Date().toISOString(), id]);
+    }
+    
+    const updatedUser = profileRepo.findByUserId(id);
+
+    if (!updatedUser) {
+      return res.status(404).json({
+        success: false,
+        error: 'User not found after update'
+      });
+    }
+
+    // Transform to match frontend User interface
     const transformedUser = {
-      name: `${user.first_name} ${user.last_name}`,
-      email: user.email,
-      phone: user.phone_e164,
-      is_admin: user.is_admin,
+      id: updatedUser.user_id,
+      name: `${updatedUser.first_name} ${updatedUser.last_name}`,
+      email: updatedUser.email,
+      phone: updatedUser.phone_e164,
+      is_admin: Boolean(updatedUser.is_admin),
+      is_student: Boolean(updatedUser.is_student),
+      status: 'active', // Default status as it's not in the Profile model
+      language_pref: updatedUser.language_pref,
+      created_at: updatedUser.created_at,
+      updated_at: updatedUser.updated_at,
       address: {
-        street: user.address || '',
-        city: 'Sharjah', // Default city
-        district: user.district || ''
+        street: updatedUser.address || '',
+        city: userData.address?.city || 'Sharjah',
+        district: updatedUser.district || ''
       }
     };
 
     res.json({
       success: true,
-      data: transformedUser
+      data: transformedUser,
+      message: 'User updated successfully'
     });
 
   } catch (error) {
-    console.error('Get user error:', error);
+    console.error('Update user error:', error);
     res.status(500).json({
       success: false,
-      error: 'Failed to fetch user'
+      error: 'Failed to update user'
+    });
+  }
+});
+
+// Delete user (admin only)
+router.delete('/users/:id', authenticateToken, requireAdmin, async (req: Request, res: Response) => {
+  try {
+    const { id } = req.params;
+    console.log('[DEBUG] Deleting user:', id);
+    
+    // Check if user exists
+    const existingUser = profileRepo.findByUserId(id);
+    if (!existingUser) {
+      return res.status(404).json({
+        success: false,
+        error: 'User not found'
+      });
+    }
+
+    // Prevent deletion of the current admin user
+    if (req.user && req.user.user_id === id) {
+      return res.status(400).json({
+        success: false,
+        error: 'Cannot delete your own account'
+      });
+    }
+
+    // Check if user has active or frozen subscriptions
+    const activeSubscriptions = subscriptionRepo.count('user_id = ? AND status IN ?', [id, ['Active', 'Frozen']]);
+    if (activeSubscriptions > 0) {
+      return res.status(400).json({
+        success: false,
+        error: 'Cannot delete user with active or frozen subscriptions'
+      });
+    }
+
+    // Delete user - need to use custom delete since base repo uses 'id' field
+    profileRepo.execute('DELETE FROM profiles WHERE user_id = ?', [id]);
+
+    res.json({
+      success: true,
+      message: 'User deleted successfully'
+    });
+
+  } catch (error) {
+    console.error('Delete user error:', error);
+    res.status(500).json({
+      success: false,
+      error: 'Failed to delete user'
+    });
+  }
+});
+
+
+
+// Bulk delete users (admin only)
+router.post('/users/bulk-delete', authenticateToken, requireAdmin, async (req: Request, res: Response) => {
+  try {
+    const { userIds } = req.body;
+    
+    if (!userIds || !Array.isArray(userIds) || userIds.length === 0) {
+      return res.status(400).json({
+        success: false,
+        error: 'User IDs array is required'
+      });
+    }
+
+    console.log('[DEBUG] Bulk deleting users:', userIds);
+
+    let deletedCount = 0;
+
+    for (const userId of userIds) {
+      // Check if user exists
+      const existingUser = profileRepo.findByUserId(userId);
+      if (!existingUser) continue;
+
+      // Prevent deletion of the current admin user
+      if (req.user && req.user.user_id === userId) continue;
+
+      // Check if user has active or frozen subscriptions
+      const activeSubscriptions = subscriptionRepo.count('user_id = ? AND status IN ?', [userId, ['Active', 'Frozen']]);
+      if (activeSubscriptions > 0) continue;
+
+      // Delete user - need to use custom delete since base repo uses 'id' field
+      profileRepo.execute('DELETE FROM profiles WHERE user_id = ?', [userId]);
+      deletedCount++;
+    }
+
+    res.json({
+      success: true,
+      message: `${deletedCount} users deleted successfully`
+    });
+
+  } catch (error) {
+    console.error('Bulk delete users error:', error);
+    res.status(500).json({
+      success: false,
+      error: 'Failed to delete users'
     });
   }
 });
@@ -1076,12 +1697,12 @@ router.delete('/plans/:id', authenticateToken, requireAdmin, async (req: AuthReq
       });
     }
     
-    // Check if plan has active subscriptions
-    const activeSubscriptions = subscriptionRepo.count('plan_id = ? AND status = ?', [id, 'active']);
+    // Check if plan has active or frozen subscriptions
+    const activeSubscriptions = subscriptionRepo.count('plan_id = ? AND status IN ?', [id, ['Active', 'Frozen']]);
     if (activeSubscriptions > 0) {
       return res.status(400).json({
         success: false,
-        error: 'Cannot delete plan with active subscriptions'
+        error: 'Cannot delete plan with active or frozen subscriptions'
       });
     }
     
@@ -1098,6 +1719,137 @@ router.delete('/plans/:id', authenticateToken, requireAdmin, async (req: AuthReq
     res.status(500).json({
       success: false,
       error: 'Failed to delete plan'
+    });
+  }
+});
+
+// Bulk state transition endpoints for dashboard quick actions
+router.put('/subscriptions/bulk-state', authenticateToken, requireAdmin, async (req: Request, res: Response) => {
+  try {
+    const { subscriptionIds, newState, reason } = req.body;
+    
+    if (!subscriptionIds || !Array.isArray(subscriptionIds) || subscriptionIds.length === 0) {
+      return res.status(400).json({
+        success: false,
+        error: 'Subscription IDs array is required'
+      });
+    }
+    
+    if (!newState) {
+      return res.status(400).json({
+        success: false,
+        error: 'New state is required'
+      });
+    }
+    
+    console.log(`[BULK_STATE] Transitioning ${subscriptionIds.length} subscriptions to ${newState}`);
+    
+    const updatedSubscriptions: any[] = [];
+    const errors: any[] = [];
+    
+    for (const subscriptionId of subscriptionIds) {
+      try {
+        // Check if subscription exists
+        const existingSubscription = subscriptionRepo.findById(subscriptionId);
+        if (!existingSubscription) {
+          errors.push({ subscriptionId, error: 'Subscription not found' });
+          continue;
+        }
+        
+        // Validate state transition (basic validation)
+        const validStates = ['Pending_Approval', 'New_Joiner', 'Curious', 'Active', 'Frozen', 'Exiting', 'Cancelled'];
+        if (!validStates.includes(newState)) {
+          errors.push({ subscriptionId, error: `Invalid state: ${newState}` });
+          continue;
+        }
+        
+        // Update subscription state
+        const updatedSubscription = subscriptionRepo.update(subscriptionId, {
+          status: newState,
+          updated_at: new Date().toISOString()
+        });
+        
+        updatedSubscriptions.push(updatedSubscription);
+        
+      } catch (error) {
+        console.error(`[BULK_STATE] Error updating subscription ${subscriptionId}:`, error);
+        errors.push({ subscriptionId, error: error instanceof Error ? error.message : 'Unknown error' });
+      }
+    }
+    
+    console.log(`[BULK_STATE] Successfully updated ${updatedSubscriptions.length} subscriptions, ${errors.length} errors`);
+    
+    res.json({
+      success: true,
+      data: {
+        updatedSubscriptions,
+        errors
+      },
+      message: `${updatedSubscriptions.length} subscriptions updated successfully`
+    });
+    
+  } catch (error) {
+    console.error('Bulk state transition error:', error);
+    res.status(500).json({
+      success: false,
+      error: 'Failed to perform bulk state transition'
+    });
+  }
+});
+
+// Individual state transition endpoint for dashboard quick actions
+router.put('/subscriptions/:id/state', authenticateToken, requireAdmin, async (req: Request, res: Response) => {
+  try {
+    const { id } = req.params;
+    const { newState, reason } = req.body;
+    
+    if (!newState) {
+      return res.status(400).json({
+        success: false,
+        error: 'New state is required'
+      });
+    }
+    
+    // Check if subscription exists
+    const existingSubscription = subscriptionRepo.findById(id);
+    if (!existingSubscription) {
+      return res.status(404).json({
+        success: false,
+        error: 'Subscription not found'
+      });
+    }
+    
+    // Validate state transition
+    const validStates = ['Pending_Approval', 'New_Joiner', 'Curious', 'Active', 'Frozen', 'Exiting', 'Cancelled'];
+    if (!validStates.includes(newState)) {
+      return res.status(400).json({
+        success: false,
+        error: `Invalid state: ${newState}`
+      });
+    }
+    
+    console.log(`[STATE_TRANSITION] Transitioning subscription ${id} from ${existingSubscription.status} to ${newState}`);
+    
+    // Update subscription state
+    const updatedSubscription = subscriptionRepo.update(id, {
+      status: newState,
+      updated_at: new Date().toISOString()
+    });
+    
+    // Log state transition history (if we had a history table)
+    console.log(`[STATE_TRANSITION] Subscription ${id} transitioned to ${newState}. Reason: ${reason || 'No reason provided'}`);
+    
+    res.json({
+      success: true,
+      data: updatedSubscription,
+      message: `Subscription state updated to ${newState} successfully`
+    });
+    
+  } catch (error) {
+    console.error('State transition error:', error);
+    res.status(500).json({
+      success: false,
+      error: 'Failed to update subscription state'
     });
   }
 });

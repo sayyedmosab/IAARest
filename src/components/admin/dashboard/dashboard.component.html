@@ -2,100 +2,321 @@
   <h3 class="text-2xl font-semibold text-gray-700">Customer Pipeline Dashboard</h3>
   <p class="text-sm text-gray-500">Real-time overview of subscription business performance.</p>
 
-  <!-- Customer Pipeline - Row 1: Main Boxes -->
-  <div class="mt-6 grid grid-cols-1 md:grid-cols-3 gap-6">
-    <!-- New Subscribers Box -->
-    <div class="bg-white shadow-md p-6 border-l-4 border-indigo-500">
-      <div class="flex items-center justify-between mb-4">
-        <h4 class="text-lg font-semibold text-gray-700">New Subscribers</h4>
-        <div class="bg-indigo-100 p-2">
-          <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-indigo-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+  <!-- Key Business Metrics Summary -->
+  <div class="mt-4 grid grid-cols-1 md:grid-cols-3 gap-4 dashboard-metrics">
+    <!-- New Subscribers Metric -->
+    <div class="bg-gradient-to-r from-blue-500 to-blue-600 text-white p-4 rounded-lg shadow-md metric-card">
+      <div class="flex items-center justify-between">
+        <div>
+          <p class="text-sm font-medium text-blue-100">New Subscribers</p>
+          <p class="text-2xl font-bold">{{ newSubscribers() }}</p>
+          <p class="text-xs text-blue-100 mt-1">New Joiners this period</p>
+        </div>
+        <div class="bg-blue-700 bg-opacity-50 p-3 rounded-full">
+          <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-blue-200" fill="none" viewBox="0 0 24 24" stroke="currentColor">
             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M18 9v3m0 0v3m0-3h3m-3 0h-3m-2-5a4 4 0 11-8 0 4 4 0 018 0zM3 20a6 6 0 0112 0v1H3v-1z" />
           </svg>
         </div>
       </div>
-      <div class="space-y-2">
-        <p class="text-3xl font-bold text-gray-900">{{ dashboardData()?.customerPipeline?.new?.count || 0 }}</p>
-        <p class="text-sm text-green-600 font-medium">AED {{ dashboardData()?.customerPipeline?.new?.revenue | number:'1.0-0' }} revenue</p>
-      </div>
     </div>
 
-    <!-- Active Subscribers Box -->
-    <div class="bg-white shadow-md p-6 border-l-4 border-green-500">
-      <div class="flex items-center justify-between mb-4">
-        <h4 class="text-lg font-semibold text-gray-700">Active Subscribers</h4>
-        <div class="bg-green-100 p-2">
-          <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-green-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+    <!-- Active Subscribers Metric -->
+    <div class="bg-gradient-to-r from-green-500 to-green-600 text-white p-4 rounded-lg shadow-md metric-card">
+      <div class="flex items-center justify-between">
+        <div>
+          <p class="text-sm font-medium text-green-100">Active Subscribers</p>
+          <p class="text-2xl font-bold">{{ activeSubscribers() }}</p>
+          <p class="text-xs text-green-100 mt-1">Active + Curious</p>
+        </div>
+        <div class="bg-green-700 bg-opacity-50 p-3 rounded-full">
+          <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-green-200" fill="none" viewBox="0 0 24 24" stroke="currentColor">
             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a3.001 3.001 0 01-3.712 0M12 12h.01" />
           </svg>
         </div>
       </div>
-      <div class="space-y-2">
-        <p class="text-3xl font-bold text-gray-900">{{ dashboardData()?.customerPipeline?.active?.count || 0 }}</p>
-        <p class="text-sm text-green-600 font-medium">AED {{ dashboardData()?.customerPipeline?.active?.revenue | number:'1.0-0' }} revenue</p>
-      </div>
     </div>
 
-    <!-- Exiting Subscribers Box -->
-    <div class="bg-white shadow-md p-6 border-l-4 border-amber-500">
-      <div class="flex items-center justify-between mb-4">
-        <h4 class="text-lg font-semibold text-gray-700">Exiting Subscribers</h4>
-        <div class="bg-amber-100 p-2">
-          <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-amber-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+    <!-- Exiting Subscribers Metric -->
+    <div class="bg-gradient-to-r from-orange-500 to-orange-600 text-white p-4 rounded-lg shadow-md metric-card">
+      <div class="flex items-center justify-between">
+        <div>
+          <p class="text-sm font-medium text-orange-100">Exiting Subscribers</p>
+          <p class="text-2xl font-bold">{{ exitingSubscribers() }}</p>
+          <p class="text-xs text-orange-100 mt-1">Service ending soon</p>
+        </div>
+        <div class="bg-orange-700 bg-opacity-50 p-3 rounded-full">
+          <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 text-orange-200" fill="none" viewBox="0 0 24 24" stroke="currentColor">
             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1" />
           </svg>
         </div>
       </div>
-      <div class="space-y-2">
-        <p class="text-3xl font-bold text-gray-900">{{ dashboardData()?.customerPipeline?.exiting?.count || 0 }}</p>
-        <p class="text-sm text-amber-600 font-medium">AED {{ dashboardData()?.customerPipeline?.exiting?.revenue | number:'1.0-0' }} revenue</p>
+    </div>
+  </div>
+
+  <!-- Customer Pipeline - Row 1: Main Boxes (7 States) -->
+  <div class="mt-6 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4 customer-pipeline">
+    <!-- Pending Approval Box -->
+    <div class="bg-white shadow-md p-4 border-l-4 border-yellow-500 relative group state-box state-indicator-pending">
+      <div class="flex items-center justify-between mb-3">
+        <h4 class="text-sm font-semibold text-gray-700">Pending Approval</h4>
+        <div class="bg-yellow-100 p-1">
+          <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 text-yellow-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
+          </svg>
+        </div>
+      </div>
+      <div class="space-y-1">
+        <p class="text-2xl font-bold text-gray-900">{{ dashboardData()?.customerPipeline?.pendingApproval?.count || 0 }}</p>
+        <p class="text-xs text-green-600 font-medium">AED {{ dashboardData()?.customerPipeline?.pendingApproval?.revenue | number:'1.0-0' }}</p>
+      </div>
+      
+      <!-- Tooltip -->
+      <div class="absolute bottom-full left-1/2 transform -translate-x-1/2 mb-2 px-3 py-2 bg-gray-800 text-white text-xs rounded-lg opacity-0 group-hover:opacity-100 transition-opacity duration-200 pointer-events-none whitespace-nowrap z-10">
+        {{ getStateDescription('Pending_Approval') }}
+        <div class="absolute top-full left-1/2 transform -translate-x-1/2 -mt-1">
+          <div class="border-4 border-transparent border-t-gray-800"></div>
+        </div>
+      </div>
+      
+      <!-- Quick Actions -->
+      @if(dashboardData()?.customerPipeline?.pendingApproval?.count > 0) {
+        <div class="mt-3 pt-3 border-t border-gray-200 flex gap-2">
+          <button class="flex-1 bg-green-500 hover:bg-green-600 text-white text-xs px-2 py-1 rounded transition-colors quick-action-btn"
+                  (click)="onApproveSubscription('pending')">
+            Approve All
+          </button>
+          <button class="flex-1 bg-red-500 hover:bg-red-600 text-white text-xs px-2 py-1 rounded transition-colors quick-action-btn"
+                  (click)="onRejectSubscription('pending')">
+            Reject All
+          </button>
+        </div>
+      }
+    </div>
+
+    <!-- New Joiner Box -->
+    <div class="bg-white shadow-md p-4 border-l-4 border-blue-500 relative group state-box state-indicator-new-joiner">
+      <div class="flex items-center justify-between mb-3">
+        <h4 class="text-sm font-semibold text-gray-700">New Joiners</h4>
+        <div class="bg-blue-100 p-1">
+          <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 text-blue-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M18 9v3m0 0v3m0-3h3m-3 0h-3m-2-5a4 4 0 11-8 0 4 4 0 018 0zM3 20a6 6 0 0112 0v1H3v-1z" />
+          </svg>
+        </div>
+      </div>
+      <div class="space-y-1">
+        <p class="text-2xl font-bold text-gray-900">{{ dashboardData()?.customerPipeline?.newJoiner?.count || 0 }}</p>
+        <p class="text-xs text-green-600 font-medium">AED {{ dashboardData()?.customerPipeline?.newJoiner?.revenue | number:'1.0-0' }}</p>
+      </div>
+      
+      <!-- Tooltip -->
+      <div class="absolute bottom-full left-1/2 transform -translate-x-1/2 mb-2 px-3 py-2 bg-gray-800 text-white text-xs rounded-lg opacity-0 group-hover:opacity-100 transition-opacity duration-200 pointer-events-none whitespace-nowrap z-10">
+        {{ getStateDescription('New_Joiner') }}
+        <div class="absolute top-full left-1/2 transform -translate-x-1/2 -mt-1">
+          <div class="border-4 border-transparent border-t-gray-800"></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Curious Box -->
+    <div class="bg-white shadow-md p-4 border-l-4 border-purple-500 relative group state-box state-indicator-curious">
+      <div class="flex items-center justify-between mb-3">
+        <h4 class="text-sm font-semibold text-gray-700">Curious</h4>
+        <div class="bg-purple-100 p-1">
+          <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 text-purple-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8.228 9c.549-1.165 2.03-2 3.772-2 2.21 0 4 1.343 4 3 0 1.4-1.278 2.575-3.006 2.907-.542.104-.994.54-.994 1.093m0 3h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+          </svg>
+        </div>
+      </div>
+      <div class="space-y-1">
+        <p class="text-2xl font-bold text-gray-900">{{ dashboardData()?.customerPipeline?.curious?.count || 0 }}</p>
+        <p class="text-xs text-green-600 font-medium">AED {{ dashboardData()?.customerPipeline?.curious?.revenue | number:'1.0-0' }}</p>
+      </div>
+      
+      <!-- Tooltip -->
+      <div class="absolute bottom-full left-1/2 transform -translate-x-1/2 mb-2 px-3 py-2 bg-gray-800 text-white text-xs rounded-lg opacity-0 group-hover:opacity-100 transition-opacity duration-200 pointer-events-none whitespace-nowrap z-10">
+        {{ getStateDescription('Curious') }}
+        <div class="absolute top-full left-1/2 transform -translate-x-1/2 -mt-1">
+          <div class="border-4 border-transparent border-t-gray-800"></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Active Subscribers Box -->
+    <div class="bg-white shadow-md p-4 border-l-4 border-green-500 relative group state-box state-indicator-active">
+      <div class="flex items-center justify-between mb-3">
+        <h4 class="text-sm font-semibold text-gray-700">Active</h4>
+        <div class="bg-green-100 p-1">
+          <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 text-green-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a3.001 3.001 0 01-3.712 0M12 12h.01" />
+          </svg>
+        </div>
+      </div>
+      <div class="space-y-1">
+        <p class="text-2xl font-bold text-gray-900">{{ dashboardData()?.customerPipeline?.active?.count || 0 }}</p>
+        <p class="text-xs text-green-600 font-medium">AED {{ dashboardData()?.customerPipeline?.active?.revenue | number:'1.0-0' }}</p>
+      </div>
+      
+      <!-- Tooltip -->
+      <div class="absolute bottom-full left-1/2 transform -translate-x-1/2 mb-2 px-3 py-2 bg-gray-800 text-white text-xs rounded-lg opacity-0 group-hover:opacity-100 transition-opacity duration-200 pointer-events-none whitespace-nowrap z-10">
+        {{ getStateDescription('Active') }}
+        <div class="absolute top-full left-1/2 transform -translate-x-1/2 -mt-1">
+          <div class="border-4 border-transparent border-t-gray-800"></div>
+        </div>
+      </div>
+      
+      <!-- Quick Actions -->
+      @if(dashboardData()?.customerPipeline?.active?.count > 0) {
+        <div class="mt-3 pt-3 border-t border-gray-200 flex gap-2">
+          <button class="flex-1 bg-cyan-500 hover:bg-cyan-600 text-white text-xs px-2 py-1 rounded transition-colors quick-action-btn"
+                  (click)="onFreezeSubscription('active')">
+            Freeze All
+          </button>
+        </div>
+      }
+    </div>
+
+    <!-- Frozen Box -->
+    <div class="bg-white shadow-md p-4 border-l-4 border-cyan-500 relative group state-box state-indicator-frozen">
+      <div class="flex items-center justify-between mb-3">
+        <h4 class="text-sm font-semibold text-gray-700">Frozen</h4>
+        <div class="bg-cyan-100 p-1">
+          <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 text-cyan-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 14l2-2m0 0l2-2m-2 2l-2-2m2 2l2 2m7-2a9 9 0 11-18 0 9 9 0 0118 0z" />
+          </svg>
+        </div>
+      </div>
+      <div class="space-y-1">
+        <p class="text-2xl font-bold text-gray-900">{{ dashboardData()?.customerPipeline?.frozen?.count || 0 }}</p>
+        <p class="text-xs text-green-600 font-medium">AED {{ dashboardData()?.customerPipeline?.frozen?.revenue | number:'1.0-0' }}</p>
+      </div>
+      
+      <!-- Tooltip -->
+      <div class="absolute bottom-full left-1/2 transform -translate-x-1/2 mb-2 px-3 py-2 bg-gray-800 text-white text-xs rounded-lg opacity-0 group-hover:opacity-100 transition-opacity duration-200 pointer-events-none whitespace-nowrap z-10">
+        {{ getStateDescription('Frozen') }}
+        <div class="absolute top-full left-1/2 transform -translate-x-1/2 -mt-1">
+          <div class="border-4 border-transparent border-t-gray-800"></div>
+        </div>
+      </div>
+      
+      <!-- Quick Actions -->
+      @if(dashboardData()?.customerPipeline?.frozen?.count > 0) {
+        <div class="mt-3 pt-3 border-t border-gray-200 flex gap-2">
+          <button class="flex-1 bg-green-500 hover:bg-green-600 text-white text-xs px-2 py-1 rounded transition-colors"
+                  (click)="onUnfreezeSubscription('frozen')">
+            Reactivate All
+          </button>
+        </div>
+      }
+    </div>
+
+    <!-- Exiting Box -->
+    <div class="bg-white shadow-md p-4 border-l-4 border-orange-500 relative group state-box state-indicator-exiting">
+      <div class="flex items-center justify-between mb-3">
+        <h4 class="text-sm font-semibold text-gray-700">Exiting</h4>
+        <div class="bg-orange-100 p-1">
+          <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 text-orange-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1" />
+          </svg>
+        </div>
+      </div>
+      <div class="space-y-1">
+        <p class="text-2xl font-bold text-gray-900">{{ dashboardData()?.customerPipeline?.exiting?.count || 0 }}</p>
+        <p class="text-xs text-orange-600 font-medium">AED {{ dashboardData()?.customerPipeline?.exiting?.revenue | number:'1.0-0' }}</p>
+      </div>
+      
+      <!-- Tooltip -->
+      <div class="absolute bottom-full left-1/2 transform -translate-x-1/2 mb-2 px-3 py-2 bg-gray-800 text-white text-xs rounded-lg opacity-0 group-hover:opacity-100 transition-opacity duration-200 pointer-events-none whitespace-nowrap z-10">
+        {{ getStateDescription('Exiting') }}
+        <div class="absolute top-full left-1/2 transform -translate-x-1/2 -mt-1">
+          <div class="border-4 border-transparent border-t-gray-800"></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Cancelled Box -->
+    <div class="bg-white shadow-md p-4 border-l-4 border-red-500 relative group">
+      <div class="flex items-center justify-between mb-3">
+        <h4 class="text-sm font-semibold text-gray-700">Cancelled</h4>
+        <div class="bg-red-100 p-1">
+          <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 text-red-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
+          </svg>
+        </div>
+      </div>
+      <div class="space-y-1">
+        <p class="text-2xl font-bold text-gray-900">{{ dashboardData()?.customerPipeline?.cancelled?.count || 0 }}</p>
+        <p class="text-xs text-red-600 font-medium">AED {{ dashboardData()?.customerPipeline?.cancelled?.revenue | number:'1.0-0' }}</p>
+      </div>
+      
+      <!-- Tooltip -->
+      <div class="absolute bottom-full left-1/2 transform -translate-x-1/2 mb-2 px-3 py-2 bg-gray-800 text-white text-xs rounded-lg opacity-0 group-hover:opacity-100 transition-opacity duration-200 pointer-events-none whitespace-nowrap z-10">
+        {{ getStateDescription('Cancelled') }}
+        <div class="absolute top-full left-1/2 transform -translate-x-1/2 -mt-1">
+          <div class="border-4 border-transparent border-t-gray-800"></div>
+        </div>
       </div>
     </div>
   </div>
 
-  <!-- Customer Pipeline - Row 2: Segmentation by Plan -->
-  <div class="mt-6 grid grid-cols-1 md:grid-cols-3 gap-6">
-    <!-- New Subscribers by Plan -->
-    <div class="bg-white shadow-md p-6">
-      <h5 class="text-sm font-semibold text-gray-600 mb-4">New Subscribers by Plan</h5>
-      <div class="space-y-3">
-        @for(plan of dashboardData()?.customerPipeline?.new?.byPlan || []; track plan.planId) {
+  <!-- Customer Pipeline - Row 2: Segmentation by Plan (Key States) -->
+  <div class="mt-6 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
+    <!-- Pending Approval by Plan -->
+    <div class="bg-white shadow-md p-4">
+      <h5 class="text-xs font-semibold text-gray-600 mb-3">Pending Approval by Plan</h5>
+      <div class="space-y-2 max-h-48 overflow-y-auto">
+        @for(plan of dashboardData()?.customerPipeline?.pendingApproval?.byPlan || []; track plan.planId) {
           @if(plan.count > 0) {
-            <div class="flex items-center justify-between p-2 bg-indigo-50 rounded">
+            <div class="flex items-center justify-between p-2 bg-yellow-50 rounded">
               <div>
-                <p class="font-medium text-gray-800">{{ plan.planCode }}</p>
+                <p class="font-medium text-gray-800 text-xs">{{ plan.planCode }}</p>
                 <p class="text-xs text-gray-500">{{ plan.planName }}</p>
               </div>
               <div class="text-right">
-                <p class="font-bold text-indigo-600">{{ plan.count }}</p>
+                <p class="font-bold text-yellow-600">{{ plan.count }}</p>
                 <p class="text-xs text-gray-500">AED {{ plan.revenue | number:'1.0-0' }}</p>
-              </div>
-            </div>
-          } @else {
-            <div class="flex items-center justify-between p-2 bg-gray-50 rounded">
-              <div>
-                <p class="font-medium text-gray-400">{{ plan.planCode }}</p>
-                <p class="text-xs text-gray-400">{{ plan.planName }}</p>
-              </div>
-              <div class="text-right">
-                <p class="font-bold text-gray-400">0</p>
-                <p class="text-xs text-gray-400">AED 0</p>
               </div>
             </div>
           }
         }
+        @if(dashboardData()?.customerPipeline?.pendingApproval?.byPlan?.length === 0) {
+          <p class="text-xs text-gray-400 text-center py-2">No pending approvals</p>
+        }
       </div>
     </div>
 
-    <!-- Active Subscribers by Plan -->
-    <div class="bg-white shadow-md p-6">
-      <h5 class="text-sm font-semibold text-gray-600 mb-4">Active Subscribers by Plan</h5>
-      <div class="space-y-3">
+    <!-- New Joiner by Plan -->
+    <div class="bg-white shadow-md p-4">
+      <h5 class="text-xs font-semibold text-gray-600 mb-3">New Joiners by Plan</h5>
+      <div class="space-y-2 max-h-48 overflow-y-auto">
+        @for(plan of dashboardData()?.customerPipeline?.newJoiner?.byPlan || []; track plan.planId) {
+          @if(plan.count > 0) {
+            <div class="flex items-center justify-between p-2 bg-blue-50 rounded">
+              <div>
+                <p class="font-medium text-gray-800 text-xs">{{ plan.planCode }}</p>
+                <p class="text-xs text-gray-500">{{ plan.planName }}</p>
+              </div>
+              <div class="text-right">
+                <p class="font-bold text-blue-600">{{ plan.count }}</p>
+                <p class="text-xs text-gray-500">AED {{ plan.revenue | number:'1.0-0' }}</p>
+              </div>
+            </div>
+          }
+        }
+        @if(dashboardData()?.customerPipeline?.newJoiner?.byPlan?.length === 0) {
+          <p class="text-xs text-gray-400 text-center py-2">No new joiners</p>
+        }
+      </div>
+    </div>
+
+    <!-- Active by Plan -->
+    <div class="bg-white shadow-md p-4">
+      <h5 class="text-xs font-semibold text-gray-600 mb-3">Active by Plan</h5>
+      <div class="space-y-2 max-h-48 overflow-y-auto">
         @for(plan of dashboardData()?.customerPipeline?.active?.byPlan || []; track plan.planId) {
           @if(plan.count > 0) {
             <div class="flex items-center justify-between p-2 bg-green-50 rounded">
               <div>
-                <p class="font-medium text-gray-800">{{ plan.planCode }}</p>
+                <p class="font-medium text-gray-800 text-xs">{{ plan.planCode }}</p>
                 <p class="text-xs text-gray-500">{{ plan.planName }}</p>
               </div>
               <div class="text-right">
@@ -103,50 +324,34 @@
                 <p class="text-xs text-gray-500">AED {{ plan.revenue | number:'1.0-0' }}</p>
               </div>
             </div>
-          } @else {
-            <div class="flex items-center justify-between p-2 bg-gray-50 rounded">
-              <div>
-                <p class="font-medium text-gray-400">{{ plan.planCode }}</p>
-                <p class="text-xs text-gray-400">{{ plan.planName }}</p>
-              </div>
-              <div class="text-right">
-                <p class="font-bold text-gray-400">0</p>
-                <p class="text-xs text-gray-400">AED 0</p>
-              </div>
-            </div>
           }
+        }
+        @if(dashboardData()?.customerPipeline?.active?.byPlan?.length === 0) {
+          <p class="text-xs text-gray-400 text-center py-2">No active subscriptions</p>
         }
       </div>
     </div>
 
-    <!-- Exiting Subscribers by Plan -->
-    <div class="bg-white shadow-md p-6">
-      <h5 class="text-sm font-semibold text-gray-600 mb-4">Exiting Subscribers by Plan</h5>
-      <div class="space-y-3">
+    <!-- Exiting by Plan -->
+    <div class="bg-white shadow-md p-4">
+      <h5 class="text-xs font-semibold text-gray-600 mb-3">Exiting by Plan</h5>
+      <div class="space-y-2 max-h-48 overflow-y-auto">
         @for(plan of dashboardData()?.customerPipeline?.exiting?.byPlan || []; track plan.planId) {
           @if(plan.count > 0) {
-            <div class="flex items-center justify-between p-2 bg-amber-50 rounded">
+            <div class="flex items-center justify-between p-2 bg-orange-50 rounded">
               <div>
-                <p class="font-medium text-gray-800">{{ plan.planCode }}</p>
+                <p class="font-medium text-gray-800 text-xs">{{ plan.planCode }}</p>
                 <p class="text-xs text-gray-500">{{ plan.planName }}</p>
               </div>
               <div class="text-right">
-                <p class="font-bold text-amber-600">{{ plan.count }}</p>
+                <p class="font-bold text-orange-600">{{ plan.count }}</p>
                 <p class="text-xs text-gray-500">AED {{ plan.revenue | number:'1.0-0' }}</p>
               </div>
             </div>
-          } @else {
-            <div class="flex items-center justify-between p-2 bg-gray-50 rounded">
-              <div>
-                <p class="font-medium text-gray-400">{{ plan.planCode }}</p>
-                <p class="text-xs text-gray-400">{{ plan.planName }}</p>
-              </div>
-              <div class="text-right">
-                <p class="font-bold text-gray-400">0</p>
-                <p class="text-xs text-gray-400">AED 0</p>
-              </div>
-            </div>
           }
+        }
+        @if(dashboardData()?.customerPipeline?.exiting?.byPlan?.length === 0) {
+          <p class="text-xs text-gray-400 text-center py-2">No exiting subscriptions</p>
         }
       </div>
     </div>
@@ -244,6 +449,9 @@
           </div>
           <div class="font-medium">
             Month Total: {{ monthTotal() }} meals (Avg: {{ monthAverage() }}/day)
+          </div>
+          <div class="text-xs text-gray-500 mt-1">
+            Based on {{ totalMealSubscribers() }} active subscribers
           </div>
         </div>
       </div>

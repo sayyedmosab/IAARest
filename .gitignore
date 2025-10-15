@@ -1,1 +1,30 @@
 node_modules
+# Angular cache files
+.angular/cache/
+# Database files
+*.db
+*.db-shm
+*.db-wal
+*.sqlite
+# Build artifacts
+dist/
+backend/dist/
+# Log files
+*.log
+error log.txt
+# Temporary files
+cookies.txt
+# Screenshot files
+*.png
+*.jpg
+*.jpeg
+# Environment files
+.env
+# IDE files
+.vscode/
+.idea/
+# OS files
+.DS_Store
+Thumbs.db
+# Stash directory
+stash/

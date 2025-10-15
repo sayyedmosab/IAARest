@@ -1,76 +1,1524 @@
-
-<div>
-  <h3 class="text-2xl font-semibold text-gray-700">User Management</h3>
-  <p class="text-sm text-gray-500">Approve new subscriptions and view all registered users.</p>
-
-  <!-- Pending Approvals -->
-  <div class="mt-8">
-    <h4 class="text-lg font-semibold text-gray-800">Pending Approvals</h4>
-    <div class="mt-4 bg-white shadow-md overflow-x-auto">
-      <table class="min-w-full divide-y divide-gray-200">
-        <thead class="bg-gray-50">
-          <tr>
-            <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Student Details</th>
-            <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Plan</th>
-            <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Payment Proof</th>
-            <th scope="col" class="px-6 py-3 text-right text-xs font-medium text-gray-500 uppercase tracking-wider">Actions</th>
-          </tr>
-        </thead>
-        <tbody class="bg-white divide-y divide-gray-200">
-          @for(sub of pendingSubscriptions(); track sub.id) {
-            <tr>
-              <td class="px-6 py-4 whitespace-nowrap">
-                <div class="text-sm font-medium text-gray-900">{{ sub.user.name }}</div>
-                <div class="text-sm text-gray-500">{{ sub.user.email }} | {{ sub.user.phone }}</div>
-                <div class="text-sm text-gray-500">{{ sub.deliveryAddress.district }}</div>
-              </td>
-              <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-900">{{ sub.planName }}</td>
-              <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
-                @if(sub.paymentProof) {
-                  <a [href]="sub.paymentProof" target="_blank" class="text-red-600 hover:underline">View Proof</a>
-                } @else {
-                  <span class="text-gray-400 italic">Not provided</span>
-                }
-              </td>
-              <td class="px-6 py-4 whitespace-nowrap text-right text-sm font-medium space-x-2">
-                <button (click)="approve(sub.id)" class="text-red-600 hover:text-red-900">Approve</button>
-                <button (click)="reject(sub.id)" class="text-gray-600 hover:text-gray-900">Reject</button>
-              </td>
-            </tr>
-          } @empty {
-            <tr><td colspan="4" class="text-center py-4 text-gray-500">No pending approvals.</td></tr>
-          }
-        </tbody>
-      </table>
+<div class="user-management">
+  <!-- Header -->
+  <div class="flex flex-col lg:flex-row lg:items-center lg:justify-between mb-6">
+    <div>
+      <h2 class="text-2xl font-bold text-gray-900">User Management</h2>
+      <p class="mt-1 text-sm text-gray-500">Manage users, roles, and permissions</p>
+    </div>
+    <div class="mt-4 lg:mt-0 flex flex-col sm:flex-row gap-3">
+      <button 
+        (click)="openCreateModal()" 
+        class="inline-flex items-center justify-center px-4 py-2 border border-transparent text-sm font-medium rounded-md text-white bg-red-600 hover:bg-red-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-red-500 transition-colors">
+        <svg class="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6v6m0 0v6m0-6h6m-6 0H6"></path>
+        </svg>
+        Add New User
+      </button>
     </div>
   </div>
 
-  <!-- All Registered Users -->
-  <div class="mt-12">
-    <h4 class="text-lg font-semibold text-gray-800">All Registered Users</h4>
-     <div class="mt-4 bg-white shadow-md overflow-x-auto">
-      <table class="min-w-full divide-y divide-gray-200">
-        <thead class="bg-gray-50">
-          <tr>
-            <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Name</th>
-            <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Email</th>
-            <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Phone</th>
-            <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Address</th>
-          </tr>
-        </thead>
-        <tbody class="bg-white divide-y divide-gray-200">
-          @for (user of allUsers(); track user.email) {
-            <tr>
-              <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">{{ user.name }}</td>
-              <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">{{ user.email }}</td>
-              <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">{{ user.phone }}</td>
-              <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">{{ user.address.street }}, {{ user.address.district }}</td>
-            </tr>
-          } @empty {
-             <tr><td colspan="4" class="text-center py-4 text-gray-500">No users registered yet.</td></tr>
-          }
-        </tbody>
-      </table>
+  <!-- Enhanced Statistics Cards -->
+  <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 xl:grid-cols-6 gap-4 mb-6">
+    <div class="bg-white overflow-hidden shadow rounded-lg">
+      <div class="p-4">
+        <div class="flex items-center">
+          <div class="flex-shrink-0">
+            <div class="w-8 h-8 bg-green-500 rounded-md flex items-center justify-center">
+              <span class="text-white font-bold">{{ getStateIcon('Active') }}</span>
+            </div>
+          </div>
+          <div class="ml-3 w-0 flex-1">
+            <dl>
+              <dt class="text-sm font-medium text-gray-500 truncate">Active</dt>
+              <dd class="text-lg font-medium text-gray-900">{{ getSubscriptionCountByStatus('Active') }}</dd>
+            </dl>
+          </div>
+        </div>
+      </div>
     </div>
+
+    <div class="bg-white overflow-hidden shadow rounded-lg">
+      <div class="p-4">
+        <div class="flex items-center">
+          <div class="flex-shrink-0">
+            <div class="w-8 h-8 bg-orange-500 rounded-md flex items-center justify-center">
+              <span class="text-white font-bold">{{ getStateIcon('Pending_Approval') }}</span>
+            </div>
+          </div>
+          <div class="ml-3 w-0 flex-1">
+            <dl>
+              <dt class="text-sm font-medium text-gray-500 truncate">Pending Approval</dt>
+              <dd class="text-lg font-medium text-gray-900">{{ getSubscriptionCountByStatus('Pending_Approval') }}</dd>
+            </dl>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="bg-white overflow-hidden shadow rounded-lg">
+      <div class="p-4">
+        <div class="flex items-center">
+          <div class="flex-shrink-0">
+            <div class="w-8 h-8 bg-blue-500 rounded-md flex items-center justify-center">
+              <span class="text-white font-bold">{{ getStateIcon('New_Joiner') }}</span>
+            </div>
+          </div>
+          <div class="ml-3 w-0 flex-1">
+            <dl>
+              <dt class="text-sm font-medium text-gray-500 truncate">New Joiners</dt>
+              <dd class="text-lg font-medium text-gray-900">{{ getSubscriptionCountByStatus('New_Joiner') }}</dd>
+            </dl>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="bg-white overflow-hidden shadow rounded-lg">
+      <div class="p-4">
+        <div class="flex items-center">
+          <div class="flex-shrink-0">
+            <div class="w-8 h-8 bg-purple-500 rounded-md flex items-center justify-center">
+              <span class="text-white font-bold">{{ getStateIcon('Curious') }}</span>
+            </div>
+          </div>
+          <div class="ml-3 w-0 flex-1">
+            <dl>
+              <dt class="text-sm font-medium text-gray-500 truncate">Curious</dt>
+              <dd class="text-lg font-medium text-gray-900">{{ getSubscriptionCountByStatus('Curious') }}</dd>
+            </dl>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="bg-white overflow-hidden shadow rounded-lg">
+      <div class="p-4">
+        <div class="flex items-center">
+          <div class="flex-shrink-0">
+            <div class="w-8 h-8 bg-cyan-500 rounded-md flex items-center justify-center">
+              <span class="text-white font-bold">{{ getStateIcon('Frozen') }}</span>
+            </div>
+          </div>
+          <div class="ml-3 w-0 flex-1">
+            <dl>
+              <dt class="text-sm font-medium text-gray-500 truncate">Frozen</dt>
+              <dd class="text-lg font-medium text-gray-900">{{ getSubscriptionCountByStatus('Frozen') }}</dd>
+            </dl>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="bg-white overflow-hidden shadow rounded-lg">
+      <div class="p-4">
+        <div class="flex items-center">
+          <div class="flex-shrink-0">
+            <div class="w-8 h-8 bg-amber-500 rounded-md flex items-center justify-center">
+              <span class="text-white font-bold">{{ getStateIcon('Exiting') }}</span>
+            </div>
+          </div>
+          <div class="ml-3 w-0 flex-1">
+            <dl>
+              <dt class="text-sm font-medium text-gray-500 truncate">Exiting</dt>
+              <dd class="text-lg font-medium text-gray-900">{{ getSubscriptionCountByStatus('Exiting') }}</dd>
+            </dl>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Success/Error Messages -->
+  @if (success()) {
+    <div class="mb-4 p-4 rounded-md bg-green-50 border border-green-200">
+      <div class="flex">
+        <div class="flex-shrink-0">
+          <svg class="h-5 w-5 text-green-400" fill="currentColor" viewBox="0 0 20 20">
+            <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"></path>
+          </svg>
+        </div>
+        <div class="ml-3">
+          <p class="text-sm font-medium text-green-800">{{ success() }}</p>
+        </div>
+        <div class="ml-auto pl-3">
+          <div class="-mx-1.5 -my-1.5">
+            <button (click)="success.set(null)" class="inline-flex bg-green-50 rounded-md p-1.5 text-green-500 hover:bg-green-100 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-green-50 focus:ring-green-600">
+              <span class="sr-only">Dismiss</span>
+              <svg class="h-5 w-5" fill="currentColor" viewBox="0 0 20 20">
+                <path fill-rule="evenodd" d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z" clip-rule="evenodd"></path>
+              </svg>
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  }
+
+  @if (error()) {
+    <div class="mb-4 p-4 rounded-md bg-red-50 border border-red-200">
+      <div class="flex">
+        <div class="flex-shrink-0">
+          <svg class="h-5 w-5 text-red-400" fill="currentColor" viewBox="0 0 20 20">
+            <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zM8.707 7.293a1 1 0 00-1.414 1.414L8.586 10l-1.293 1.293a1 1 0 101.414 1.414L10 11.414l1.293 1.293a1 1 0 001.414-1.414L11.414 10l1.293-1.293a1 1 0 00-1.414-1.414L10 8.586 8.707 7.293z" clip-rule="evenodd"></path>
+          </svg>
+        </div>
+        <div class="ml-3">
+          <p class="text-sm font-medium text-red-800">{{ error() }}</p>
+        </div>
+        <div class="ml-auto pl-3">
+          <div class="-mx-1.5 -my-1.5">
+            <button (click)="error.set(null)" class="inline-flex bg-red-50 rounded-md p-1.5 text-red-500 hover:bg-red-100 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-red-50 focus:ring-red-600">
+              <span class="sr-only">Dismiss</span>
+              <svg class="h-5 w-5" fill="currentColor" viewBox="0 0 20 20">
+                <path fill-rule="evenodd" d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z" clip-rule="evenodd"></path>
+              </svg>
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  }
+
+  <!-- Pending Approvals Section -->
+  <div class="mb-8">
+    <h3 class="text-lg font-semibold text-gray-900 mb-4">Pending Subscription Approvals</h3>
+    <div class="bg-white shadow overflow-hidden sm:rounded-md">
+      @if (pendingSubscriptions().length > 0) {
+        <ul class="divide-y divide-gray-200">
+          @for(sub of pendingSubscriptions(); track sub.id) {
+            <li class="px-6 py-4">
+              <div class="flex flex-col lg:flex-row lg:items-center lg:justify-between space-y-3 lg:space-y-0">
+                <div class="flex-1 min-w-0">
+                  <div class="flex items-start space-x-3">
+                    <div class="flex-shrink-0">
+                      <div class="w-10 h-10 rounded-full bg-gray-300 flex items-center justify-center">
+                        <span class="text-sm font-medium text-gray-600">{{ sub.user?.name?.charAt(0)?.toUpperCase() || '?' }}</span>
+                      </div>
+                    </div>
+                    <div class="flex-1 min-w-0">
+                      <p class="text-sm font-medium text-gray-900 truncate">{{ sub.user.name }}</p>
+                      <p class="text-sm text-gray-500">{{ sub.user.email }} | {{ sub.user.phone }}</p>
+                      <p class="text-sm text-gray-500">{{ sub.deliveryAddress.district }} • {{ sub.planName }}</p>
+                      <div class="mt-2 flex flex-wrap items-center gap-2">
+                        <span [class]="getStatusBadgeClass(sub.status)" class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium">
+                          <span class="mr-1">{{ getStateIcon(sub.status) }}</span>
+                          {{ getSubscriptionStatusText(sub.status) }}
+                        </span>
+                        <span class="text-xs text-gray-500">{{ getPaymentMethodText(sub.paymentMethod) }}</span>
+                        @if(sub.autoRenewal) {
+                          <span class="text-xs text-blue-600">Auto-renew</span>
+                        }
+                        <span class="text-xs text-gray-400">{{ sub.completedCycles }} cycles</span>
+                      </div>
+                      <p class="text-xs text-gray-400 mt-1">{{ getStateDescription(sub.status) }}</p>
+                    </div>
+                  </div>
+                </div>
+                <div class="flex flex-col lg:flex-row items-start lg:items-center space-y-2 lg:space-y-0 lg:space-x-3">
+                  @if(sub.paymentProof) {
+                    <a [href]="sub.paymentProof" target="_blank" class="text-red-600 hover:text-red-900 text-sm font-medium">View Proof</a>
+                  }
+                  <div class="flex flex-col sm:flex-row space-y-2 sm:space-y-0 sm:space-x-2">
+                    <button
+                      (click)="approveSubscription(sub.id)"
+                      [disabled]="isTransitioningState()"
+                      class="text-green-600 hover:text-green-900 text-sm font-medium disabled:opacity-50">
+                      Approve
+                    </button>
+                    <button
+                      (click)="rejectSubscription(sub.id)"
+                      [disabled]="isTransitioningState()"
+                      class="text-gray-600 hover:text-gray-900 text-sm font-medium disabled:opacity-50">
+                      Reject
+                    </button>
+                    <button
+                      (click)="openStateTransitionModal(sub)"
+                      class="text-blue-600 hover:text-blue-900 text-sm font-medium">
+                      Change State
+                    </button>
+                    <button
+                      (click)="openStateHistoryModal(sub)"
+                      class="text-purple-600 hover:text-purple-900 text-sm font-medium">
+                      History
+                    </button>
+                  </div>
+                </div>
+              </div>
+            </li>
+          }
+        </ul>
+      } @else {
+        <div class="text-center py-4 text-gray-500">
+          <svg class="mx-auto h-12 w-12 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+          </svg>
+          <p class="mt-2">No pending approvals</p>
+        </div>
+      }
+    </div>
+  </div>
+
+  <!-- Filters and Search -->
+  <div class="bg-white shadow rounded-lg p-4 mb-6">
+    <div class="grid grid-cols-1 md:grid-cols-4 gap-4">
+      <div>
+        <label for="search" class="block text-sm font-medium text-gray-700 mb-1">Search Users</label>
+        <input 
+          id="search" 
+          type="text" 
+          [formControl]="searchControl"
+          placeholder="Search by name, email..."
+          class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-red-500 focus:border-red-500">
+      </div>
+      <div>
+        <label for="status-filter" class="block text-sm font-medium text-gray-700 mb-1">Status</label>
+        <select
+          id="status-filter"
+          [formControl]="statusFilter"
+          class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-red-500 focus:border-red-500">
+          <option value="all">All Status</option>
+          <option value="active">Active</option>
+          <option value="pending_payment">Pending Payment</option>
+          <option value="Pending_Approval">Pending Approval</option>
+          <option value="New_Joiner">New Joiner</option>
+          <option value="Curious">Curious</option>
+          <option value="Frozen">Frozen</option>
+          <option value="Exiting">Exiting</option>
+          <option value="cancelled">Cancelled</option>
+          <option value="none">No Subscription</option>
+        </select>
+      </div>
+      <div>
+        <label for="role-filter" class="block text-sm font-medium text-gray-700 mb-1">Role</label>
+        <select
+          id="role-filter"
+          [formControl]="roleFilter"
+          class="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-red-500 focus:border-red-500">
+          <option value="all">All Roles</option>
+          <option value="admin">Admin</option>
+          <option value="student">Student</option>
+          <option value="user">User</option>
+        </select>
+      </div>
+      <div class="flex items-end">
+        <button 
+          (click)="clearFilters()"
+          class="w-full px-4 py-2 text-sm font-medium text-gray-700 bg-white border border-gray-300 rounded-md hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-red-500">
+          Clear Filters
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Bulk Actions -->
+  @if (selectedUsers().length > 0) {
+    <div class="bg-blue-50 border border-blue-200 rounded-lg p-4 mb-6">
+      <div class="flex items-center justify-between">
+        <div class="flex items-center">
+          <span class="text-sm font-medium text-blue-900">{{ selectedUsers().length }} user(s) selected</span>
+        </div>
+        <div class="flex flex-wrap gap-2">
+          <button
+            (click)="bulkUpdateStatus('active')"
+            class="px-3 py-1 text-sm font-medium text-green-700 bg-green-100 rounded-md hover:bg-green-200 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-green-500">
+            Set Active
+          </button>
+          <button
+            (click)="bulkUpdateStatus('inactive')"
+            class="px-3 py-1 text-sm font-medium text-gray-700 bg-gray-100 rounded-md hover:bg-gray-200 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-gray-500">
+            Set Inactive
+          </button>
+          <button
+            (click)="bulkUpdateStatus('suspended')"
+            class="px-3 py-1 text-sm font-medium text-red-700 bg-red-100 rounded-md hover:bg-red-200 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-red-500">
+            Suspend
+          </button>
+          <div class="border-l border-gray-300 mx-1"></div>
+          <button
+            (click)="bulkTransitionSubscriptionState('Active')"
+            class="px-3 py-1 text-sm font-medium text-blue-700 bg-blue-100 rounded-md hover:bg-blue-200 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500">
+            Set Active (Sub)
+          </button>
+          <button
+            (click)="bulkTransitionSubscriptionState('Frozen')"
+            class="px-3 py-1 text-sm font-medium text-cyan-700 bg-cyan-100 rounded-md hover:bg-cyan-200 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-cyan-500">
+            Freeze (Sub)
+          </button>
+          <button
+            (click)="bulkTransitionSubscriptionState('Exiting')"
+            class="px-3 py-1 text-sm font-medium text-amber-700 bg-amber-100 rounded-md hover:bg-amber-200 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-amber-500">
+            Cancel (Sub)
+          </button>
+          <button
+            (click)="bulkDelete()"
+            class="px-3 py-1 text-sm font-medium text-red-700 bg-white border border-red-300 rounded-md hover:bg-red-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-red-500">
+            Delete Selected
+          </button>
+        </div>
+      </div>
+    </div>
+  }
+
+  <!-- Users Table -->
+  <div class="bg-white shadow overflow-hidden sm:rounded-md">
+    @if (isLoading()) {
+      <div class="flex justify-center items-center py-12">
+        <div class="animate-spin rounded-full h-8 w-8 border-b-2 border-red-600"></div>
+        <span class="ml-2 text-gray-600">Loading users...</span>
+      </div>
+    } @else {
+      <div class="overflow-x-auto">
+        <table class="min-w-full divide-y divide-gray-200">
+          <thead class="bg-gray-50">
+            <tr>
+              <th scope="col" class="px-6 py-3 text-left">
+                <input 
+                  type="checkbox" 
+                  [checked]="isAllUsersSelected()"
+                  (change)="toggleAllUsersSelection()"
+                  class="h-4 w-4 text-red-600 focus:ring-red-500 border-gray-300 rounded">
+              </th>
+              <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">User</th>
+              <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Contact</th>
+              <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Subscription</th>
+              <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Details</th>
+              <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Role</th>
+              <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Status</th>
+              <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Created</th>
+              <th scope="col" class="px-6 py-3 text-right text-xs font-medium text-gray-500 uppercase tracking-wider">Actions</th>
+            </tr>
+          </thead>
+          <tbody class="bg-white divide-y divide-gray-200">
+            @for (user of paginatedUsers().users; track user.email) {
+              <tr class="hover:bg-gray-50">
+                <td class="px-6 py-4 whitespace-nowrap">
+                  <input 
+                    type="checkbox" 
+                    [checked]="isUserSelected(user.id!)"
+                    (change)="toggleUserSelection(user.id!)"
+                    class="h-4 w-4 text-red-600 focus:ring-red-500 border-gray-300 rounded">
+                </td>
+                <td class="px-6 py-4 whitespace-nowrap">
+                  <div class="flex items-center">
+                    <div class="flex-shrink-0 h-10 w-10">
+                      <div class="h-10 w-10 rounded-full bg-gray-300 flex items-center justify-center">
+                        <span class="text-sm font-medium text-gray-600">{{ user.name?.charAt(0)?.toUpperCase() || '?' }}</span>
+                      </div>
+                    </div>
+                    <div class="ml-4">
+                      <div class="text-sm font-medium text-gray-900">{{ user.name }}</div>
+                      <div class="text-sm text-gray-500">ID: {{ user.id || 'N/A' }}</div>
+                    </div>
+                  </div>
+                </td>
+                <td class="px-6 py-4 whitespace-nowrap">
+                  <div class="text-sm text-gray-900">{{ user.email }}</div>
+                  <div class="text-sm text-gray-500">{{ user.phone }}</div>
+                </td>
+                <td class="px-6 py-4 whitespace-nowrap">
+                  @if (user.subscriptionStatus && user.subscriptionStatus !== 'none') {
+                    <div>
+                      <span [class]="getStatusBadgeClass(user.subscriptionStatus)" class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium">
+                        <span class="mr-1">{{ getStateIcon(user.subscriptionStatus) }}</span>
+                        {{ getSubscriptionStatusText(user.subscriptionStatus) }}
+                      </span>
+                      @if (user.planName) {
+                        <div class="text-sm text-gray-500 mt-1">{{ user.planName }}</div>
+                      }
+                      @if (user.subscriptionEndDate) {
+                        <div class="text-xs text-gray-400 mt-1">Ends: {{ user.subscriptionEndDate | date:'shortDate' }}</div>
+                      }
+                    </div>
+                  } @else {
+                    <span class="text-sm text-gray-500">No subscription</span>
+                  }
+                </td>
+                <td class="px-6 py-4 whitespace-nowrap">
+                  @if (user.subscriptionStatus && user.subscriptionStatus !== 'none') {
+                    <div class="text-xs text-gray-500 space-y-1">
+                      <div>{{ getPaymentMethodText(user.paymentMethod || '') }}</div>
+                      @if (user.autoRenewal) {
+                        <div class="text-blue-600">Auto-renew</div>
+                      }
+                      <div>{{ user.completedCycles || 0 }} cycles</div>
+                    </div>
+                  } @else {
+                    <span class="text-sm text-gray-500">-</span>
+                  }
+                </td>
+                <td class="px-6 py-4 whitespace-nowrap">
+                  <span [class]="getRoleBadgeClass(user.is_admin!, user.is_student!)">
+                    {{ getRoleText(user.is_admin!, user.is_student!) }}
+                  </span>
+                </td>
+                <td class="px-6 py-4 whitespace-nowrap">
+                  <span [class]="getStatusBadgeClass(user.status || 'active')">
+                    {{ user.status || 'active' }}
+                  </span>
+                </td>
+                <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
+                  {{ user.created_at ? (user.created_at | date:'shortDate') : 'N/A' }}
+                </td>
+                <td class="px-6 py-4 whitespace-nowrap text-right text-sm font-medium">
+                  <div class="flex flex-col lg:flex-row space-y-1 lg:space-y-0 lg:space-x-2">
+                    <button
+                      (click)="openEditModal(user)"
+                      class="text-red-600 hover:text-red-900">
+                      Edit
+                    </button>
+                    <button
+                      (click)="openDeleteModal(user)"
+                      class="text-gray-600 hover:text-gray-900">
+                      Delete
+                    </button>
+                    @if (user.subscriptionId) {
+                      <button
+                        (click)="openEditSubscriptionModal(getUserSubscription(user))"
+                        class="text-green-600 hover:text-green-900">
+                        Edit Sub
+                      </button>
+                      <button
+                        (click)="openStateTransitionModal(getUserSubscription(user))"
+                        class="text-blue-600 hover:text-blue-900">
+                        Change State
+                      </button>
+                      <button
+                        (click)="openStateHistoryModal(getUserSubscription(user))"
+                        class="text-purple-600 hover:text-purple-900">
+                        History
+                      </button>
+                    } @else {
+                      <button
+                        (click)="openCreateSubscriptionModal(user)"
+                        class="text-green-600 hover:text-green-900">
+                        Create Sub
+                      </button>
+                    }
+                  </div>
+                </td>
+              </tr>
+            } @empty {
+              <tr>
+                <td colspan="9" class="px-6 py-4 text-center text-gray-500">
+                  <div class="flex flex-col items-center">
+                    <svg class="mx-auto h-12 w-12 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4.354a4 4 0 110 5.292M15 21H3v-1a6 6 0 0112 0v1zm0 0h6v-1a6 6 0 00-9-5.197M13 7a4 4 0 11-8 0 4 4 0 018 0z"></path>
+                    </svg>
+                    <p class="mt-2">No users found</p>
+                  </div>
+                </td>
+              </tr>
+            }
+          </tbody>
+        </table>
+      </div>
+
+      <!-- Pagination -->
+      @if (paginatedUsers().pagination.totalPages > 1) {
+        <div class="bg-white px-4 py-3 flex items-center justify-between border-t border-gray-200 sm:px-6">
+          <div class="flex-1 flex justify-between sm:hidden">
+            <button 
+              (click)="changePage(currentPage() - 1)"
+              [disabled]="currentPage() === 1"
+              class="relative inline-flex items-center px-4 py-2 border border-gray-300 text-sm font-medium rounded-md text-gray-700 bg-white hover:bg-gray-50 disabled:opacity-50 disabled:cursor-not-allowed">
+              Previous
+            </button>
+            <button 
+              (click)="changePage(currentPage() + 1)"
+              [disabled]="currentPage() === paginatedUsers().pagination.totalPages"
+              class="ml-3 relative inline-flex items-center px-4 py-2 border border-gray-300 text-sm font-medium rounded-md text-gray-700 bg-white hover:bg-gray-50 disabled:opacity-50 disabled:cursor-not-allowed">
+              Next
+            </button>
+          </div>
+          <div class="hidden sm:flex-1 sm:flex sm:items-center sm:justify-between">
+            <div>
+              <p class="text-sm text-gray-700">
+                Showing
+                <span class="font-medium">{{ (currentPage() - 1) * pageSize() + 1 }}</span>
+                to
+                <span class="font-medium">{{ Math.min(currentPage() * pageSize(), paginatedUsers().pagination.total) }}</span>
+                of
+                <span class="font-medium">{{ paginatedUsers().pagination.total }}</span>
+                results
+              </p>
+            </div>
+            <div>
+              <nav class="relative z-0 inline-flex rounded-md shadow-sm -space-x-px" aria-label="Pagination">
+                <button 
+                  (click)="changePage(currentPage() - 1)"
+                  [disabled]="currentPage() === 1"
+                  class="relative inline-flex items-center px-2 py-2 rounded-l-md border border-gray-300 bg-white text-sm font-medium text-gray-500 hover:bg-gray-50 disabled:opacity-50 disabled:cursor-not-allowed">
+                  <span class="sr-only">Previous</span>
+                  <svg class="h-5 w-5" fill="currentColor" viewBox="0 0 20 20">
+                    <path fill-rule="evenodd" d="M12.707 5.293a1 1 0 010 1.414L9.414 10l3.293 3.293a1 1 0 01-1.414 1.414l-4-4a1 1 0 010-1.414l4-4a1 1 0 011.414 0z" clip-rule="evenodd"></path>
+                  </svg>
+                </button>
+                
+                @for (page of [].constructor(paginatedUsers().pagination.totalPages); track $index) {
+                  <button 
+                    (click)="changePage($index + 1)"
+                    [class]="currentPage() === $index + 1 ? 'z-10 bg-red-50 border-red-500 text-red-600 relative inline-flex items-center px-4 py-2 border text-sm font-medium' : 'bg-white border-gray-300 text-gray-500 hover:bg-gray-50 relative inline-flex items-center px-4 py-2 border text-sm font-medium'">
+                    {{ $index + 1 }}
+                  </button>
+                }
+                
+                <button 
+                  (click)="changePage(currentPage() + 1)"
+                  [disabled]="currentPage() === paginatedUsers().pagination.totalPages"
+                  class="relative inline-flex items-center px-2 py-2 rounded-r-md border border-gray-300 bg-white text-sm font-medium text-gray-500 hover:bg-gray-50 disabled:opacity-50 disabled:cursor-not-allowed">
+                  <span class="sr-only">Next</span>
+                  <svg class="h-5 w-5" fill="currentColor" viewBox="0 0 20 20">
+                    <path fill-rule="evenodd" d="M7.293 14.707a1 1 0 010-1.414L10.586 10 7.293 6.707a1 1 0 011.414-1.414l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414 0z" clip-rule="evenodd"></path>
+                  </svg>
+                </button>
+              </nav>
+            </div>
+          </div>
+        </div>
+      }
+    }
   </div>
 </div>
+
+<!-- Create User Modal -->
+@if (showCreateModal()) {
+  <div class="fixed z-10 inset-0 overflow-y-auto" aria-labelledby="modal-title" role="dialog" aria-modal="true">
+    <div class="flex items-end justify-center min-h-screen pt-4 px-4 pb-20 text-center sm:block sm:p-0">
+      <div class="fixed inset-0 bg-gray-500 bg-opacity-75 transition-opacity" aria-hidden="true" (click)="closeCreateModal()"></div>
+      <span class="hidden sm:inline-block sm:align-middle sm:h-screen" aria-hidden="true">&#8203;</span>
+      <div class="inline-block align-bottom bg-white rounded-lg text-left overflow-hidden shadow-xl transform transition-all sm:my-8 sm:align-middle sm:max-w-lg sm:w-full">
+        <form [formGroup]="createUserForm" (ngSubmit)="createUser()">
+          <div class="bg-white px-4 pt-5 pb-4 sm:p-6 sm:pb-4">
+            <div class="sm:flex sm:items-start">
+              <div class="w-full">
+                <h3 class="text-lg leading-6 font-medium text-gray-900 mb-4" id="modal-title">Create New User</h3>
+                
+                <div class="space-y-4">
+                  <div>
+                    <label for="create-name" class="block text-sm font-medium text-gray-700">Full Name</label>
+                    <input 
+                      id="create-name" 
+                      type="text" 
+                      formControlName="name"
+                      class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-red-500 focus:border-red-500 sm:text-sm"
+                      [class.border-red-500]="createUserForm.get('name')?.invalid && createUserForm.get('name')?.touched">
+                    @if (createUserForm.get('name')?.invalid && createUserForm.get('name')?.touched) {
+                      <p class="mt-1 text-sm text-red-600">Name is required and must be at least 2 characters</p>
+                    }
+                  </div>
+
+                  <div>
+                    <label for="create-email" class="block text-sm font-medium text-gray-700">Email</label>
+                    <input 
+                      id="create-email" 
+                      type="email" 
+                      formControlName="email"
+                      class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-red-500 focus:border-red-500 sm:text-sm"
+                      [class.border-red-500]="createUserForm.get('email')?.invalid && createUserForm.get('email')?.touched">
+                    @if (createUserForm.get('email')?.invalid && createUserForm.get('email')?.touched) {
+                      <p class="mt-1 text-sm text-red-600">Valid email is required</p>
+                    }
+                  </div>
+
+                  <div>
+                    <label for="create-phone" class="block text-sm font-medium text-gray-700">Phone</label>
+                    <input 
+                      id="create-phone" 
+                      type="tel" 
+                      formControlName="phone"
+                      class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-red-500 focus:border-red-500 sm:text-sm"
+                      [class.border-red-500]="createUserForm.get('phone')?.invalid && createUserForm.get('phone')?.touched">
+                    @if (createUserForm.get('phone')?.invalid && createUserForm.get('phone')?.touched) {
+                      <p class="mt-1 text-sm text-red-600">Valid phone number is required</p>
+                    }
+                  </div>
+
+                  <div>
+                    <label for="create-password" class="block text-sm font-medium text-gray-700">Password</label>
+                    <input 
+                      id="create-password" 
+                      type="password" 
+                      formControlName="password"
+                      class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-red-500 focus:border-red-500 sm:text-sm"
+                      [class.border-red-500]="createUserForm.get('password')?.invalid && createUserForm.get('password')?.touched">
+                    @if (createUserForm.get('password')?.invalid && createUserForm.get('password')?.touched) {
+                      <p class="mt-1 text-sm text-red-600">Password must be at least 6 characters</p>
+                    }
+                  </div>
+
+                  <div class="grid grid-cols-2 gap-4">
+                    <div>
+                      <label for="create-role" class="block text-sm font-medium text-gray-700">Role</label>
+                      <select
+                        id="create-role"
+                        formControlName="is_admin"
+                        class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-red-500 focus:border-red-500 sm:text-sm">
+                        <option [ngValue]="false">Student</option>
+                        <option [ngValue]="null">User</option>
+                        <option [ngValue]="true">Admin</option>
+                      </select>
+                    </div>
+
+                    <div>
+                      <label for="create-status" class="block text-sm font-medium text-gray-700">Status</label>
+                      <select 
+                        id="create-status" 
+                        formControlName="status"
+                        class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-red-500 focus:border-red-500 sm:text-sm">
+                        <option value="active">Active</option>
+                        <option value="inactive">Inactive</option>
+                        <option value="suspended">Suspended</option>
+                      </select>
+                    </div>
+                  </div>
+
+                  <div>
+                    <label for="create-language" class="block text-sm font-medium text-gray-700">Language Preference</label>
+                    <select 
+                      id="create-language" 
+                      formControlName="language_pref"
+                      class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-red-500 focus:border-red-500 sm:text-sm">
+                      <option value="en">English</option>
+                      <option value="ar">Arabic</option>
+                    </select>
+                  </div>
+
+                  <div class="space-y-2">
+                    <label class="block text-sm font-medium text-gray-700">Address</label>
+                    <input 
+                      type="text" 
+                      formControlName="address.street"
+                      placeholder="Street Address"
+                      class="block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-red-500 focus:border-red-500 sm:text-sm">
+                    
+                    <div class="grid grid-cols-2 gap-4">
+                      <input 
+                        type="text" 
+                        formControlName="address.district"
+                        placeholder="District"
+                        class="block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-red-500 focus:border-red-500 sm:text-sm">
+                      
+                      <input 
+                        type="text" 
+                        formControlName="address.city"
+                        placeholder="City"
+                        class="block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-red-500 focus:border-red-500 sm:text-sm">
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="bg-gray-50 px-4 py-3 sm:px-6 sm:flex sm:flex-row-reverse">
+            <button 
+              type="submit"
+              [disabled]="isCreatingUser() || createUserForm.invalid"
+              class="w-full inline-flex justify-center rounded-md border border-transparent shadow-sm px-4 py-2 bg-red-600 text-base font-medium text-white hover:bg-red-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-red-500 sm:ml-3 sm:w-auto sm:text-sm disabled:opacity-50 disabled:cursor-not-allowed">
+              @if (isCreatingUser()) {
+                <svg class="animate-spin -ml-1 mr-3 h-5 w-5 text-white" fill="none" viewBox="0 0 24 24">
+                  <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
+                  <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+                </svg>
+                Creating...
+              } @else {
+                Create User
+              }
+            </button>
+            <button 
+              type="button"
+              (click)="closeCreateModal()"
+              class="mt-3 w-full inline-flex justify-center rounded-md border border-gray-300 shadow-sm px-4 py-2 bg-white text-base font-medium text-gray-700 hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-red-500 sm:mt-0 sm:ml-3 sm:w-auto sm:text-sm">
+              Cancel
+            </button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+}
+
+<!-- Edit User Modal -->
+@if (showEditModal()) {
+  <div class="fixed z-10 inset-0 overflow-y-auto" aria-labelledby="modal-title" role="dialog" aria-modal="true">
+    <div class="flex items-end justify-center min-h-screen pt-4 px-4 pb-20 text-center sm:block sm:p-0">
+      <div class="fixed inset-0 bg-gray-500 bg-opacity-75 transition-opacity" aria-hidden="true" (click)="closeEditModal()"></div>
+      <span class="hidden sm:inline-block sm:align-middle sm:h-screen" aria-hidden="true">&#8203;</span>
+      <div class="inline-block align-bottom bg-white rounded-lg text-left overflow-hidden shadow-xl transform transition-all sm:my-8 sm:align-middle sm:max-w-lg sm:w-full">
+        <form [formGroup]="editUserForm" (ngSubmit)="updateUser()">
+          <div class="bg-white px-4 pt-5 pb-4 sm:p-6 sm:pb-4">
+            <div class="sm:flex sm:items-start">
+              <div class="w-full">
+                <h3 class="text-lg leading-6 font-medium text-gray-900 mb-4" id="modal-title">Edit User</h3>
+                
+                <div class="space-y-4">
+                  <div>
+                    <label for="edit-name" class="block text-sm font-medium text-gray-700">Full Name</label>
+                    <input 
+                      id="edit-name" 
+                      type="text" 
+                      formControlName="name"
+                      class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-red-500 focus:border-red-500 sm:text-sm"
+                      [class.border-red-500]="editUserForm.get('name')?.invalid && editUserForm.get('name')?.touched">
+                    @if (editUserForm.get('name')?.invalid && editUserForm.get('name')?.touched) {
+                      <p class="mt-1 text-sm text-red-600">Name is required and must be at least 2 characters</p>
+                    }
+                  </div>
+
+                  <div>
+                    <label for="edit-email" class="block text-sm font-medium text-gray-700">Email</label>
+                    <input 
+                      id="edit-email" 
+                      type="email" 
+                      formControlName="email"
+                      class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-red-500 focus:border-red-500 sm:text-sm"
+                      [class.border-red-500]="editUserForm.get('email')?.invalid && editUserForm.get('email')?.touched">
+                    @if (editUserForm.get('email')?.invalid && editUserForm.get('email')?.touched) {
+                      <p class="mt-1 text-sm text-red-600">Valid email is required</p>
+                    }
+                  </div>
+
+                  <div>
+                    <label for="edit-phone" class="block text-sm font-medium text-gray-700">Phone</label>
+                    <input 
+                      id="edit-phone" 
+                      type="tel" 
+                      formControlName="phone"
+                      class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-red-500 focus:border-red-500 sm:text-sm"
+                      [class.border-red-500]="editUserForm.get('phone')?.invalid && editUserForm.get('phone')?.touched">
+                    @if (editUserForm.get('phone')?.invalid && editUserForm.get('phone')?.touched) {
+                      <p class="mt-1 text-sm text-red-600">Valid phone number is required</p>
+                    }
+                  </div>
+
+                  <div>
+                    <label for="edit-password" class="block text-sm font-medium text-gray-700">New Password (leave empty to keep current)</label>
+                    <input 
+                      id="edit-password" 
+                      type="password" 
+                      formControlName="password"
+                      class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-red-500 focus:border-red-500 sm:text-sm">
+                    @if (editUserForm.get('password')?.value && editUserForm.get('password')?.invalid) {
+                      <p class="mt-1 text-sm text-red-600">Password must be at least 6 characters</p>
+                    }
+                  </div>
+
+                  <div class="grid grid-cols-2 gap-4">
+                    <div>
+                      <label for="edit-role" class="block text-sm font-medium text-gray-700">Role</label>
+                      <select
+                        id="edit-role"
+                        formControlName="is_admin"
+                        class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-red-500 focus:border-red-500 sm:text-sm">
+                        <option [ngValue]="false">Student</option>
+                        <option [ngValue]="null">User</option>
+                        <option [ngValue]="true">Admin</option>
+                      </select>
+                    </div>
+
+                    <div>
+                      <label for="edit-status" class="block text-sm font-medium text-gray-700">Status</label>
+                      <select 
+                        id="edit-status" 
+                        formControlName="status"
+                        class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-red-500 focus:border-red-500 sm:text-sm">
+                        <option value="active">Active</option>
+                        <option value="inactive">Inactive</option>
+                        <option value="suspended">Suspended</option>
+                      </select>
+                    </div>
+                  </div>
+
+                  <div>
+                    <label for="edit-language" class="block text-sm font-medium text-gray-700">Language Preference</label>
+                    <select 
+                      id="edit-language" 
+                      formControlName="language_pref"
+                      class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-red-500 focus:border-red-500 sm:text-sm">
+                      <option value="en">English</option>
+                      <option value="ar">Arabic</option>
+                    </select>
+                  </div>
+
+                  <div class="space-y-2">
+                    <label class="block text-sm font-medium text-gray-700">Address</label>
+                    <input 
+                      type="text" 
+                      formControlName="address.street"
+                      placeholder="Street Address"
+                      class="block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-red-500 focus:border-red-500 sm:text-sm">
+                    
+                    <div class="grid grid-cols-2 gap-4">
+                      <input 
+                        type="text" 
+                        formControlName="address.district"
+                        placeholder="District"
+                        class="block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-red-500 focus:border-red-500 sm:text-sm">
+                      
+                      <input 
+                        type="text" 
+                        formControlName="address.city"
+                        placeholder="City"
+                        class="block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-red-500 focus:border-red-500 sm:text-sm">
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="bg-gray-50 px-4 py-3 sm:px-6 sm:flex sm:flex-row-reverse">
+            <button 
+              type="submit"
+              [disabled]="isUpdatingUser() || editUserForm.invalid"
+              class="w-full inline-flex justify-center rounded-md border border-transparent shadow-sm px-4 py-2 bg-red-600 text-base font-medium text-white hover:bg-red-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-red-500 sm:ml-3 sm:w-auto sm:text-sm disabled:opacity-50 disabled:cursor-not-allowed">
+              @if (isUpdatingUser()) {
+                <svg class="animate-spin -ml-1 mr-3 h-5 w-5 text-white" fill="none" viewBox="0 0 24 24">
+                  <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
+                  <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+                </svg>
+                Updating...
+              } @else {
+                Update User
+              }
+            </button>
+            <button 
+              type="button"
+              (click)="closeEditModal()"
+              class="mt-3 w-full inline-flex justify-center rounded-md border border-gray-300 shadow-sm px-4 py-2 bg-white text-base font-medium text-gray-700 hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-red-500 sm:mt-0 sm:ml-3 sm:w-auto sm:text-sm">
+              Cancel
+            </button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+}
+
+<!-- Delete Confirmation Modal -->
+@if (showDeleteModal()) {
+  <div class="fixed z-10 inset-0 overflow-y-auto" aria-labelledby="modal-title" role="dialog" aria-modal="true">
+    <div class="flex items-end justify-center min-h-screen pt-4 px-4 pb-20 text-center sm:block sm:p-0">
+      <div class="fixed inset-0 bg-gray-500 bg-opacity-75 transition-opacity" aria-hidden="true" (click)="closeDeleteModal()"></div>
+      <span class="hidden sm:inline-block sm:align-middle sm:h-screen" aria-hidden="true">&#8203;</span>
+      <div class="inline-block align-bottom bg-white rounded-lg text-left overflow-hidden shadow-xl transform transition-all sm:my-8 sm:align-middle sm:max-w-lg sm:w-full">
+        <div class="bg-white px-4 pt-5 pb-4 sm:p-6 sm:pb-4">
+          <div class="sm:flex sm:items-start">
+            <div class="mx-auto flex-shrink-0 flex items-center justify-center h-12 w-12 rounded-full bg-red-100 sm:mx-0 sm:h-10 sm:w-10">
+              <svg class="h-6 w-6 text-red-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-2.5L13.732 4c-.77-.833-1.964-.833-2.732 0L3.732 16.5c-.77.833.192 2.5 1.732 2.5z"></path>
+              </svg>
+            </div>
+            <div class="mt-3 text-center sm:mt-0 sm:ml-4 sm:text-left">
+              <h3 class="text-lg leading-6 font-medium text-gray-900" id="modal-title">Delete User</h3>
+              <div class="mt-2">
+                <p class="text-sm text-gray-500">
+                  Are you sure you want to delete the user "{{ currentUserToDelete()?.name }}"? This action cannot be undone and will remove all associated data.
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="bg-gray-50 px-4 py-3 sm:px-6 sm:flex sm:flex-row-reverse">
+          <button 
+            type="button"
+            (click)="deleteUser()"
+            [disabled]="isDeletingUser()"
+            class="w-full inline-flex justify-center rounded-md border border-transparent shadow-sm px-4 py-2 bg-red-600 text-base font-medium text-white hover:bg-red-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-red-500 sm:ml-3 sm:w-auto sm:text-sm disabled:opacity-50 disabled:cursor-not-allowed">
+            @if (isDeletingUser()) {
+              <svg class="animate-spin -ml-1 mr-3 h-5 w-5 text-white" fill="none" viewBox="0 0 24 24">
+                <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
+                <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+              </svg>
+              Deleting...
+            } @else {
+              Delete User
+            }
+          </button>
+          <button 
+            type="button"
+            (click)="closeDeleteModal()"
+            class="mt-3 w-full inline-flex justify-center rounded-md border border-gray-300 shadow-sm px-4 py-2 bg-white text-base font-medium text-gray-700 hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-red-500 sm:mt-0 sm:ml-3 sm:w-auto sm:text-sm">
+            Cancel
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+}
+
+<!-- State Transition Modal -->
+@if (showStateTransitionModal()) {
+  <div class="fixed z-10 inset-0 overflow-y-auto" aria-labelledby="modal-title" role="dialog" aria-modal="true">
+    <div class="flex items-end justify-center min-h-screen pt-4 px-4 pb-20 text-center sm:block sm:p-0">
+      <div class="fixed inset-0 bg-gray-500 bg-opacity-75 transition-opacity" aria-hidden="true" (click)="closeStateTransitionModal()"></div>
+      <span class="hidden sm:inline-block sm:align-middle sm:h-screen" aria-hidden="true">&#8203;</span>
+      <div class="inline-block align-bottom bg-white rounded-lg text-left overflow-hidden shadow-xl transform transition-all sm:my-8 sm:align-middle sm:max-w-2xl sm:w-full">
+        <form [formGroup]="stateTransitionForm" (ngSubmit)="executeStateTransition()">
+          <div class="bg-white px-4 pt-5 pb-4 sm:p-6 sm:pb-4">
+            <div class="sm:flex sm:items-start">
+              <div class="w-full">
+                <h3 class="text-lg leading-6 font-medium text-gray-900 mb-4" id="modal-title">
+                  Change Subscription State
+                </h3>
+                
+                @if (currentSubscriptionToTransition()) {
+                  <div class="mb-4 p-4 bg-gray-50 rounded-lg">
+                    <div class="flex items-center space-x-3">
+                      <div class="flex-shrink-0 h-10 w-10">
+                        <div class="h-10 w-10 rounded-full bg-gray-300 flex items-center justify-center">
+                          <span class="text-sm font-medium text-gray-600">{{ currentSubscriptionToTransition()!.user?.name?.charAt(0)?.toUpperCase() || '?' }}</span>
+                        </div>
+                      </div>
+                      <div class="flex-1">
+                        <p class="text-sm font-medium text-gray-900">{{ currentSubscriptionToTransition()!.user.name }}</p>
+                        <p class="text-sm text-gray-500">{{ currentSubscriptionToTransition()!.user.email }}</p>
+                        <div class="mt-1">
+                          <span [class]="getStatusBadgeClass(currentSubscriptionToTransition()!.status)" class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium">
+                            <span class="mr-1">{{ getStateIcon(currentSubscriptionToTransition()!.status) }}</span>
+                            {{ getSubscriptionStatusText(currentSubscriptionToTransition()!.status) }}
+                          </span>
+                          <span class="ml-2 text-sm text-gray-500">{{ currentSubscriptionToTransition()!.planName }}</span>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                }
+                
+                <div class="space-y-4">
+                  <div>
+                    <label for="new-state" class="block text-sm font-medium text-gray-700">New State</label>
+                    <select
+                      id="new-state"
+                      formControlName="newState"
+                      class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-red-500 focus:border-red-500 sm:text-sm">
+                      <option value="">Select a new state</option>
+                      @for (state of getAvailableTransitions(currentSubscriptionToTransition()?.status || ''); track state) {
+                        <option [value]="state">
+                          {{ getStateIcon(state) }} {{ getSubscriptionStatusText(state) }}
+                        </option>
+                      }
+                    </select>
+                    @if (stateTransitionForm.get('newState')?.invalid && stateTransitionForm.get('newState')?.touched) {
+                      <p class="mt-1 text-sm text-red-600">Please select a valid state</p>
+                    }
+                  </div>
+
+                  <div>
+                    <label for="transition-reason" class="block text-sm font-medium text-gray-700">Reason (Optional)</label>
+                    <textarea
+                      id="transition-reason"
+                      formControlName="reason"
+                      rows="3"
+                      placeholder="Provide a reason for this state change..."
+                      class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-red-500 focus:border-red-500 sm:text-sm">
+                    </textarea>
+                  </div>
+
+                  @if (stateTransitionForm.value.newState) {
+                    <div class="p-3 bg-blue-50 border border-blue-200 rounded-md">
+                      <p class="text-sm text-blue-800">
+                        <strong>{{ getStateIcon(stateTransitionForm.value.newState) }} {{ getSubscriptionStatusText(stateTransitionForm.value.newState) }}</strong>
+                        <br>
+                        <span class="text-xs">{{ getStateDescription(stateTransitionForm.value.newState) }}</span>
+                      </p>
+                    </div>
+                  }
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="bg-gray-50 px-4 py-3 sm:px-6 sm:flex sm:flex-row-reverse">
+            <button
+              type="submit"
+              [disabled]="isTransitioningState() || stateTransitionForm.invalid"
+              class="w-full inline-flex justify-center rounded-md border border-transparent shadow-sm px-4 py-2 bg-red-600 text-base font-medium text-white hover:bg-red-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-red-500 sm:ml-3 sm:w-auto sm:text-sm disabled:opacity-50 disabled:cursor-not-allowed">
+              @if (isTransitioningState()) {
+                <svg class="animate-spin -ml-1 mr-3 h-5 w-5 text-white" fill="none" viewBox="0 0 24 24">
+                  <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
+                  <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+                </svg>
+                Processing...
+              } @else {
+                Change State
+              }
+            </button>
+            <button
+              type="button"
+              (click)="closeStateTransitionModal()"
+              class="mt-3 w-full inline-flex justify-center rounded-md border border-gray-300 shadow-sm px-4 py-2 bg-white text-base font-medium text-gray-700 hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-red-500 sm:mt-0 sm:ml-3 sm:w-auto sm:text-sm">
+              Cancel
+            </button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+}
+
+<!-- State History Modal -->
+@if (showStateHistoryModal()) {
+  <div class="fixed z-10 inset-0 overflow-y-auto" aria-labelledby="modal-title" role="dialog" aria-modal="true">
+    <div class="flex items-end justify-center min-h-screen pt-4 px-4 pb-20 text-center sm:block sm:p-0">
+      <div class="fixed inset-0 bg-gray-500 bg-opacity-75 transition-opacity" aria-hidden="true" (click)="closeStateHistoryModal()"></div>
+      <span class="hidden sm:inline-block sm:align-middle sm:h-screen" aria-hidden="true">&#8203;</span>
+      <div class="inline-block align-bottom bg-white rounded-lg text-left overflow-hidden shadow-xl transform transition-all sm:my-8 sm:align-middle sm:max-w-3xl sm:w-full">
+        <div class="bg-white px-4 pt-5 pb-4 sm:p-6 sm:pb-4">
+          <div class="sm:flex sm:items-start">
+            <div class="w-full">
+              <div class="flex items-center justify-between mb-4">
+                <h3 class="text-lg leading-6 font-medium text-gray-900" id="modal-title">
+                  Subscription State History
+                </h3>
+                <button
+                  (click)="closeStateHistoryModal()"
+                  class="text-gray-400 hover:text-gray-500">
+                  <svg class="h-6 w-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
+                  </svg>
+                </button>
+              </div>
+              
+              @if (currentSubscriptionForHistory()) {
+                <div class="mb-4 p-4 bg-gray-50 rounded-lg">
+                  <div class="flex items-center space-x-3">
+                    <div class="flex-shrink-0 h-10 w-10">
+                      <div class="h-10 w-10 rounded-full bg-gray-300 flex items-center justify-center">
+                        <span class="text-sm font-medium text-gray-600">{{ currentSubscriptionForHistory()!.user?.name?.charAt(0)?.toUpperCase() || '?' }}</span>
+                      </div>
+                    </div>
+                    <div class="flex-1">
+                      <p class="text-sm font-medium text-gray-900">{{ currentSubscriptionForHistory()!.user.name }}</p>
+                      <p class="text-sm text-gray-500">{{ currentSubscriptionForHistory()!.user.email }}</p>
+                      <div class="mt-1">
+                        <span [class]="getStatusBadgeClass(currentSubscriptionForHistory()!.status)" class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium">
+                          <span class="mr-1">{{ getStateIcon(currentSubscriptionForHistory()!.status) }}</span>
+                          {{ getSubscriptionStatusText(currentSubscriptionForHistory()!.status) }}
+                        </span>
+                        <span class="ml-2 text-sm text-gray-500">{{ currentSubscriptionForHistory()!.planName }}</span>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              }
+              
+              <div class="bg-white shadow overflow-hidden sm:rounded-md">
+                @if (subscriptionStateHistory().length > 0) {
+                  <ul class="divide-y divide-gray-200">
+                    @for (history of subscriptionStateHistory(); track history.id) {
+                      <li class="px-6 py-4">
+                        <div class="flex items-center justify-between">
+                          <div class="flex-1 min-w-0">
+                            <div class="flex items-center space-x-3">
+                              @if (history.previousState) {
+                                <span [class]="getStatusBadgeClass(history.previousState)" class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium">
+                                  <span class="mr-1">{{ getStateIcon(history.previousState) }}</span>
+                                  {{ getSubscriptionStatusText(history.previousState) }}
+                                </span>
+                                <svg class="h-4 w-4 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 7l5 5m0 0l-5 5m5-5H6"></path>
+                                </svg>
+                              } @else {
+                                <span class="text-xs text-gray-500 italic">New subscription</span>
+                                <svg class="h-4 w-4 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 7l5 5m0 0l-5 5m5-5H6"></path>
+                                </svg>
+                              }
+                              <span [class]="getStatusBadgeClass(history.newState)" class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium">
+                                <span class="mr-1">{{ getStateIcon(history.newState) }}</span>
+                                {{ getSubscriptionStatusText(history.newState) }}
+                              </span>
+                            </div>
+                            @if (history.reason) {
+                              <p class="mt-1 text-sm text-gray-600">{{ history.reason }}</p>
+                            }
+                            <p class="mt-1 text-xs text-gray-500">
+                              Changed by {{ history.changedBy || 'system' }} on {{ history.createdAt | date:'medium' }}
+                            </p>
+                          </div>
+                        </div>
+                      </li>
+                    }
+                  </ul>
+                } @else {
+                  <div class="text-center py-4 text-gray-500">
+                    <svg class="mx-auto h-12 w-12 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+                    </svg>
+                    <p class="mt-2">No state history available</p>
+                  </div>
+                }
+                
+                <!-- Create Subscription Modal -->
+                @if (showCreateSubscriptionModal()) {
+                  <div class="fixed z-10 inset-0 overflow-y-auto" aria-labelledby="modal-title" role="dialog" aria-modal="true">
+                    <div class="flex items-end justify-center min-h-screen pt-4 px-4 pb-20 text-center sm:block sm:p-0">
+                      <div class="fixed inset-0 bg-gray-500 bg-opacity-75 transition-opacity" aria-hidden="true" (click)="closeCreateSubscriptionModal()"></div>
+                      <span class="hidden sm:inline-block sm:align-middle sm:h-screen" aria-hidden="true">&#8203;</span>
+                      <div class="inline-block align-bottom bg-white rounded-lg text-left overflow-hidden shadow-xl transform transition-all sm:my-8 sm:align-middle sm:max-w-2xl sm:w-full">
+                        <form [formGroup]="createSubscriptionForm" (ngSubmit)="createSubscription()">
+                          <div class="bg-white px-4 pt-5 pb-4 sm:p-6 sm:pb-4">
+                            <div class="sm:flex sm:items-start">
+                              <div class="w-full">
+                                <h3 class="text-lg leading-6 font-medium text-gray-900 mb-4" id="modal-title">Create Subscription</h3>
+                                
+                                @if (currentUserForSubscription()) {
+                                  <div class="mb-4 p-4 bg-gray-50 rounded-lg">
+                                    <div class="flex items-center space-x-3">
+                                      <div class="flex-shrink-0 h-10 w-10">
+                                        <div class="h-10 w-10 rounded-full bg-gray-300 flex items-center justify-center">
+                                          <span class="text-sm font-medium text-gray-600">{{ currentUserForSubscription()!.name?.charAt(0)?.toUpperCase() || '?' }}</span>
+                                        </div>
+                                      </div>
+                                      <div class="flex-1">
+                                        <p class="text-sm font-medium text-gray-900">{{ currentUserForSubscription()!.name }}</p>
+                                        <p class="text-sm text-gray-500">{{ currentUserForSubscription()!.email }}</p>
+                                      </div>
+                                    </div>
+                                  </div>
+                                }
+                                
+                                <div class="space-y-4">
+                                  <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+                                    <div>
+                                      <label for="create-plan-id" class="block text-sm font-medium text-gray-700">Plan ID</label>
+                                      <input
+                                        id="create-plan-id"
+                                        type="text"
+                                        formControlName="planId"
+                                        class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-red-500 focus:border-red-500 sm:text-sm"
+                                        [class.border-red-500]="createSubscriptionForm.get('planId')?.invalid && createSubscriptionForm.get('planId')?.touched">
+                                      @if (createSubscriptionForm.get('planId')?.invalid && createSubscriptionForm.get('planId')?.touched) {
+                                        <p class="mt-1 text-sm text-red-600">Plan ID is required</p>
+                                      }
+                                    </div>
+                
+                                    <div>
+                                      <label for="create-plan-name" class="block text-sm font-medium text-gray-700">Plan Name</label>
+                                      <input
+                                        id="create-plan-name"
+                                        type="text"
+                                        formControlName="planName"
+                                        class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-red-500 focus:border-red-500 sm:text-sm"
+                                        [class.border-red-500]="createSubscriptionForm.get('planName')?.invalid && createSubscriptionForm.get('planName')?.touched">
+                                      @if (createSubscriptionForm.get('planName')?.invalid && createSubscriptionForm.get('planName')?.touched) {
+                                        <p class="mt-1 text-sm text-red-600">Plan name is required</p>
+                                      }
+                                    </div>
+                
+                                    <div>
+                                      <label for="create-plan-price" class="block text-sm font-medium text-gray-700">Plan Price</label>
+                                      <input
+                                        id="create-plan-price"
+                                        type="number"
+                                        formControlName="planPrice"
+                                        class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-red-500 focus:border-red-500 sm:text-sm"
+                                        [class.border-red-500]="createSubscriptionForm.get('planPrice')?.invalid && createSubscriptionForm.get('planPrice')?.touched">
+                                      @if (createSubscriptionForm.get('planPrice')?.invalid && createSubscriptionForm.get('planPrice')?.touched) {
+                                        <p class="mt-1 text-sm text-red-600">Valid price is required</p>
+                                      }
+                                    </div>
+                                  </div>
+                
+                                  <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                                    <div>
+                                      <label for="create-start-date" class="block text-sm font-medium text-gray-700">Start Date</label>
+                                      <input
+                                        id="create-start-date"
+                                        type="date"
+                                        formControlName="startDate"
+                                        class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-red-500 focus:border-red-500 sm:text-sm"
+                                        [class.border-red-500]="createSubscriptionForm.get('startDate')?.invalid && createSubscriptionForm.get('startDate')?.touched">
+                                      @if (createSubscriptionForm.get('startDate')?.invalid && createSubscriptionForm.get('startDate')?.touched) {
+                                        <p class="mt-1 text-sm text-red-600">Start date is required</p>
+                                      }
+                                    </div>
+                
+                                    <div>
+                                      <label for="create-end-date" class="block text-sm font-medium text-gray-700">End Date</label>
+                                      <input
+                                        id="create-end-date"
+                                        type="date"
+                                        formControlName="endDate"
+                                        class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-red-500 focus:border-red-500 sm:text-sm"
+                                        [class.border-red-500]="createSubscriptionForm.get('endDate')?.invalid && createSubscriptionForm.get('endDate')?.touched">
+                                      @if (createSubscriptionForm.get('endDate')?.invalid && createSubscriptionForm.get('endDate')?.touched) {
+                                        <p class="mt-1 text-sm text-red-600">End date is required</p>
+                                      }
+                                    </div>
+                                  </div>
+                
+                                  <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                                    <div>
+                                      <label for="create-payment-method" class="block text-sm font-medium text-gray-700">Payment Method</label>
+                                      <select
+                                        id="create-payment-method"
+                                        formControlName="paymentMethod"
+                                        class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-red-500 focus:border-red-500 sm:text-sm">
+                                        <option value="credit_card">Credit Card</option>
+                                        <option value="wire_transfer">Wire Transfer</option>
+                                        <option value="other">Other</option>
+                                      </select>
+                                    </div>
+                
+                                    <div class="flex items-center">
+                                      <input
+                                        id="create-auto-renewal"
+                                        type="checkbox"
+                                        formControlName="autoRenewal"
+                                        class="h-4 w-4 text-red-600 focus:ring-red-500 border-gray-300 rounded">
+                                      <label for="create-auto-renewal" class="ml-2 block text-sm text-gray-700">
+                                        Auto-renewal
+                                      </label>
+                                    </div>
+                                  </div>
+                
+                                  <div>
+                                    <label for="create-notes" class="block text-sm font-medium text-gray-700">Notes</label>
+                                    <textarea
+                                      id="create-notes"
+                                      formControlName="notes"
+                                      rows="3"
+                                      placeholder="Additional notes about this subscription..."
+                                      class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-red-500 focus:border-red-500 sm:text-sm">
+                                    </textarea>
+                                  </div>
+                
+                                  <div class="space-y-2">
+                                    <label class="block text-sm font-medium text-gray-700">Delivery Address</label>
+                                    <input
+                                      type="text"
+                                      formControlName="deliveryAddress.street"
+                                      placeholder="Street Address"
+                                      class="block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-red-500 focus:border-red-500 sm:text-sm">
+                                    
+                                    <div class="grid grid-cols-2 gap-4">
+                                      <input
+                                        type="text"
+                                        formControlName="deliveryAddress.district"
+                                        placeholder="District"
+                                        class="block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-red-500 focus:border-red-500 sm:text-sm">
+                                      
+                                      <input
+                                        type="text"
+                                        formControlName="deliveryAddress.city"
+                                        placeholder="City"
+                                        class="block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-red-500 focus:border-red-500 sm:text-sm">
+                                    </div>
+                                  </div>
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+                          <div class="bg-gray-50 px-4 py-3 sm:px-6 sm:flex sm:flex-row-reverse">
+                            <button
+                              type="submit"
+                              [disabled]="isCreatingSubscription() || createSubscriptionForm.invalid"
+                              class="w-full inline-flex justify-center rounded-md border border-transparent shadow-sm px-4 py-2 bg-red-600 text-base font-medium text-white hover:bg-red-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-red-500 sm:ml-3 sm:w-auto sm:text-sm disabled:opacity-50 disabled:cursor-not-allowed">
+                              @if (isCreatingSubscription()) {
+                                <svg class="animate-spin -ml-1 mr-3 h-5 w-5 text-white" fill="none" viewBox="0 0 24 24">
+                                  <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
+                                  <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+                                </svg>
+                                Creating...
+                              } @else {
+                                Create Subscription
+                              }
+                            </button>
+                            <button
+                              type="button"
+                              (click)="closeCreateSubscriptionModal()"
+                              class="mt-3 w-full inline-flex justify-center rounded-md border border-gray-300 shadow-sm px-4 py-2 bg-white text-base font-medium text-gray-700 hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-red-500 sm:mt-0 sm:ml-3 sm:w-auto sm:text-sm">
+                              Cancel
+                            </button>
+                          </div>
+                        </form>
+                      </div>
+                    </div>
+                  </div>
+                }
+                
+                <!-- Edit Subscription Modal -->
+                @if (showEditSubscriptionModal()) {
+                  <div class="fixed z-10 inset-0 overflow-y-auto" aria-labelledby="modal-title" role="dialog" aria-modal="true">
+                    <div class="flex items-end justify-center min-h-screen pt-4 px-4 pb-20 text-center sm:block sm:p-0">
+                      <div class="fixed inset-0 bg-gray-500 bg-opacity-75 transition-opacity" aria-hidden="true" (click)="closeEditSubscriptionModal()"></div>
+                      <span class="hidden sm:inline-block sm:align-middle sm:h-screen" aria-hidden="true">&#8203;</span>
+                      <div class="inline-block align-bottom bg-white rounded-lg text-left overflow-hidden shadow-xl transform transition-all sm:my-8 sm:align-middle sm:max-w-2xl sm:w-full">
+                        <form [formGroup]="editSubscriptionForm" (ngSubmit)="updateSubscription()">
+                          <div class="bg-white px-4 pt-5 pb-4 sm:p-6 sm:pb-4">
+                            <div class="sm:flex sm:items-start">
+                              <div class="w-full">
+                                <h3 class="text-lg leading-6 font-medium text-gray-900 mb-4" id="modal-title">Edit Subscription</h3>
+                                
+                                @if (currentSubscriptionToEdit()) {
+                                  <div class="mb-4 p-4 bg-gray-50 rounded-lg">
+                                    <div class="flex items-center space-x-3">
+                                      <div class="flex-shrink-0 h-10 w-10">
+                                        <div class="h-10 w-10 rounded-full bg-gray-300 flex items-center justify-center">
+                                          <span class="text-sm font-medium text-gray-600">{{ currentSubscriptionToEdit()!.user?.name?.charAt(0)?.toUpperCase() || '?' }}</span>
+                                        </div>
+                                      </div>
+                                      <div class="flex-1">
+                                        <p class="text-sm font-medium text-gray-900">{{ currentSubscriptionToEdit()!.user.name }}</p>
+                                        <p class="text-sm text-gray-500">{{ currentSubscriptionToEdit()!.user.email }}</p>
+                                        <div class="mt-1">
+                                          <span [class]="getStatusBadgeClass(currentSubscriptionToEdit()!.status)" class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium">
+                                            <span class="mr-1">{{ getStateIcon(currentSubscriptionToEdit()!.status) }}</span>
+                                            {{ getSubscriptionStatusText(currentSubscriptionToEdit()!.status) }}
+                                          </span>
+                                        </div>
+                                      </div>
+                                    </div>
+                                  </div>
+                                }
+                                
+                                <div class="space-y-4">
+                                  <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+                                    <div>
+                                      <label for="edit-plan-id" class="block text-sm font-medium text-gray-700">Plan ID</label>
+                                      <input
+                                        id="edit-plan-id"
+                                        type="text"
+                                        formControlName="planId"
+                                        class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-red-500 focus:border-red-500 sm:text-sm">
+                                    </div>
+                
+                                    <div>
+                                      <label for="edit-plan-name" class="block text-sm font-medium text-gray-700">Plan Name</label>
+                                      <input
+                                        id="edit-plan-name"
+                                        type="text"
+                                        formControlName="planName"
+                                        class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-red-500 focus:border-red-500 sm:text-sm">
+                                    </div>
+                
+                                    <div>
+                                      <label for="edit-plan-price" class="block text-sm font-medium text-gray-700">Plan Price</label>
+                                      <input
+                                        id="edit-plan-price"
+                                        type="number"
+                                        formControlName="planPrice"
+                                        class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-red-500 focus:border-red-500 sm:text-sm"
+                                        [class.border-red-500]="editSubscriptionForm.get('planPrice')?.invalid && editSubscriptionForm.get('planPrice')?.touched">
+                                      @if (editSubscriptionForm.get('planPrice')?.invalid && editSubscriptionForm.get('planPrice')?.touched) {
+                                        <p class="mt-1 text-sm text-red-600">Valid price is required</p>
+                                      }
+                                    </div>
+                                  </div>
+                
+                                  <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                                    <div>
+                                      <label for="edit-start-date" class="block text-sm font-medium text-gray-700">Start Date</label>
+                                      <input
+                                        id="edit-start-date"
+                                        type="date"
+                                        formControlName="startDate"
+                                        class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-red-500 focus:border-red-500 sm:text-sm">
+                                    </div>
+                
+                                    <div>
+                                      <label for="edit-end-date" class="block text-sm font-medium text-gray-700">End Date</label>
+                                      <input
+                                        id="edit-end-date"
+                                        type="date"
+                                        formControlName="endDate"
+                                        class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-red-500 focus:border-red-500 sm:text-sm">
+                                    </div>
+                                  </div>
+                
+                                  <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                                    <div>
+                                      <label for="edit-payment-method" class="block text-sm font-medium text-gray-700">Payment Method</label>
+                                      <select
+                                        id="edit-payment-method"
+                                        formControlName="paymentMethod"
+                                        class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-red-500 focus:border-red-500 sm:text-sm">
+                                        <option value="credit_card">Credit Card</option>
+                                        <option value="wire_transfer">Wire Transfer</option>
+                                        <option value="other">Other</option>
+                                      </select>
+                                    </div>
+                
+                                    <div class="flex items-center">
+                                      <input
+                                        id="edit-auto-renewal"
+                                        type="checkbox"
+                                        formControlName="autoRenewal"
+                                        class="h-4 w-4 text-red-600 focus:ring-red-500 border-gray-300 rounded">
+                                      <label for="edit-auto-renewal" class="ml-2 block text-sm text-gray-700">
+                                        Auto-renewal
+                                      </label>
+                                    </div>
+                                  </div>
+                
+                                  <div>
+                                    <label for="edit-notes" class="block text-sm font-medium text-gray-700">Notes</label>
+                                    <textarea
+                                      id="edit-notes"
+                                      formControlName="notes"
+                                      rows="3"
+                                      placeholder="Additional notes about this subscription..."
+                                      class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-red-500 focus:border-red-500 sm:text-sm">
+                                    </textarea>
+                                  </div>
+                
+                                  <div class="space-y-2">
+                                    <label class="block text-sm font-medium text-gray-700">Delivery Address</label>
+                                    <input
+                                      type="text"
+                                      formControlName="deliveryAddress.street"
+                                      placeholder="Street Address"
+                                      class="block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-red-500 focus:border-red-500 sm:text-sm">
+                                    
+                                    <div class="grid grid-cols-2 gap-4">
+                                      <input
+                                        type="text"
+                                        formControlName="deliveryAddress.district"
+                                        placeholder="District"
+                                        class="block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-red-500 focus:border-red-500 sm:text-sm">
+                                      
+                                      <input
+                                        type="text"
+                                        formControlName="deliveryAddress.city"
+                                        placeholder="City"
+                                        class="block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-red-500 focus:border-red-500 sm:text-sm">
+                                    </div>
+                                  </div>
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+                          <div class="bg-gray-50 px-4 py-3 sm:px-6 sm:flex sm:flex-row-reverse">
+                            <button
+                              type="submit"
+                              [disabled]="isUpdatingSubscription() || editSubscriptionForm.invalid"
+                              class="w-full inline-flex justify-center rounded-md border border-transparent shadow-sm px-4 py-2 bg-red-600 text-base font-medium text-white hover:bg-red-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-red-500 sm:ml-3 sm:w-auto sm:text-sm disabled:opacity-50 disabled:cursor-not-allowed">
+                              @if (isUpdatingSubscription()) {
+                                <svg class="animate-spin -ml-1 mr-3 h-5 w-5 text-white" fill="none" viewBox="0 0 24 24">
+                                  <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
+                                  <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+                                </svg>
+                                Updating...
+                              } @else {
+                                Update Subscription
+                              }
+                            </button>
+                            <button
+                              type="button"
+                              (click)="closeEditSubscriptionModal()"
+                              class="mt-3 w-full inline-flex justify-center rounded-md border border-gray-300 shadow-sm px-4 py-2 bg-white text-base font-medium text-gray-700 hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-red-500 sm:mt-0 sm:ml-3 sm:w-auto sm:text-sm">
+                              Cancel
+                            </button>
+                          </div>
+                        </form>
+                      </div>
+                    </div>
+                  </div>
+                }
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+}

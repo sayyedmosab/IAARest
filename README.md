@@ -1,8 +1,20 @@
 # Ibnexp - Student Meal Subscription System
 
-A full-stack meal subscription platform for students with Angular frontend and Node.js/Express backend.
+A comprehensive meal subscription platform for university students with Angular frontend and Node.js/Express backend.
 
-## 🏗️ Architecture
+## 🎯 Project Overview
+
+Ibnexp is a bilingual (English/Arabic) meal subscription service designed for university students in Academia. The platform provides a convenient way for students to subscribe to healthy meal plans while giving administrators complete control over meal management, user subscriptions, and financial operations.
+
+### Key Features
+- **Student Meal Subscriptions**: Easy-to-use interface for browsing and subscribing to meal plans
+- **Admin Dashboard**: Complete administrative panel for managing meals, users, subscriptions, and scheduling
+- **Real-time Menu Management**: Dynamic menu scheduling with date-based meal assignments
+- **Financial Tracking**: Comprehensive subscription and payment management
+- **Multi-language Support**: Bilingual interface (English/Arabic)
+- **Responsive Design**: Mobile-first design that works on all devices
+
+## 🏗️ Technical Architecture
 
 ### Frontend (Angular)
 - **Framework**: Angular 20.3.0 (Standalone Components)
@@ -23,6 +35,13 @@ A full-stack meal subscription platform for students with Angular frontend and N
 ├── src/                          # Angular frontend source
 │   ├── components/               # Angular components
 │   │   ├── admin/               # Admin panel components
+│   │   │   ├── admin-layout/    # Admin layout component
+│   │   │   ├── dashboard/       # Admin dashboard
+│   │   │   ├── daily-orders/    # Daily orders management
+│   │   │   ├── meal-management/ # Meal CRUD operations
+│   │   │   ├── menu-scheduler/  # Menu scheduling
+│   │   │   ├── plan-management/ # Plan management
+│   │   │   └── user-management/ # User management
 │   │   ├── ar-*/                # Arabic language components
 │   │   └── *.component.*        # Public components
 │   ├── services/                # Angular services
@@ -33,9 +52,17 @@ A full-stack meal subscription platform for students with Angular frontend and N
 ├── backend/                     # Node.js backend
 │   ├── src/
 │   │   ├── routes/             # API route handlers
+│   │   │   ├── admin.ts        # Admin endpoints
+│   │   │   ├── auth.ts         # Authentication endpoints
+│   │   │   ├── ingredients.ts  # Ingredient endpoints
+│   │   │   ├── meals.ts        # Meal endpoints
+│   │   │   ├── plans.ts        # Plan endpoints
+│   │   │   ├── subscriptions.ts # Subscription endpoints
+│   │   │   └── users.ts        # User endpoints
 │   │   ├── services/           # Business logic services
 │   │   ├── models/             # Database models
 │   │   ├── database/           # Database connection & migrations
+│   │   │   └── migrations/     # Database schema files
 │   │   └── middleware/         # Express middleware
 │   └── data/                   # SQLite database file
 ├── images/                     # Meal images
@@ -61,32 +88,44 @@ npm install
 cd ..
 ```
 
-### 2. Start Backend Server
+### 2. Environment Configuration
+
+Create a `.env` file in the backend directory:
+
+```env
+PORT=4000
+NODE_ENV=development
+FRONTEND_URL=http://localhost:4200
+JWT_SECRET=your-secret-key-here
+```
+
+### 3. Start Backend Server
 
 ```bash
 cd backend
 npm run dev
 ```
 
-The backend will start on `http://localhost:3000` and automatically:
+The backend will start on `http://localhost:4000` and automatically:
 - Initialize the database connection
 - Run migrations (creates tables if needed)
+- Seed initial data (meals, plans, admin user)
 - Serve API endpoints at `/api/*`
 
-### 3. Start Frontend (New Terminal)
+### 4. Start Frontend (New Terminal)
 
 ```bash
 # From project root
 npm run dev
 ```
 
-The frontend will start on `http://localhost:3100` (as configured in angular.json).
+The frontend will start on `http://localhost:4200`.
 
 ## 🔧 Available Commands
 
 ### Frontend
 ```bash
-npm run dev      # Start development server (port 3100)
+npm run dev      # Start development server (port 4200)
 npm run build    # Build for production
 npm run preview  # Preview production build
 ```
@@ -94,7 +133,7 @@ npm run preview  # Preview production build
 ### Backend
 ```bash
 cd backend
-npm run dev      # Start development server with hot reload (port 3000)
+npm run dev      # Start development server with hot reload (port 4000)
 npm run build    # Compile TypeScript to JavaScript
 npm run start    # Start production server (requires build first)
 ```
@@ -103,28 +142,58 @@ npm run start    # Start production server (requires build first)
 
 The backend provides RESTful APIs:
 
-- `GET /api/meals` - Get all meals
-- `GET /api/plans` - Get all plans
-- `GET /api/auth/*` - Authentication endpoints
-- `GET /api/admin/*` - Admin-only endpoints (require authentication)
+### Authentication
+- `POST /api/auth/register` - User registration
+- `POST /api/auth/login` - User login
+- `GET /api/auth/me` - Get current user
+- `POST /api/auth/logout` - User logout
 
-## 🗄️ Database
+### Public Content
+- `GET /api/meals` - Get all active meals
+- `GET /api/meals/:id` - Get meal by ID
+- `GET /api/plans` - Get all active plans
+- `GET /api/plans/:id` - Get plan by ID
+- `GET /api/ingredients` - Get all ingredients
 
-- **Type**: SQLite
-- **File**: `backend/data/ibnexp.db`
-- **Schema**: Auto-created on first run via migrations
-- **Tables**: meals, plans, ingredients, profiles, subscriptions, payments, etc.
+### Admin Endpoints (Require Authentication)
+- `GET /api/admin/dashboard` - Dashboard statistics
+- `GET /api/admin/daily-orders` - Daily order reports
+- `GET /api/admin/subscriptions` - All subscriptions
+- `GET /api/admin/users` - User management
+- `POST /api/admin/meals` - Create meal
+- `PUT /api/admin/meals/:id` - Update meal
+- `DELETE /api/admin/meals/:id` - Delete meal
+- `POST /api/admin/plans` - Create plan
+- `PUT /api/admin/plans/:id` - Update plan
+- `DELETE /api/admin/plans/:id` - Delete plan
+- `POST /api/admin/menu-schedule` - Save menu schedule
 
-## 🔒 Environment Variables
+## 🗄️ Database Schema
 
-Create a `.env` file in the backend directory:
+### Core Tables
+- **profiles** - User accounts and preferences
+- **plans** - Subscription plans with pricing
+- **meals** - Meal information and nutrition
+- **subscriptions** - User subscriptions
+- **payments** - Payment records
+- **ingredients** - Ingredient database
+- **meal_ingredients** - Meal-ingredient relationships
+- **menu_cycles** - Menu cycle definitions
+- **menu_day_assignments** - Scheduled menu assignments
+- **deliveries** - Delivery records
 
-```env
-PORT=3000
-NODE_ENV=development
-FRONTEND_URL=http://localhost:3100
-JWT_SECRET=your-secret-key
-```
+### Relationships
+- Users → Subscriptions → Plans
+- Meals → Ingredients (many-to-many)
+- Subscriptions → Payments (one-to-many)
+- Menu Cycles → Menu Day Assignments
+
+## 🔒 Authentication
+
+The system uses JWT tokens for authentication:
+- Admin users have elevated privileges
+- Tokens are stored in HTTP-only cookies
+- Protected routes require valid authentication
 
 ## 🧪 Development
 
@@ -168,6 +237,10 @@ Unused files and alternative implementations are stored in `stash/`:
    cd backend && npm install  # Backend
    ```
 
+4. **Authentication issues**
+   - Ensure JWT_SECRET is set in backend .env
+   - Check browser console for authentication errors
+
 ### Debug Logging
 
 Debug logs have been added to:
@@ -176,9 +249,52 @@ Debug logs have been added to:
 
 Check browser console and backend terminal for detailed logs.
 
-## 📝 Notes
+## 📝 Current Status
 
-- The application uses string UUIDs for all database IDs
-- Images are served from `/images/` directory
-- Admin routes require JWT authentication
-- Database migrations run automatically on backend startup
+### Completed Features
+- ✅ User authentication and authorization
+- ✅ Meal catalog management
+- ✅ Subscription plan management
+- ✅ Admin dashboard with statistics
+- ✅ Daily orders reporting
+- ✅ Menu scheduling system
+- ✅ Bilingual support (English/Arabic)
+- ✅ Image handling for meals
+- ✅ Ingredient management
+- ✅ Database schema and migrations
+
+### In Progress
+- 🔄 Payment integration
+- 🔄 Email notifications
+- 🔄 Mobile app development
+
+### Known Issues
+- Image path inconsistencies in some components
+- TypeScript compilation warnings in unused files
+- Ingredients endpoint needs frontend integration
+
+## 📚 Documentation
+
+- [System Architecture](./System-Architecture.md) - Detailed technical architecture
+- [Roadmap](./Roadmap.md) - Project development roadmap
+- [Handover Report](./HandoverReport.md) - Technical handover notes
+
+## 🤝 Contributing
+
+1. Fork the repository
+2. Create a feature branch
+3. Make your changes
+4. Add tests if applicable
+5. Submit a pull request
+
+## 📄 License
+
+This project is licensed under the MIT License.
+
+## 📞 Support
+
+For issues or questions:
+1. Check the troubleshooting section
+2. Review the logs for error details
+3. Verify configuration in `.env` files
+4. Test with sample data first

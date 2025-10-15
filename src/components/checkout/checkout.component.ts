@@ -75,7 +75,9 @@ export class CheckoutComponent implements OnInit {
       startDate: new Date().toISOString().split('T')[0],
       deliveryAddress: user.address,
       paymentMethod: this.paymentMethod(),
-      paymentProof: this.paymentProof() ?? undefined
+      paymentProof: this.paymentProof() ?? undefined,
+      autoRenewal: false,
+      completedCycles: 0
     });
 
     this.showSuccessMessage.set(true);

@@ -1,9 +1,10 @@
 
 import { Injectable, signal, computed, inject } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { Subscription } from '../models/subscription.model';
-import { tap } from 'rxjs/operators';
+import { Subscription, SubscriptionStatus, SubscriptionStateTransitionRequest, SubscriptionStateHistory } from '../models/subscription.model';
+import { tap, map } from 'rxjs/operators';
 import { AuthService } from './auth.service';
+import { Observable } from 'rxjs';
 
 export interface DaySchedule {
   lunch: number | null;
@@ -44,6 +45,61 @@ export interface DashboardData {
       }>;
     };
     exiting: {
+      count: number;
+      revenue: number;
+      byPlan: Array<{
+        planId: string;
+        planCode: string;
+        planName: string;
+        count: number;
+        revenue: number;
+      }>;
+    };
+    pendingApproval: {
+      count: number;
+      revenue: number;
+      byPlan: Array<{
+        planId: string;
+        planCode: string;
+        planName: string;
+        count: number;
+        revenue: number;
+      }>;
+    };
+    newJoiner: {
+      count: number;
+      revenue: number;
+      byPlan: Array<{
+        planId: string;
+        planCode: string;
+        planName: string;
+        count: number;
+        revenue: number;
+      }>;
+    };
+    curious: {
+      count: number;
+      revenue: number;
+      byPlan: Array<{
+        planId: string;
+        planCode: string;
+        planName: string;
+        count: number;
+        revenue: number;
+      }>;
+    };
+    frozen: {
+      count: number;
+      revenue: number;
+      byPlan: Array<{
+        planId: string;
+        planCode: string;
+        planName: string;
+        count: number;
+        revenue: number;
+      }>;
+    };
+    cancelled: {
       count: number;
       revenue: number;
       byPlan: Array<{
@@ -114,6 +170,75 @@ export class SubscriptionService {
     return 'dummy-admin-token';
   }
 
+  // Enhanced subscription state management methods
+  transitionSubscriptionState(subscriptionId: string, request: SubscriptionStateTransitionRequest): Observable<ApiResponse<Subscription>> {
+    return this.http.put<ApiResponse<Subscription>>(`${this.apiUrl}/admin/subscriptions/${subscriptionId}/state`, request).pipe(
+      tap(() => {
+        this.loadSubscriptions();
+        this.loadDashboardData();
+      })
+    );
+  }
+
+  approveSubscription(subscriptionId: string): Observable<ApiResponse<Subscription>> {
+    return this.transitionSubscriptionState(subscriptionId, {
+      newState: 'Active',
+      reason: 'Approved by admin'
+    });
+  }
+
+  rejectSubscription(subscriptionId: string): Observable<ApiResponse<Subscription>> {
+    return this.transitionSubscriptionState(subscriptionId, {
+      newState: 'cancelled',
+      reason: 'Rejected by admin'
+    });
+  }
+
+  freezeSubscription(subscriptionId: string, reason?: string): Observable<ApiResponse<Subscription>> {
+    return this.transitionSubscriptionState(subscriptionId, {
+      newState: 'Frozen',
+      reason: reason || 'Account frozen by admin'
+    });
+  }
+
+  unfreezeSubscription(subscriptionId: string, reason?: string): Observable<ApiResponse<Subscription>> {
+    return this.transitionSubscriptionState(subscriptionId, {
+      newState: 'Active',
+      reason: reason || 'Account reactivated by admin'
+    });
+  }
+
+  cancelSubscription(subscriptionId: string, reason?: string): Observable<ApiResponse<Subscription>> {
+    return this.transitionSubscriptionState(subscriptionId, {
+      newState: 'Exiting',
+      reason: reason || 'Cancellation requested by admin'
+    });
+  }
+
+  getSubscriptionStateHistory(subscriptionId: string): Observable<ApiResponse<SubscriptionStateHistory[]>> {
+    return this.http.get<ApiResponse<SubscriptionStateHistory[]>>(`${this.apiUrl}/admin/subscriptions/${subscriptionId}/history`);
+  }
+
+  bulkTransitionSubscriptionStates(subscriptionIds: string[], request: SubscriptionStateTransitionRequest): Observable<ApiResponse<Subscription[]>> {
+    return this.http.put<ApiResponse<Subscription[]>>(`${this.apiUrl}/admin/subscriptions/bulk-state`, {
+      subscriptionIds,
+      ...request
+    }).pipe(
+      tap(() => {
+        this.loadSubscriptions();
+        this.loadDashboardData();
+      })
+    );
+  }
+
+  // Public method to get subscriptions
+  getSubscriptions(): Observable<ApiResponse<Subscription[]>> {
+    return this.http.get<ApiResponse<Subscription[]>>(`${this.apiUrl}/admin/subscriptions`, {
+      headers: { 'Authorization': `Bearer ${this.getAuthToken()}` }
+    });
+  }
+
+  // Legacy methods for backward compatibility
   private updateSubscriptionStatus(id: number, status: 'active' | 'rejected') {
     return this.http.put<ApiResponse<Subscription>>(`${this.apiUrl}/subscriptions/${id}/status`, { status }).pipe(
       tap(() => {
@@ -123,11 +248,11 @@ export class SubscriptionService {
     );
   }
 
-  approveSubscription(id: number) {
+  approveSubscriptionLegacy(id: number) {
     return this.updateSubscriptionStatus(id, 'active');
   }
 
-  rejectSubscription(id: number) {
+  rejectSubscriptionLegacy(id: number) {
     return this.updateSubscriptionStatus(id, 'rejected');
   }
 
@@ -174,7 +299,21 @@ export class SubscriptionService {
     });
   }
 
-  addSubscription(subscription: Omit<Subscription, 'id' | 'status' | 'endDate'>) {
-    // TODO: Implement backend call
+  addSubscription(subscription: Omit<Subscription, 'id' | 'status' | 'endDate'>): Observable<ApiResponse<Subscription>> {
+    return this.http.post<ApiResponse<Subscription>>(`${this.apiUrl}/admin/subscriptions`, subscription).pipe(
+      tap(() => {
+        this.loadSubscriptions();
+        this.loadDashboardData();
+      })
+    );
+  }
+
+  updateSubscription(id: string, subscription: Partial<Subscription>): Observable<ApiResponse<Subscription>> {
+    return this.http.put<ApiResponse<Subscription>>(`${this.apiUrl}/admin/subscriptions/${id}`, subscription).pipe(
+      tap(() => {
+        this.loadSubscriptions();
+        this.loadDashboardData();
+      })
+    );
   }
 }

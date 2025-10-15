@@ -116,14 +116,19 @@ export function authenticateToken(req: AuthRequest, res: Response, next: NextFun
 }
 // Admin-only middleware
 export async function requireAdmin(req: AuthRequest, res: Response, next: NextFunction): Promise<void> {
+  console.log('[DEBUG] requireAdmin called');
   // Prefer authenticated user (token/cookie). If present, check is_admin flag.
   if (req.user) {
+    console.log('[DEBUG] req.user exists:', req.user.user_id, 'is_admin:', req.user.is_admin);
     if (!req.user.is_admin) {
+      console.log('[DEBUG] User is not admin');
       res.status(403).json({ success: false, error: 'Admin access required' });
       return;
     }
+    console.log('[DEBUG] User is admin, calling next()');
     return next();
   }
+  console.log('[DEBUG] No req.user found');
   // No authenticated user on request: reject. Legacy email/password fallback removed.
   res.status(401).json({
     success: false,

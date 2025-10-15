@@ -1,0 +1,214 @@
+/* Dashboard Component Styles */
+
+/* Responsive Design */
+@media (max-width: 640px) {
+  .dashboard-metrics {
+    grid-template-columns: 1fr;
+  }
+  
+  .customer-pipeline {
+    grid-template-columns: 1fr;
+  }
+  
+  .pipeline-segmentation {
+    grid-template-columns: 1fr;
+  }
+  
+  .calendar-container {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (min-width: 641px) and (max-width: 1024px) {
+  .dashboard-metrics {
+    grid-template-columns: 1fr;
+  }
+  
+  .customer-pipeline {
+    grid-template-columns: repeat(2, 1fr);
+  }
+  
+  .pipeline-segmentation {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (min-width: 1025px) and (max-width: 1280px) {
+  .customer-pipeline {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+
+/* Tooltip Animations */
+.tooltip-content {
+  transition: opacity 0.2s ease-in-out;
+}
+
+/* State Box Hover Effects */
+.state-box {
+  transition: transform 0.2s ease-in-out, box-shadow 0.2s ease-in-out;
+}
+
+.state-box:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.1);
+}
+
+/* Quick Action Buttons */
+.quick-action-btn {
+  transition: all 0.2s ease-in-out;
+}
+
+.quick-action-btn:hover {
+  transform: scale(1.05);
+}
+
+.quick-action-btn:active {
+  transform: scale(0.95);
+}
+
+/* Calendar Cell Interactions */
+.calendar-cell {
+  transition: all 0.2s ease-in-out;
+}
+
+.calendar-cell:hover:not(.non-current-month) {
+  transform: scale(1.05);
+  z-index: 10;
+}
+
+.calendar-cell.selected-day {
+  animation: pulse 2s infinite;
+}
+
+@keyframes pulse {
+  0% {
+    box-shadow: 0 0 0 0 rgba(239, 68, 68, 0.4);
+  }
+  70% {
+    box-shadow: 0 0 0 10px rgba(239, 68, 68, 0);
+  }
+  100% {
+    box-shadow: 0 0 0 0 rgba(239, 68, 68, 0);
+  }
+}
+
+/* Metric Cards */
+.metric-card {
+  position: relative;
+  overflow: hidden;
+}
+
+.metric-card::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+  transition: left 0.5s;
+}
+
+.metric-card:hover::before {
+  left: 100%;
+}
+
+/* Loading States */
+.loading-skeleton {
+  background: linear-gradient(90deg, #f0f0f0 25%, #e0e0e0 50%, #f0f0f0 75%);
+  background-size: 200% 100%;
+  animation: loading 1.5s infinite;
+}
+
+@keyframes loading {
+  0% {
+    background-position: 200% 0;
+  }
+  100% {
+    background-position: -200% 0;
+  }
+}
+
+/* State Color Indicators */
+.state-indicator-pending {
+  border-left-color: #eab308;
+}
+
+.state-indicator-new-joiner {
+  border-left-color: #3b82f6;
+}
+
+.state-indicator-curious {
+  border-left-color: #a855f7;
+}
+
+.state-indicator-active {
+  border-left-color: #22c55e;
+}
+
+.state-indicator-frozen {
+  border-left-color: #06b6d4;
+}
+
+.state-indicator-exiting {
+  border-left-color: #f97316;
+}
+
+.state-indicator-cancelled {
+  border-left-color: #ef4444;
+}
+
+/* Accessibility */
+@media (prefers-reduced-motion: reduce) {
+  .state-box,
+  .quick-action-btn,
+  .calendar-cell,
+  .metric-card {
+    transition: none;
+  }
+  
+  .calendar-cell.selected-day {
+    animation: none;
+  }
+  
+  .metric-card::before {
+    display: none;
+  }
+}
+
+/* Focus Styles for Keyboard Navigation */
+.quick-action-btn:focus,
+.calendar-cell:focus {
+  outline: 2px solid #3b82f6;
+  outline-offset: 2px;
+}
+
+/* Print Styles */
+@media print {
+  .quick-action-btn,
+  .tooltip-content {
+    display: none;
+  }
+  
+  .state-box {
+    break-inside: avoid;
+  }
+  
+  .calendar-container {
+    break-inside: avoid;
+  }
+}
+
+/* Dark mode support (if needed) */
+@media (prefers-color-scheme: dark) {
+  .state-box {
+    background-color: #1f2937;
+    color: #f9fafb;
+  }
+  
+  .metric-card {
+    background-color: #1f2937;
+    color: #f9fafb;
+  }
+}
