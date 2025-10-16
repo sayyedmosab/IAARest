@@ -25,6 +25,7 @@ const users_js_1 = __importDefault(require("./routes/users.js"));
 const subscriptions_js_1 = __importDefault(require("./routes/subscriptions.js"));
 const admin_js_1 = __importDefault(require("./routes/admin.js"));
 const ingredients_js_1 = __importDefault(require("./routes/ingredients.js"));
+const payments_js_1 = __importDefault(require("./routes/payments.js"));
 // Load environment variables
 dotenv_1.default.config();
 const app = (0, express_1.default)();
@@ -104,6 +105,7 @@ app.use('/api/users', users_js_1.default);
 app.use('/api/subscriptions', subscriptions_js_1.default);
 app.use('/api/admin', admin_js_1.default);
 app.use('/api/ingredients', ingredients_js_1.default);
+app.use('/api/payments', payments_js_1.default);
 // 404 handler
 app.use('*', (req, res) => {
     res.status(404).json({
@@ -133,6 +135,11 @@ process.on('SIGINT', () => {
     database_js_1.DatabaseConnection.getInstance().close();
     process.exit(0);
 });
+// Generate secure password function
+function generateSecurePassword() {
+    const crypto = require('crypto');
+    return crypto.randomBytes(16).toString('hex');
+}
 // Initialize admin user on startup
 async function initializeAdminUser() {
     try {
@@ -140,8 +147,9 @@ async function initializeAdminUser() {
         const existingAdmins = repositories_js_1.profileRepo.findAdmins();
         if (existingAdmins.length === 0) {
             console.log('⚠️ No admin user found. Creating default admin...');
-            // Hash the password 'admin123'
-            const hashedPassword = await (0, auth_js_1.hashPassword)('admin123');
+            // Hash the password - use environment variable or generate a secure one
+            const adminPassword = process.env.ADMIN_DEFAULT_PASSWORD || generateSecurePassword();
+            const hashedPassword = await (0, auth_js_1.hashPassword)(adminPassword);
             const newAdmin = repositories_js_1.profileRepo.create({
                 email: 'admin@ibnexp2.com',
                 password: hashedPassword,
@@ -159,7 +167,8 @@ async function initializeAdminUser() {
             console.log('✅ Admin user created successfully:', newAdmin.email);
             console.log('🔑 Login credentials:');
             console.log('   Email: admin@ibnexp2.com');
-            console.log('   Password: admin123');
+            console.log('   Password:', adminPassword);
+            console.log('⚠️  SECURITY: Please change the default password after first login!');
         }
         else {
             console.log('✅ Admin user already exists:', existingAdmins.map(a => a.email).join(', '));
@@ -249,14 +258,17 @@ async function initializeDummyData() {
                     repositories_js_1.subscriptionRepo.create({
                         user_id: profile.user_id,
                         plan_id: plan.id,
-                        status: 'active',
+                        status: 'Active',
                         start_date: startDate.toISOString().split('T')[0],
                         end_date: endDate.toISOString().split('T')[0],
                         student_discount_applied: (profile.is_student ? 1 : 0),
                         price_charged_aed: plan.discounted_price_aed || plan.base_price_aed,
                         currency: 'AED',
                         renewal_type: 'manual',
-                        has_successful_payment: 1
+                        has_successful_payment: 1,
+                        payment_method: 'credit_card',
+                        auto_renewal: 0,
+                        completed_cycles: 0
                     });
                     console.log(`[DEBUG] Created subscription: ${profile.email} -> ${plan.name_en}`);
                 }

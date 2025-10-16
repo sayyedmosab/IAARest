@@ -8,15 +8,11 @@ export const adminGuard: CanActivateFn = (route, state) => {
   // FIX: Explicitly type the injected Router to resolve type inference issue.
   const router: Router = inject(Router);
 
-  // For testing purposes, allow admin access
-  // In production, this should check real authentication
-  return true;
-  
-  // Original auth check (commented out for testing)
-  // if (authService.isAdmin()) {
-  //   return true;
-  // } else {
-  //   router.navigate(['/home']);
-  //   return false;
-  // }
+  // Check if user is authenticated and has admin privileges
+  if (authService.isAdmin()) {
+    return true;
+  } else {
+    router.navigate(['/home']);
+    return false;
+  }
 };

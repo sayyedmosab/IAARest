@@ -1,1 +1,0 @@
-export default function MenuSchedulerPage() { return <div>Menu Scheduler Page</div>; }

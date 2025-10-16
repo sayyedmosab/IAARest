@@ -1,5 +1,5 @@
 import { BaseRepository } from './base-repository.js';
-import { Ingredient, Plan, Profile, Meal, Subscription, Payment, MealIngredient, MealImage, Discount, MenuCycle, MenuCycleDay, MenuDayAssignment, Delivery } from '../models/types.js';
+import { Ingredient, Plan, Profile, Meal, Subscription, Payment, MealIngredient, MealImage, Discount, MenuCycle, MenuCycleDay, MenuDayAssignment, Delivery, SubscriptionStateHistory, PaymentMethod, SubscriptionStatus } from '../models/types.js';
 export declare class IngredientRepository extends BaseRepository<Ingredient> {
     constructor();
     findBySource(sourceType: string, sourceRef?: string): Ingredient[];
@@ -28,11 +28,25 @@ export declare class SubscriptionRepository extends BaseRepository<Subscription>
     findByStatus(status: string): Subscription[];
     findActiveByUser(userId: string): Subscription[];
     findUpcomingDeliveries(): Delivery[];
+    findByPaymentMethod(method: PaymentMethod): Subscription[];
+    findNewJoinersReadyForActivation(): Subscription[];
+    findExitingSubscriptionsReadyToCancel(): Subscription[];
+    findAutoRenewalDue(): Subscription[];
+    transitionState(subscriptionId: string, newState: SubscriptionStatus, reason?: string, changedBy?: string): boolean;
+    incrementCompletedCycles(subscriptionId: string): boolean;
+    create(data: Omit<Subscription, 'id' | 'created_at' | 'updated_at'>): Subscription;
+}
+export declare class SubscriptionStateHistoryRepository extends BaseRepository<SubscriptionStateHistory> {
+    constructor();
+    findBySubscription(subscriptionId: string): SubscriptionStateHistory[];
+    create(historyEntry: Omit<SubscriptionStateHistory, 'id' | 'created_at'>): SubscriptionStateHistory;
 }
 export declare class PaymentRepository extends BaseRepository<Payment> {
     constructor();
     findBySubscription(subscriptionId: string): Payment[];
     findSuccessfulBySubscription(subscriptionId: string): Payment[];
+    findByProviderTxnId(providerTxnId: string): Payment | null;
+    updateByProviderTxnId(providerTxnId: string, data: Partial<Payment>): Payment | null;
 }
 export declare class MealIngredientRepository extends BaseRepository<MealIngredient> {
     constructor();
@@ -86,4 +100,5 @@ export declare const menuCycleRepo: MenuCycleRepository;
 export declare const menuCycleDayRepo: MenuCycleDayRepository;
 export declare const menuDayAssignmentRepo: MenuDayAssignmentRepository;
 export declare const deliveryRepo: DeliveryRepository;
+export declare const subscriptionStateHistoryRepo: SubscriptionStateHistoryRepository;
 //# sourceMappingURL=repositories.d.ts.map

@@ -86,11 +86,13 @@ export interface MealImage {
     sort_order: number;
     created_at: string;
 }
+export type SubscriptionStatus = 'pending_payment' | 'Pending_Approval' | 'New_Joiner' | 'Curious' | 'Active' | 'Frozen' | 'Exiting' | 'cancelled' | 'expired';
+export type PaymentMethod = 'credit_card' | 'wire_transfer' | 'other';
 export interface Subscription {
     id: string;
     user_id: string;
     plan_id: string;
-    status: 'pending_payment' | 'active' | 'paused' | 'cancelled' | 'expired';
+    status: SubscriptionStatus;
     start_date: string;
     end_date: string;
     student_discount_applied: boolean;
@@ -100,6 +102,19 @@ export interface Subscription {
     updated_at: string;
     renewal_type: string;
     has_successful_payment: boolean;
+    payment_method: PaymentMethod;
+    auto_renewal: boolean;
+    completed_cycles: number;
+    notes?: string;
+}
+export interface SubscriptionStateHistory {
+    id: string;
+    subscription_id: string;
+    previous_state?: SubscriptionStatus;
+    new_state: SubscriptionStatus;
+    reason?: string;
+    changed_by?: string;
+    created_at: string;
 }
 export interface Payment {
     id: string;
@@ -213,6 +228,16 @@ export interface CreateSubscriptionDto {
     end_date: string;
     student_discount_applied?: boolean;
     price_charged_aed: number;
+    payment_method?: PaymentMethod;
+    auto_renewal?: boolean;
+    notes?: string;
+}
+export interface UpdateSubscriptionDto extends Partial<CreateSubscriptionDto> {
+    status?: SubscriptionStatus;
+}
+export interface SubscriptionStateTransitionDto {
+    new_state: SubscriptionStatus;
+    reason?: string;
 }
 export interface LoginDto {
     email: string;
@@ -232,8 +257,6 @@ export interface RegisterDto {
     student_id_expiry?: string;
 }
 export type ContentStatus = 'active' | 'archived';
-export type SubscriptionStatus = 'pending_payment' | 'active' | 'paused' | 'cancelled' | 'expired';
-export type PaymentMethod = 'card' | 'apple_pay' | 'google_pay' | 'other';
 export type PaymentStatus = 'requires_action' | 'succeeded' | 'failed' | 'refunded';
 export type DeliveryStatus = 'scheduled' | 'delivered' | 'failed' | 'skipped';
 export type MealSlot = 'lunch' | 'dinner';

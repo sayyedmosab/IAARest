@@ -1,6 +1,6 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.deliveryRepo = exports.menuDayAssignmentRepo = exports.menuCycleDayRepo = exports.menuCycleRepo = exports.discountRepo = exports.mealImageRepo = exports.mealIngredientRepo = exports.paymentRepo = exports.subscriptionRepo = exports.mealRepo = exports.profileRepo = exports.planRepo = exports.ingredientRepo = exports.DeliveryRepository = exports.MenuDayAssignmentRepository = exports.MenuCycleDayRepository = exports.MenuCycleRepository = exports.DiscountRepository = exports.MealImageRepository = exports.MealIngredientRepository = exports.PaymentRepository = exports.SubscriptionRepository = exports.MealRepository = exports.ProfileRepository = exports.PlanRepository = exports.IngredientRepository = void 0;
+exports.subscriptionStateHistoryRepo = exports.deliveryRepo = exports.menuDayAssignmentRepo = exports.menuCycleDayRepo = exports.menuCycleRepo = exports.discountRepo = exports.mealImageRepo = exports.mealIngredientRepo = exports.paymentRepo = exports.subscriptionRepo = exports.mealRepo = exports.profileRepo = exports.planRepo = exports.ingredientRepo = exports.DeliveryRepository = exports.MenuDayAssignmentRepository = exports.MenuCycleDayRepository = exports.MenuCycleRepository = exports.DiscountRepository = exports.MealImageRepository = exports.MealIngredientRepository = exports.PaymentRepository = exports.SubscriptionStateHistoryRepository = exports.SubscriptionRepository = exports.MealRepository = exports.ProfileRepository = exports.PlanRepository = exports.IngredientRepository = void 0;
 const base_repository_js_1 = require("./base-repository.js");
 class IngredientRepository extends base_repository_js_1.BaseRepository {
     constructor() {
@@ -111,6 +111,7 @@ class SubscriptionRepository extends base_repository_js_1.BaseRepository {
     constructor() {
         super('subscriptions');
     }
+    // Existing methods...
     findByUser(userId) {
         return this.findAll('user_id = ?', [userId]);
     }
@@ -118,20 +119,139 @@ class SubscriptionRepository extends base_repository_js_1.BaseRepository {
         return this.findAll('status = ?', [status]);
     }
     findActiveByUser(userId) {
-        return this.findAll('user_id = ? AND status = ?', [userId, 'active']);
+        return this.findAll('user_id = ? AND status = ?', [userId, 'Active']);
     }
     findUpcomingDeliveries() {
         const sql = `
       SELECT d.* FROM deliveries d
       JOIN subscriptions s ON d.subscription_id = s.id
       WHERE d.delivery_date >= date('now')
-      AND s.status = 'active'
+      AND s.status = 'Active'
       ORDER BY d.delivery_date
     `;
         return this.query(sql);
     }
+    // New methods for enhanced model
+    findByPaymentMethod(method) {
+        return this.findAll('payment_method = ?', [method]);
+    }
+    findNewJoinersReadyForActivation() {
+        return this.findAll('status = ? AND completed_cycles >= 2', ['New_Joiner']);
+    }
+    findExitingSubscriptionsReadyToCancel() {
+        return this.query(`
+      SELECT * FROM subscriptions
+      WHERE status = 'Exiting'
+      AND end_date < date('now')
+    `);
+    }
+    findAutoRenewalDue() {
+        return this.query(`
+      SELECT * FROM subscriptions
+      WHERE status IN ('Active', 'New_Joiner')
+      AND auto_renewal = 1
+      AND end_date <= date('now', '+3 days')
+      AND end_date >= date('now')
+    `);
+    }
+    transitionState(subscriptionId, newState, reason, changedBy) {
+        const subscription = this.findById(subscriptionId);
+        if (!subscription)
+            return false;
+        // Record state change in history
+        const stateHistoryRepo = new SubscriptionStateHistoryRepository();
+        stateHistoryRepo.create({
+            subscription_id: subscriptionId,
+            previous_state: subscription.status,
+            new_state: newState,
+            reason,
+            changed_by: changedBy || 'system'
+        });
+        // Update subscription status
+        return this.update(subscriptionId, {
+            status: newState,
+            updated_at: new Date().toISOString()
+        }) !== null;
+    }
+    incrementCompletedCycles(subscriptionId) {
+        const subscription = this.findById(subscriptionId);
+        if (!subscription)
+            return false;
+        return this.db.execute(`
+      UPDATE subscriptions
+      SET completed_cycles = completed_cycles + 1, updated_at = ?
+      WHERE id = ?
+    `, [new Date().toISOString(), subscriptionId]).changes > 0;
+    }
+    // Override create to handle new fields
+    create(data) {
+        const id = this.generateId();
+        const now = new Date().toISOString();
+        const subscriptionData = {
+            ...data,
+            auto_renewal: data.auto_renewal ? 1 : 0,
+            student_discount_applied: data.student_discount_applied ? 1 : 0,
+            has_successful_payment: data.has_successful_payment ? 1 : 0
+        };
+        const sql = `
+      INSERT INTO subscriptions (
+        id, user_id, plan_id, status, start_date, end_date,
+        student_discount_applied, price_charged_aed, currency,
+        created_at, updated_at, renewal_type, has_successful_payment,
+        payment_method, auto_renewal, completed_cycles, notes
+      ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
+    `;
+        this.db.execute(sql, [
+            id,
+            subscriptionData.user_id,
+            subscriptionData.plan_id,
+            subscriptionData.status,
+            subscriptionData.start_date,
+            subscriptionData.end_date,
+            subscriptionData.student_discount_applied,
+            subscriptionData.price_charged_aed,
+            subscriptionData.currency,
+            now,
+            now,
+            subscriptionData.renewal_type,
+            subscriptionData.has_successful_payment,
+            subscriptionData.payment_method,
+            subscriptionData.auto_renewal,
+            subscriptionData.completed_cycles || 0,
+            subscriptionData.notes
+        ]);
+        // Create initial state history record
+        const stateHistoryRepo = new SubscriptionStateHistoryRepository();
+        stateHistoryRepo.create({
+            subscription_id: id,
+            previous_state: undefined,
+            new_state: subscriptionData.status,
+            reason: 'Initial subscription creation',
+            changed_by: 'system'
+        });
+        return this.findById(id);
+    }
 }
 exports.SubscriptionRepository = SubscriptionRepository;
+// Add new repository class for state history
+class SubscriptionStateHistoryRepository extends base_repository_js_1.BaseRepository {
+    constructor() {
+        super('subscription_state_history');
+    }
+    findBySubscription(subscriptionId) {
+        return this.query('SELECT * FROM subscription_state_history WHERE subscription_id = ? ORDER BY created_at DESC', [subscriptionId]);
+    }
+    create(historyEntry) {
+        const id = this.generateId();
+        const now = new Date().toISOString();
+        this.db.execute(`
+      INSERT INTO subscription_state_history (id, subscription_id, previous_state, new_state, reason, changed_by, created_at)
+      VALUES (?, ?, ?, ?, ?, ?, ?)
+    `, [id, historyEntry.subscription_id, historyEntry.previous_state, historyEntry.new_state, historyEntry.reason, historyEntry.changed_by, now]);
+        return this.queryOne('SELECT * FROM subscription_state_history WHERE id = ?', [id]);
+    }
+}
+exports.SubscriptionStateHistoryRepository = SubscriptionStateHistoryRepository;
 class PaymentRepository extends base_repository_js_1.BaseRepository {
     constructor() {
         super('payments');
@@ -141,6 +261,15 @@ class PaymentRepository extends base_repository_js_1.BaseRepository {
     }
     findSuccessfulBySubscription(subscriptionId) {
         return this.findAll('subscription_id = ? AND status = ?', [subscriptionId, 'succeeded']);
+    }
+    findByProviderTxnId(providerTxnId) {
+        return this.queryOne('SELECT * FROM payments WHERE provider_txn_id = ?', [providerTxnId]);
+    }
+    updateByProviderTxnId(providerTxnId, data) {
+        const payment = this.findByProviderTxnId(providerTxnId);
+        if (!payment)
+            return null;
+        return this.update(payment.id, data);
     }
 }
 exports.PaymentRepository = PaymentRepository;
@@ -274,4 +403,5 @@ exports.menuCycleRepo = new MenuCycleRepository();
 exports.menuCycleDayRepo = new MenuCycleDayRepository();
 exports.menuDayAssignmentRepo = new MenuDayAssignmentRepository();
 exports.deliveryRepo = new DeliveryRepository();
+exports.subscriptionStateHistoryRepo = new SubscriptionStateHistoryRepository();
 //# sourceMappingURL=repositories.js.map

@@ -32,6 +32,231 @@ router.get('/test', (req: Request, res: Response) => {
   res.json({ success: true, message: 'Admin routes working' });
 });
 
+// Public diagnostic route for testing daily orders (no auth required)
+router.get('/diagnostic-daily-orders', async (req: Request, res: Response) => {
+  try {
+    console.log('=== PUBLIC DAILY ORDERS DIAGNOSTIC START ===');
+    const today = new Date();
+    console.log(`[DIAG] Today's date: ${today.toISOString().split('T')[0]}`);
+    console.log(`[DIAG] Today's day of week: ${today.getDay()} (0=Sunday, 1=Monday, etc.)`);
+    console.log(`[DIAG] Today's day of month: ${today.getDate()}`);
+    
+    // Get next 3 days dates
+    const dates = [];
+    for (let i = 0; i < 3; i++) {
+      const date = new Date();
+      date.setDate(date.getDate() + i);
+      dates.push(date.toISOString().split('T')[0]);
+    }
+    
+    console.log('[DIAG] Processing dates:', dates);
+    
+    // Get all plans for reference
+    const allPlans = planRepo.findAll();
+    
+    // Get active subscriptions with plan details
+    let activeSubscriptions = [];
+    try {
+      activeSubscriptions = subscriptionRepo.query(`
+        SELECT s.*, p.meals_per_day, p.base_price_aed, p.delivery_pattern, p.billing_cycle
+        FROM subscriptions s
+        JOIN plans p ON s.plan_id = p.id
+        WHERE s.status IN ('Active', 'Frozen')
+      `);
+      console.log('[DIAG] Active and Frozen subscriptions found:', activeSubscriptions.length);
+      
+      if (activeSubscriptions.length > 0) {
+        console.log('[DIAG] Sample active subscription:', activeSubscriptions[0]);
+      }
+    } catch (err) {
+      console.log('[DIAG] Error getting subscription count:', err);
+    }
+    
+    console.log('[DIAG] Final active subscriptions count:', activeSubscriptions.length);
+    
+    // DEBUG: Check if we have any menu cycles at all
+    let menuCycles = [];
+    try {
+      menuCycles = menuDayAssignmentRepo.query(`SELECT * FROM menu_cycles WHERE is_active = 1`);
+      console.log('[DIAG] Active menu cycles found:', menuCycles.length);
+      if (menuCycles.length > 0) {
+        console.log('[DIAG] Active cycle details:', menuCycles[0]);
+      }
+    } catch (err) {
+      console.log('[DIAG] Error checking menu cycles:', err);
+    }
+    
+    // DEBUG: Check if we have any menu cycle days
+    let menuCycleDays = [];
+    try {
+      menuCycleDays = menuDayAssignmentRepo.query(`
+        SELECT mcd.*, mc.name as cycle_name
+        FROM menu_cycle_days mcd
+        JOIN menu_cycles mc ON mcd.cycle_id = mc.id
+        WHERE mc.is_active = 1
+      `);
+      console.log('[DIAG] Menu cycle days found:', menuCycleDays.length);
+      if (menuCycleDays.length > 0) {
+        console.log('[DIAG] Sample cycle day:', menuCycleDays[0]);
+      }
+    } catch (err) {
+      console.log('[DIAG] Error checking menu cycle days:', err);
+    }
+    
+    // DEBUG: Check if we have any menu assignments
+    let menuAssignments = [];
+    try {
+      menuAssignments = menuDayAssignmentRepo.query(`
+        SELECT
+          mda.*,
+          mcd.day_index,
+          mc.name as cycle_name
+        FROM menu_day_assignments mda
+        JOIN menu_cycle_days mcd ON mda.cycle_day_id = mcd.id
+        JOIN menu_cycles mc ON mcd.cycle_id = mc.id
+        WHERE mc.is_active = 1
+      `);
+      console.log('[DIAG] Menu assignments found:', menuAssignments.length);
+      if (menuAssignments.length > 0) {
+        console.log('[DIAG] Sample assignment:', menuAssignments[0]);
+      }
+    } catch (err) {
+      console.log('[DIAG] Error checking menu assignments:', err);
+    }
+    
+    // Get all meals with their ingredients
+    let meals: any[] = [];
+    let mealIngredients: any[] = [];
+    let ingredients: any[] = [];
+    
+    try {
+      meals = mealRepo.findAll();
+      console.log('[DIAG] Loaded meals:', meals.length);
+      if (meals.length > 0) {
+        console.log('[DIAG] Sample meal:', meals[0]);
+      }
+    } catch (err) {
+      console.log('[DIAG] Error loading meals:', err);
+    }
+    
+    try {
+      mealIngredients = mealIngredientRepo.findAll();
+      console.log('[DIAG] Loaded meal ingredients:', mealIngredients.length);
+      if (mealIngredients.length > 0) {
+        console.log('[DIAG] Sample meal ingredient:', mealIngredients[0]);
+      }
+    } catch (err) {
+      console.log('[DIAG] Error loading meal ingredients:', err);
+    }
+    
+    try {
+      ingredients = ingredientRepo.findAll();
+      console.log('[DIAG] Loaded ingredients:', ingredients.length);
+      if (ingredients.length > 0) {
+        console.log('[DIAG] Sample ingredient:', ingredients[0]);
+      }
+    } catch (err) {
+      console.log('[DIAG] Error loading ingredients:', err);
+    }
+    
+    // Process each date with detailed logging
+    const dailyPrepData = dates.map((date, index) => {
+      console.log(`\n=== PROCESSING DATE: ${date} (array index: ${index}) ===`);
+      
+      // FIXED: Use calendar date logic instead of array index
+      const currentDate = new Date(date);
+      const dayOfWeek = currentDate.getDay(); // 0 = Sunday, 1 = Monday, etc.
+      const dayOfMonth = currentDate.getDate();
+      
+      console.log(`[DIAG] Date ${date}:`);
+      console.log(`[DIAG] - Day of week: ${dayOfWeek} (${currentDate.toLocaleDateString('en-US', { weekday: 'long' })})`);
+      console.log(`[DIAG] - Day of month: ${dayOfMonth}`);
+      
+      // FIXED: Calculate dayIndex based on calendar date, not array position
+      const cycleLength = menuCycleDays.length > 0 ? menuCycleDays.length : 7;
+      const calendarDayIndex = (dayOfMonth - 1) % cycleLength; // 0-based index from day of month
+      console.log(`[DIAG] - FIXED dayIndex calculation: ${calendarDayIndex} (based on dayOfMonth-1 % cycleLength ${cycleLength})`);
+      console.log(`[DIAG] - Old incorrect dayIndex would have been: ${index} (array position)`);
+      
+      const dayAssignments = menuAssignments.filter(assignment => assignment.day_index === calendarDayIndex);
+      console.log(`[DIAG] - Day assignments found for calendarDayIndex ${calendarDayIndex}: ${dayAssignments.length}`);
+      
+      return {
+        date,
+        oldArrayIndex: index,
+        fixedCalendarDayIndex: calendarDayIndex,
+        assignmentsFound: dayAssignments.length,
+        dayOfWeek,
+        dayOfMonth,
+        cycleLength
+      };
+    });
+    
+    // Add comprehensive diagnostic information to the response
+    const diagnosticInfo = {
+      hasActiveMenuCycles: menuCycles.length > 0,
+      hasMenuCycleDays: menuCycleDays.length > 0,
+      hasMenuAssignments: menuAssignments.length > 0,
+      hasMeals: meals.length > 0,
+      hasMealIngredients: mealIngredients.length > 0,
+      hasIngredients: ingredients.length > 0,
+      activeSubscriptionsCount: activeSubscriptions.length,
+      subscriptionDetails: activeSubscriptions.map(sub => ({
+        planId: sub.plan_id,
+        mealsPerDay: sub.meals_per_day,
+        status: sub.status
+      })),
+      // Critical diagnostic data
+      currentDateIssues: {
+        today: today.toISOString().split('T')[0],
+        todayDayOfWeek: today.getDay(),
+        todayDayOfMonth: today.getDate(),
+        dayIndexProblem: 'FIXED: Now using calendar-based calculation instead of array index (0,1,2)',
+        cycleLength: menuCycleDays.length > 0 ? menuCycleDays.length : 7,
+        menuCycleDays: menuCycleDays.map(mcd => ({
+          cycleDayId: mcd.id,
+          dayIndex: mcd.day_index,
+          label: mcd.label,
+          cycleName: mcd.cycle_name
+        })),
+        menuAssignmentsByDayIndex: menuAssignments.reduce((acc, assignment) => {
+          if (!acc[assignment.day_index]) acc[assignment.day_index] = [];
+          acc[assignment.day_index].push({
+            mealId: assignment.meal_id,
+            slot: assignment.slot,
+            cycleDayId: assignment.cycle_day_id,
+            cycleName: assignment.cycle_name
+          });
+          return acc;
+        }, {} as Record<number, any[]>)
+      }
+    };
+
+    console.log('\n=== DAILY ORDERS DIAGNOSTIC SUMMARY ===');
+    console.log(`[DIAG] Menu cycles: ${menuCycles.length}`);
+    console.log(`[DIAG] Menu cycle days: ${menuCycleDays.length}`);
+    console.log(`[DIAG] Menu assignments: ${menuAssignments.length}`);
+    console.log(`[DIAG] Active subscriptions: ${activeSubscriptions.length}`);
+    console.log(`[DIAG] PRIMARY ISSUE FIXED: Day index calculation now uses calendar dates (dayOfMonth-1 % cycleLength) instead of array indices`);
+    console.log('=== DAILY ORDERS DIAGNOSTIC END ===\n');
+
+    res.json({
+      success: true,
+      data: dailyPrepData,
+      diagnostic: diagnosticInfo,
+      message: 'Diagnostic data retrieved successfully'
+    });
+
+  } catch (error) {
+    console.error('Public diagnostic error:', error);
+    res.status(500).json({
+      success: false,
+      error: 'Failed to fetch diagnostic data',
+      details: error instanceof Error ? error.message : 'Unknown error'
+    });
+  }
+});
+
 // Fix plan configurations route
 router.post('/fix-plan-configurations', authenticateToken, requireAdmin, (req: Request, res: Response) => {
   try {
@@ -414,7 +639,11 @@ router.get('/dashboard', authenticateToken, requireAdmin, async (req: AuthReques
 // Get daily orders (admin only)
 router.get('/daily-orders', authenticateToken, requireAdmin, async (req: Request, res: Response) => {
   try {
-    console.log('[DEBUG] ADMIN DAILY ORDERS CALLED');
+    console.log('=== DAILY ORDERS DIAGNOSTIC START ===');
+    const today = new Date();
+    console.log(`[DIAG] Today's date: ${today.toISOString().split('T')[0]}`);
+    console.log(`[DIAG] Today's day of week: ${today.getDay()} (0=Sunday, 1=Monday, etc.)`);
+    console.log(`[DIAG] Today's day of month: ${today.getDate()}`);
     
     // Get next 3 days dates
     const dates = [];
@@ -424,7 +653,7 @@ router.get('/daily-orders', authenticateToken, requireAdmin, async (req: Request
       dates.push(date.toISOString().split('T')[0]);
     }
     
-    console.log('[DEBUG] Processing dates:', dates);
+    console.log('[DIAG] Processing dates:', dates);
     
     // Get all plans for reference
     const allPlans = planRepo.findAll();
@@ -536,12 +765,33 @@ router.get('/daily-orders', authenticateToken, requireAdmin, async (req: Request
     
     // Process each date
     const dailyPrepData = dates.map((date, index) => {
-      console.log('[DEBUG] Processing date:', date, 'index:', index);
+      console.log(`\n=== PROCESSING DATE: ${date} (array index: ${index}) ===`);
       
-      // For now, let's get assignments by day index (simplified approach)
-      const dayIndex = index; // 0 = today, 1 = tomorrow, 2 = day after
-      const dayAssignments = menuAssignments.filter(assignment => assignment.day_index === dayIndex);
-      console.log('[DEBUG] Day assignments for', date, '(day index', dayIndex, '):', dayAssignments.length);
+      // FIXED: Use calendar date logic instead of array index
+      const currentDate = new Date(date);
+      const dayOfWeek = currentDate.getDay(); // 0 = Sunday, 1 = Monday, etc.
+      const dayOfMonth = currentDate.getDate();
+      
+      console.log(`[DIAG] Date ${date}:`);
+      console.log(`[DIAG] - Day of week: ${dayOfWeek} (${currentDate.toLocaleDateString('en-US', { weekday: 'long' })})`);
+      console.log(`[DIAG] - Day of month: ${dayOfMonth}`);
+      
+      // FIXED: Calculate dayIndex based on calendar date, not array position
+      // Get the cycle length from menu cycle days (default to 7 if not available)
+      const cycleLength = menuCycleDays.length > 0 ? menuCycleDays.length : 7;
+      const calendarDayIndex = (dayOfMonth - 1) % cycleLength; // 0-based index from day of month
+      console.log(`[DIAG] - FIXED dayIndex calculation: ${calendarDayIndex} (based on dayOfMonth-1 % cycleLength ${cycleLength})`);
+      console.log(`[DIAG] - Old incorrect dayIndex would have been: ${index} (array position)`);
+      
+      const dayAssignments = menuAssignments.filter(assignment => assignment.day_index === calendarDayIndex);
+      console.log(`[DIAG] - Day assignments found for calendarDayIndex ${calendarDayIndex}: ${dayAssignments.length}`);
+      
+      if (dayAssignments.length > 0) {
+        console.log(`[DIAG] - Assignments for calendarDayIndex ${calendarDayIndex}:`);
+        dayAssignments.forEach((assignment, i) => {
+          console.log(`[DIAG]   ${i + 1}. Meal ID: ${assignment.meal_id}, Slot: ${assignment.slot}, Cycle Day ID: ${assignment.cycle_day_id}`);
+        });
+      }
       
       const dailyPrep = {
         date,
@@ -551,7 +801,7 @@ router.get('/daily-orders', authenticateToken, requireAdmin, async (req: Request
       
       // If no assignments, return empty prep
       if (dayAssignments.length === 0) {
-        console.log('[DEBUG] No assignments for date:', date);
+        console.log(`[DEBUG] No assignments for date: ${date} (calendarDayIndex: ${calendarDayIndex})`);
         return dailyPrep;
       }
       
@@ -586,31 +836,36 @@ router.get('/daily-orders', authenticateToken, requireAdmin, async (req: Request
           subscriptionsByPlan.get(sub.plan_id).subscribers.push(sub);
         });
         
+        console.log(`\n[DIAG] CALCULATING MEAL COUNT FOR ${meal.name_en} (${assignment.slot}):`);
+        console.log(`[DIAG] - Total active subscribers: ${activeSubscriptions.length}`);
+        
         subscriptionsByPlan.forEach(({ plan, subscribers }) => {
-          const dayOfWeek = new Date(date).getDay(); // 0 = Sunday, 1 = Monday, etc.
+          console.log(`[DIAG] - Processing plan: ${plan?.code || 'Unknown'}, subscribers: ${subscribers.length}`);
           
           // Parse delivery pattern from JSON to determine if today is a delivery day
           let deliveryDays: number[] = [1, 2, 3, 4, 5]; // Default: Mon-Fri
           try {
             if (plan && plan.delivery_pattern) {
               deliveryDays = JSON.parse(plan.delivery_pattern);
+              console.log(`[DIAG]   - Delivery pattern: [${deliveryDays.join(', ')}]`);
             }
           } catch (error) {
-            console.log(`[DAILY_ORDERS_DEBUG] Invalid delivery_pattern for plan: ${plan?.delivery_pattern}`);
+            console.log(`[DIAG]   - Invalid delivery_pattern for plan: ${plan?.delivery_pattern}`);
           }
           
           // Check if today is a delivery day
           const isDeliveryDay = dayOfWeek !== 0 && deliveryDays.includes(dayOfWeek);
+          console.log(`[DIAG]   - Is delivery day? ${isDeliveryDay} (dayOfWeek=${dayOfWeek}, Sunday excluded)`);
           
           if (isDeliveryDay) {
             if (plan && plan.meals_per_day === 2) {
               // 2-meal plans get both lunch and dinner
+              console.log(`[DIAG]   - 2-meal plan: adding ${subscribers.length} subscribers`);
               if (assignment.slot === 'lunch' || assignment.slot === 'dinner') {
                 mealCount += subscribers.length;
               }
             } else if (plan && plan.meals_per_day === 1) {
               // 1-meal plans get either lunch OR dinner
-              const dayOfMonth = new Date(date).getDate();
               const planHash = plan.code.charCodeAt(0) + plan.code.charCodeAt(1) || 0;
               const dayHash = dayOfWeek + dayOfMonth;
               const combinedHash = (planHash + dayHash) % 2;
@@ -618,11 +873,17 @@ router.get('/daily-orders', authenticateToken, requireAdmin, async (req: Request
               const getsLunch = combinedHash === 0;
               const getsDinner = !getsLunch;
               
+              console.log(`[DIAG]   - 1-meal plan hash: planHash=${planHash}, dayHash=${dayHash}, combinedHash=${combinedHash}`);
+              console.log(`[DIAG]   - 1-meal plan: getsLunch=${getsLunch}, getsDinner=${getsDinner}`);
+              
               if ((assignment.slot === 'lunch' && getsLunch) ||
                   (assignment.slot === 'dinner' && getsDinner)) {
+                console.log(`[DIAG]   - 1-meal plan: adding ${subscribers.length} subscribers for ${assignment.slot}`);
                 mealCount += subscribers.length;
               }
             }
+          } else {
+            console.log(`[DIAG]   - Not a delivery day, skipping ${subscribers.length} subscribers`);
           }
         });
         
@@ -639,27 +900,31 @@ router.get('/daily-orders', authenticateToken, requireAdmin, async (req: Request
           
           // Calculate ingredients needed
           const ingredientsForMeal = mealIngredients.filter((mi: any) => mi.meal_id === assignment.meal_id);
-          console.log('[DEBUG] Ingredients for meal:', ingredientsForMeal.length);
+          console.log(`[DIAG] - Ingredients for ${meal.name_en}: ${ingredientsForMeal.length} types`);
           
           ingredientsForMeal.forEach((mealIng: any) => {
             const ingredient = ingredients.find((ing: any) => ing.id === mealIng.ingredient_id);
             if (!ingredient) {
-              console.log('[DEBUG] Ingredient not found for ID:', mealIng.ingredient_id);
+              console.log(`[DIAG]   - Ingredient not found for ID: ${mealIng.ingredient_id}`);
               return;
             }
             
-            const key = `${ingredient.name_en}-${ingredient.unit_base}`;
+            const key = `${ingredient.name_en}-${ingredient.unit_base || 'g'}`;
             const existing = rawMaterialsMap.get(key);
             const totalWeight = mealIng.weight_g * mealCount;
             
+            console.log(`[DIAG]   - Ingredient: ${ingredient.name_en}, base weight: ${mealIng.weight_g}g, mealCount: ${mealCount}, total: ${totalWeight}g`);
+            
             if (existing) {
               existing.quantity += totalWeight;
+              console.log(`[DIAG]   - Updated existing quantity: ${existing.quantity}g`);
             } else {
               rawMaterialsMap.set(key, {
                 name: ingredient.name_en || ingredient.name_ar || 'Unknown Ingredient',
                 quantity: totalWeight,
                 unit: ingredient.unit_base || 'g'
               });
+              console.log(`[DIAG]   - Added new ingredient with quantity: ${totalWeight}g`);
             }
           });
         }
@@ -671,7 +936,7 @@ router.get('/daily-orders', authenticateToken, requireAdmin, async (req: Request
       return dailyPrep;
     });
 
-    // Add diagnostic information to the response
+    // Add comprehensive diagnostic information to the response
     const diagnosticInfo = {
       hasActiveMenuCycles: menuCycles.length > 0,
       hasMenuCycleDays: menuCycleDays.length > 0,
@@ -684,8 +949,40 @@ router.get('/daily-orders', authenticateToken, requireAdmin, async (req: Request
         planId: sub.plan_id,
         mealsPerDay: sub.meals_per_day,
         status: sub.status
-      }))
+      })),
+      // Critical diagnostic data
+      currentDateIssues: {
+        today: today.toISOString().split('T')[0],
+        todayDayOfWeek: today.getDay(),
+        todayDayOfMonth: today.getDate(),
+        dayIndexProblem: 'FIXED: Now using calendar-based calculation instead of array index (0,1,2)',
+        cycleLength: menuCycleDays.length > 0 ? menuCycleDays.length : 7,
+        menuCycleDays: menuCycleDays.map(mcd => ({
+          cycleDayId: mcd.id,
+          dayIndex: mcd.day_index,
+          label: mcd.label,
+          cycleName: mcd.cycle_name
+        })),
+        menuAssignmentsByDayIndex: menuAssignments.reduce((acc, assignment) => {
+          if (!acc[assignment.day_index]) acc[assignment.day_index] = [];
+          acc[assignment.day_index].push({
+            mealId: assignment.meal_id,
+            slot: assignment.slot,
+            cycleDayId: assignment.cycle_day_id,
+            cycleName: assignment.cycle_name
+          });
+          return acc;
+        }, {} as Record<number, any[]>)
+      }
     };
+
+    console.log('\n=== DAILY ORDERS DIAGNOSTIC SUMMARY ===');
+    console.log(`[DIAG] Menu cycles: ${menuCycles.length}`);
+    console.log(`[DIAG] Menu cycle days: ${menuCycleDays.length}`);
+    console.log(`[DIAG] Menu assignments: ${menuAssignments.length}`);
+    console.log(`[DIAG] Active subscriptions: ${activeSubscriptions.length}`);
+    console.log(`[DIAG] PRIMARY ISSUE FIXED: Day index calculation now uses calendar dates (dayOfMonth-1 % cycleLength) instead of array indices`);
+    console.log('=== DAILY ORDERS DIAGNOSTIC END ===\n');
 
     res.json({
       success: true,

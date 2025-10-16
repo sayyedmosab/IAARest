@@ -322,6 +322,17 @@ export class PaymentRepository extends BaseRepository<Payment> {
   findSuccessfulBySubscription(subscriptionId: string): Payment[] {
     return this.findAll('subscription_id = ? AND status = ?', [subscriptionId, 'succeeded']);
   }
+
+  findByProviderTxnId(providerTxnId: string): Payment | null {
+    return this.queryOne('SELECT * FROM payments WHERE provider_txn_id = ?', [providerTxnId]);
+  }
+
+  updateByProviderTxnId(providerTxnId: string, data: Partial<Payment>): Payment | null {
+    const payment = this.findByProviderTxnId(providerTxnId);
+    if (!payment) return null;
+
+    return this.update(payment.id, data);
+  }
 }
 
 export class MealIngredientRepository extends BaseRepository<MealIngredient> {

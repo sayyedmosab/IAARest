@@ -145,9 +145,7 @@ export class SubscriptionService {
   }
 
   private loadSubscriptions() {
-    this.http.get<ApiResponse<Subscription[]>>(`${this.apiUrl}/admin/subscriptions`, {
-      headers: { 'Authorization': `Bearer ${this.getAuthToken()}` }
-    }).subscribe(res => {
+    this.http.get<ApiResponse<Subscription[]>>(`${this.apiUrl}/admin/subscriptions`).subscribe(res => {
       if (res.success) {
         this._subscriptions.set(res.data);
       }
@@ -155,9 +153,7 @@ export class SubscriptionService {
   }
 
   private loadDashboardData() {
-    this.http.get<ApiResponse<DashboardData>>(`${this.apiUrl}/admin/dashboard`, {
-      headers: { 'Authorization': `Bearer ${this.getAuthToken()}` }
-    }).subscribe(res => {
+    this.http.get<ApiResponse<DashboardData>>(`${this.apiUrl}/admin/dashboard`).subscribe(res => {
       if (res.success) {
         this._dashboardData.set(res.data);
       }
@@ -165,9 +161,11 @@ export class SubscriptionService {
   }
 
   private getAuthToken(): string {
-    // For now, return a dummy token since the backend doesn't fully implement JWT yet
-    // In a real implementation, this would return the stored JWT token
-    return 'dummy-admin-token';
+    // SECURITY: Removed dummy token - now using proper authentication
+    // This method should not be used anymore since authentication is handled by cookies
+    // and the authService.currentUser() signal
+    console.warn('getAuthToken() is deprecated - authentication should use cookies');
+    return '';
   }
 
   // Enhanced subscription state management methods
@@ -233,9 +231,7 @@ export class SubscriptionService {
 
   // Public method to get subscriptions
   getSubscriptions(): Observable<ApiResponse<Subscription[]>> {
-    return this.http.get<ApiResponse<Subscription[]>>(`${this.apiUrl}/admin/subscriptions`, {
-      headers: { 'Authorization': `Bearer ${this.getAuthToken()}` }
-    });
+    return this.http.get<ApiResponse<Subscription[]>>(`${this.apiUrl}/admin/subscriptions`);
   }
 
   // Legacy methods for backward compatibility

@@ -25,11 +25,11 @@
                 <legend class="sr-only">Payment type</legend>
                 <div class="space-y-4 sm:flex sm:items-center sm:space-y-0 sm:space-x-10">
                   <div class="flex items-center">
-                    <input id="wire_transfer" name="payment-type" type="radio" [checked]="paymentMethod() === 'wire_transfer'" (change)="paymentMethod.set('wire_transfer')" class="focus:ring-red-500 h-4 w-4 text-red-600 border-gray-300">
+                    <input id="wire_transfer" name="payment-type" type="radio" [checked]="paymentMethod() === 'wire_transfer'" (change)="onPaymentMethodChange('wire_transfer')" class="focus:ring-red-500 h-4 w-4 text-red-600 border-gray-300">
                     <label for="wire_transfer" class="ml-3 block text-sm font-medium text-gray-700"> Local Wire Transfer </label>
                   </div>
                   <div class="flex items-center">
-                    <input id="credit_card" name="payment-type" type="radio" [checked]="paymentMethod() === 'credit_card'" (change)="paymentMethod.set('credit_card')" class="focus:ring-red-500 h-4 w-4 text-red-600 border-gray-300">
+                    <input id="credit_card" name="payment-type" type="radio" [checked]="paymentMethod() === 'credit_card'" (change)="onPaymentMethodChange('credit_card')" class="focus:ring-red-500 h-4 w-4 text-red-600 border-gray-300">
                     <label for="credit_card" class="ml-3 block text-sm font-medium text-gray-700"> Credit Card </label>
                   </div>
                 </div>
@@ -75,24 +75,74 @@
             @if(paymentMethod() === 'credit_card') {
                <div>
                 <h3 class="text-lg font-medium text-gray-900 border-t pt-6">Credit Card Details</h3>
-                 <div class="mt-4 relative bg-gray-100 p-4 border opacity-50">
-                   <div class="absolute inset-0 z-10 flex items-center justify-center">
-                      <span class="bg-gray-800 text-white font-bold text-lg px-4 py-2">COMING SOON</span>
-                   </div>
-                   <div class="space-y-4 filter blur-sm">
-                      <div><label class="block text-sm">Card Number</label><input type="text" disabled class="w-full mt-1"></div>
-                      <div class="grid grid-cols-3 gap-4">
-                        <div class="col-span-2"><label class="block text-sm">Expiration</label><input type="text" disabled class="w-full mt-1"></div>
-                        <div><label class="block text-sm">CVC</label><input type="text" disabled class="w-full mt-1"></div>
+                
+                <!-- Payment Error Display -->
+                @if(paymentError()) {
+                  <div class="mt-4 p-4 bg-red-50 border border-red-200 rounded-md">
+                    <div class="flex">
+                      <div class="flex-shrink-0">
+                        <svg class="h-5 w-5 text-red-400" viewBox="0 0 20 20" fill="currentColor">
+                          <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zM8.707 7.293a1 1 0 00-1.414 1.414L8.586 10l-1.293 1.293a1 1 0 101.414 1.414L10 11.414l1.293 1.293a1 1 0 001.414-1.414L11.414 10l1.293-1.293a1 1 0 00-1.414-1.414L10 8.586 8.707 7.293z" clip-rule="evenodd" />
+                        </svg>
                       </div>
-                   </div>
+                      <div class="ml-3">
+                        <h3 class="text-sm font-medium text-red-800">Payment Error</h3>
+                        <div class="mt-2 text-sm text-red-700">
+                          {{ paymentError() }}
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                }
+
+                <!-- Stripe Payment Element -->
+                <div class="mt-4 p-4 border border-gray-300 rounded-md bg-white">
+                  <div #cardElement id="card-element" class="min-h-[100px]">
+                    <!-- Stripe Elements will be mounted here -->
+                  </div>
                 </div>
-              </div>
+
+                <!-- Processing Indicator -->
+                @if(isProcessingPayment()) {
+                  <div class="mt-4 text-center">
+                    <div class="inline-flex items-center px-4 py-2 border border-transparent text-sm font-medium rounded-md text-white bg-red-600">
+                      <svg class="animate-spin -ml-1 mr-3 h-5 w-5 text-white" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+                        <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
+                        <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+                      </svg>
+                      Processing Payment...
+                    </div>
+                  </div>
+                }
+
+                <!-- Payment Success -->
+                @if(paymentSuccess()) {
+                  <div class="mt-4 p-4 bg-green-50 border border-green-200 rounded-md">
+                    <div class="flex">
+                      <div class="flex-shrink-0">
+                        <svg class="h-5 w-5 text-green-400" viewBox="0 0 20 20" fill="currentColor">
+                          <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd" />
+                        </svg>
+                      </div>
+                      <div class="ml-3">
+                        <h3 class="text-sm font-medium text-green-800">Payment Successful</h3>
+                        <div class="mt-2 text-sm text-green-700">
+                          Your payment has been processed successfully.
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                }
+               </div>
             }
 
             <div class="border-t mt-6 pt-6">
-               <button (click)="confirmSubscription()" [disabled]="paymentMethod() === 'credit_card'" class="w-full flex justify-center py-3 px-4 border border-transparent shadow-sm text-sm font-medium text-white bg-red-600 hover:bg-red-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-red-500 disabled:bg-gray-400">
-                 Confirm & Subscribe for AED {{ selectedPlan.pricePerMonth }}
+               <button (click)="confirmSubscription()" [disabled]="isProcessingPayment()" class="w-full flex justify-center py-3 px-4 border border-transparent shadow-sm text-sm font-medium text-white bg-red-600 hover:bg-red-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-red-500 disabled:bg-gray-400">
+                 @if(isProcessingPayment()) {
+                   Processing...
+                 } @else {
+                   Confirm & Subscribe for AED {{ selectedPlan.pricePerMonth }}
+                 }
                </button>
             </div>
           </div>

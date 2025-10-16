@@ -95,9 +95,15 @@ router.post('/register', registerValidation, async (req, res) => {
     }
     catch (error) {
         console.error('Registration error:', error);
+        console.error('Error details:', {
+            message: error?.message,
+            stack: error?.stack,
+            code: error?.code
+        });
         res.status(500).json({
             success: false,
-            error: 'Registration failed'
+            error: 'Registration failed',
+            details: process.env.NODE_ENV === 'development' ? error?.message : undefined
         });
     }
 });

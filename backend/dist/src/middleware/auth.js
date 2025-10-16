@@ -14,8 +14,15 @@ const bcryptjs_1 = __importDefault(require("bcryptjs"));
 const repositories_js_1 = require("../services/repositories.js");
 // Generate JWT token
 function generateToken(user) {
-    const jwtSecret = process.env.JWT_SECRET || 'your-secret-key';
+    const jwtSecret = process.env.JWT_SECRET;
     const jwtExpiresIn = process.env.JWT_EXPIRES_IN || '7d';
+    // SECURITY: Validate JWT secret is set
+    if (!jwtSecret || jwtSecret === 'your-secret-key') {
+        throw new Error('JWT_SECRET environment variable must be set with a secure value');
+    }
+    if (jwtSecret.length < 32) {
+        throw new Error('JWT_SECRET must be at least 32 characters long for security');
+    }
     const payload = {
         userId: user.user_id,
         email: user.email,
@@ -45,17 +52,18 @@ function authenticateToken(req, res, next) {
         });
         return;
     }
-    // Allow dummy token for testing purposes
-    if (token === 'dummy-admin-token') {
-        console.log('authenticateToken: using dummy token for testing');
-        const adminUser = repositories_js_1.profileRepo.findByUserId('user-006'); // Get the admin user
-        if (adminUser && adminUser.is_admin) {
-            req.user = adminUser;
-            next();
-            return;
-        }
+    // SECURITY: Removed dummy token acceptance for production security
+    // Dummy tokens should never be accepted in production environments
+    const jwtSecret = process.env.JWT_SECRET;
+    // SECURITY: Validate JWT secret is set and secure
+    if (!jwtSecret || jwtSecret === 'your-secret-key') {
+        console.error('SECURITY ERROR: JWT_SECRET environment variable is not properly configured');
+        res.status(500).json({
+            success: false,
+            error: 'Server configuration error - JWT secret not properly set'
+        });
+        return;
     }
-    const jwtSecret = process.env.JWT_SECRET || 'your-secret-key';
     try {
         const decoded = jsonwebtoken_1.default.verify(token, jwtSecret);
         console.log('authenticateToken: decoded token userId=', decoded.userId);
@@ -96,14 +104,19 @@ function authenticateToken(req, res, next) {
 }
 // Admin-only middleware
 async function requireAdmin(req, res, next) {
+    console.log('[DEBUG] requireAdmin called');
     // Prefer authenticated user (token/cookie). If present, check is_admin flag.
     if (req.user) {
+        console.log('[DEBUG] req.user exists:', req.user.user_id, 'is_admin:', req.user.is_admin);
         if (!req.user.is_admin) {
+            console.log('[DEBUG] User is not admin');
             res.status(403).json({ success: false, error: 'Admin access required' });
             return;
         }
+        console.log('[DEBUG] User is admin, calling next()');
         return next();
     }
+    console.log('[DEBUG] No req.user found');
     // No authenticated user on request: reject. Legacy email/password fallback removed.
     res.status(401).json({
         success: false,
@@ -122,7 +135,16 @@ function optionalAuth(req, res, next) {
         next();
         return;
     }
-    const jwtSecret = process.env.JWT_SECRET || 'your-secret-key';
+    const jwtSecret = process.env.JWT_SECRET;
+    // SECURITY: Validate JWT secret is set and secure
+    if (!jwtSecret || jwtSecret === 'your-secret-key') {
+        console.error('SECURITY ERROR: JWT_SECRET environment variable is not properly configured');
+        res.status(500).json({
+            success: false,
+            error: 'Server configuration error - JWT secret not properly set'
+        });
+        return;
+    }
     try {
         const decoded = jsonwebtoken_1.default.verify(token, jwtSecret);
         const user = repositories_js_1.profileRepo.findByUserId(decoded.userId);

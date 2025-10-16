@@ -66,6 +66,7 @@ export class UserManagementComponent implements OnInit, OnDestroy {
   editSubscriptionForm: FormGroup;
 
   constructor() {
+    
     this.createUserForm = this.fb.group({
       name: ['', [Validators.required, Validators.minLength(2)]],
       email: ['', [Validators.required, Validators.email]],
@@ -223,6 +224,7 @@ export class UserManagementComponent implements OnInit, OnDestroy {
 
     this.authService.getUsersWithPagination(this.currentPage(), this.pageSize(), filters).subscribe({
       next: (response) => {
+        
         // Enhance users with subscription information
         const usersWithSubscriptionStatus = response.users.map(user => {
           const subscription = this.allSubscriptions().find(sub => sub.userId === user.id);
@@ -238,10 +240,12 @@ export class UserManagementComponent implements OnInit, OnDestroy {
           };
         });
         
-        this.paginatedUsers.set({
+        const updatedPaginatedUsers = {
           ...response,
           users: usersWithSubscriptionStatus
-        });
+        };
+        
+        this.paginatedUsers.set(updatedPaginatedUsers);
         this.isLoading.set(false);
       },
       error: (err) => {
