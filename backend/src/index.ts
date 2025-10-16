@@ -235,12 +235,21 @@ async function initializeDummyData() {
         console.log('[DEBUG] Error clearing meal-ingredients:', err);
       }
       
-      existingMeals.forEach((meal: any, index: number) => {
-        // Add 2-3 ingredients per meal
-        const ingredientCount = Math.min(3, existingIngredients.length);
+      existingMeals.forEach((meal: any, mealIndex: number) => {
+        // Add 3-5 diverse ingredients per meal
+        const ingredientCount = Math.min(3 + Math.floor(Math.random() * 3), existingIngredients.length);
+        const usedIngredients = new Set();
+        
         for (let i = 0; i < ingredientCount; i++) {
-          const ingredient = existingIngredients[i];
-          const weight = 100 + (index * 50) + (i * 25); // Varying weights
+          // Select a random ingredient that hasn't been used for this meal yet
+          let ingredientIndex;
+          do {
+            ingredientIndex = Math.floor(Math.random() * existingIngredients.length);
+          } while (usedIngredients.has(ingredientIndex) && usedIngredients.size < existingIngredients.length);
+          
+          usedIngredients.add(ingredientIndex);
+          const ingredient = existingIngredients[ingredientIndex];
+          const weight = 100 + (mealIndex * 20) + (i * 30) + Math.floor(Math.random() * 50); // More varied weights
           
           try {
             mealIngredientRepo.create({

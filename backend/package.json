@@ -11,6 +11,7 @@
   },
   "dependencies": {
     "@types/stripe": "^8.0.416",
+    "axios": "^1.12.2",
     "bcryptjs": "^2.4.3",
     "better-sqlite3": "^9.2.2",
     "compression": "^1.7.4",
