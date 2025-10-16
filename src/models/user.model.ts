@@ -11,6 +11,8 @@ export interface User {
   created_at?: string;
   updated_at?: string;
   language_pref?: 'en' | 'ar';
+  university_email?: string;
+  student_id_expiry?: string;
   address: {
     street: string;
     city: string;
@@ -27,6 +29,8 @@ export interface CreateUserRequest {
   is_student?: boolean;
   status?: 'active' | 'inactive' | 'suspended';
   language_pref?: 'en' | 'ar';
+  university_email?: string;
+  student_id_expiry?: string;
   address: {
     street: string;
     city: string;
@@ -43,6 +47,8 @@ export interface UpdateUserRequest {
   is_student?: boolean;
   status?: 'active' | 'inactive' | 'suspended';
   language_pref?: 'en' | 'ar';
+  university_email?: string;
+  student_id_expiry?: string;
   address?: {
     street?: string;
     city?: string;

@@ -28,8 +28,17 @@ interface JwtPayload {
 
 // Generate JWT token
 export function generateToken(user: Profile): string {
-  const jwtSecret = process.env.JWT_SECRET || 'your-secret-key';
+  const jwtSecret = process.env.JWT_SECRET;
   const jwtExpiresIn = process.env.JWT_EXPIRES_IN || '7d';
+
+  // SECURITY: Validate JWT secret is set
+  if (!jwtSecret || jwtSecret === 'your-secret-key') {
+    throw new Error('JWT_SECRET environment variable must be set with a secure value');
+  }
+
+  if (jwtSecret.length < 32) {
+    throw new Error('JWT_SECRET must be at least 32 characters long for security');
+  }
 
   const payload: JwtPayload = {
     userId: user.user_id,
@@ -62,18 +71,20 @@ export function authenticateToken(req: AuthRequest, res: Response, next: NextFun
     return;
   }
 
-  // Allow dummy token for testing purposes
-  if (token === 'dummy-admin-token') {
-    console.log('authenticateToken: using dummy token for testing');
-    const adminUser = profileRepo.findByUserId('user-006'); // Get the admin user
-    if (adminUser && adminUser.is_admin) {
-      req.user = adminUser;
-      next();
-      return;
-    }
-  }
+  // SECURITY: Removed dummy token acceptance for production security
+  // Dummy tokens should never be accepted in production environments
 
-  const jwtSecret = process.env.JWT_SECRET || 'your-secret-key';
+  const jwtSecret = process.env.JWT_SECRET;
+  
+  // SECURITY: Validate JWT secret is set and secure
+  if (!jwtSecret || jwtSecret === 'your-secret-key') {
+    console.error('SECURITY ERROR: JWT_SECRET environment variable is not properly configured');
+    res.status(500).json({
+      success: false,
+      error: 'Server configuration error - JWT secret not properly set'
+    });
+    return;
+  }
 
   try {
     const decoded = jwt.verify(token, jwtSecret) as JwtPayload;
@@ -150,7 +161,17 @@ export function optionalAuth(req: AuthRequest, res: Response, next: NextFunction
     return;
   }
 
-  const jwtSecret = process.env.JWT_SECRET || 'your-secret-key';
+  const jwtSecret = process.env.JWT_SECRET;
+  
+  // SECURITY: Validate JWT secret is set and secure
+  if (!jwtSecret || jwtSecret === 'your-secret-key') {
+    console.error('SECURITY ERROR: JWT_SECRET environment variable is not properly configured');
+    res.status(500).json({
+      success: false,
+      error: 'Server configuration error - JWT secret not properly set'
+    });
+    return;
+  }
 
   try {
     const decoded = jwt.verify(token, jwtSecret) as JwtPayload;

@@ -43,6 +43,7 @@ export class ArRegisterComponent {
 
   onSubmit() {
     if (this.registerForm.valid) {
+      this.error.set(null);
       const formValue = this.registerForm.value;
       const newUser: User = {
         name: formValue.name!,
@@ -56,12 +57,18 @@ export class ArRegisterComponent {
         }
       };
 
-      const success = this.authService.register(newUser);
-      if (success) {
-        this.router.navigate(['/ar-home']);
-      } else {
-        this.error.set('يوجد حساب بهذا البريد الإلكتروني بالفعل.');
-      }
+      this.authService.register(newUser).subscribe({
+        next: (response) => {
+          if (response.success) {
+            this.router.navigate(['/ar-home']);
+          } else {
+            this.error.set(response.error || 'فشل التسجيل. يرجى المحاولة مرة أخرى.');
+          }
+        },
+        error: (err) => {
+          this.error.set(err.error?.error || 'يوجد حساب بهذا البريد الإلكتروني بالفعل.');
+        }
+      });
     }
   }
 }

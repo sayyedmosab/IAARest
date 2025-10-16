@@ -33,6 +33,7 @@ export class RegisterComponent {
 
   onSubmit() {
     if (this.registerForm.valid) {
+      this.error.set(null);
       const formValue = this.registerForm.value;
       const newUser: User = {
         name: formValue.name!,
@@ -46,12 +47,18 @@ export class RegisterComponent {
         }
       };
 
-      const success = this.authService.register(newUser);
-      if (success) {
-        this.router.navigate(['/home']);
-      } else {
-        this.error.set('An account with this email already exists.');
-      }
+      this.authService.register(newUser).subscribe({
+        next: (response) => {
+          if (response.success) {
+            this.router.navigate(['/home']);
+          } else {
+            this.error.set(response.error || 'Registration failed. Please try again.');
+          }
+        },
+        error: (err) => {
+          this.error.set(err.error?.error || 'An account with this email already exists.');
+        }
+      });
     }
   }
 }

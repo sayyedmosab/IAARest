@@ -79,9 +79,37 @@ export class AuthService {
     });
   }
 
-  // TODO: Implement register method
-  register(user: User): boolean {
-    return false;
+  register(user: User): Observable<CreateUserResponse> {
+    // Transform frontend User model to backend RegisterDto format
+    const registerData = {
+      email: user.email,
+      password: user.password!,
+      first_name: user.name.split(' ')[0] || user.name,
+      last_name: user.name.split(' ').slice(1).join(' ') || 'User',
+      phone_e164: user.phone.startsWith('+') ? user.phone : `+${user.phone}`,
+      language_pref: user.language_pref || 'en',
+      address: user.address?.street || 'Not provided',
+      district: user.address?.district || 'Not provided',
+      is_student: user.is_student || false,
+      university_email: user.university_email,
+      student_id_expiry: user.student_id_expiry
+    };
+
+    return this.http.post<CreateUserResponse>(`${this.apiBaseUrl}/auth/register`, registerData).pipe(
+      tap(response => {
+        // After successful registration, automatically log the user in
+        if (response.success) {
+          this.login(user.email, user.password!).subscribe({
+            next: () => {
+              console.log('Auto-login after registration successful');
+            },
+            error: (err) => {
+              console.warn('Auto-login after registration failed:', err);
+            }
+          });
+        }
+      })
+    );
   }
   
   getAllUsers(): Observable<ApiResponse<User[]>> {
